@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 export const App = defineComponent({
   setup() {
     return () => (
-      <>
+      <div>
         <header>
           <ul>
             <li>
@@ -18,7 +18,7 @@ export const App = defineComponent({
           <router-view />
         </main>
         <footer></footer>
-      </>
+      </div>
     );
   },
 });
