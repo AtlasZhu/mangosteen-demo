@@ -5,6 +5,7 @@ export const App = defineComponent({
     return () => (
       <div>
         <header>
+          导航
           <ul>
             <li>
               <router-link to="/">Foo</router-link>
@@ -17,7 +18,7 @@ export const App = defineComponent({
         <main>
           <router-view />
         </main>
-        <footer></footer>
+        <footer>页脚</footer>
       </div>
     );
   },
