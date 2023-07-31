@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  > .card {
+    background: var(--welcome-card-bg);
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border: 1px solid #eeeded;
+    > img {
+      height: 148px;
+    }
+  }
+  > .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 16px 16px;
+    padding: 0 12px;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--welcome-text-color);
+    > .fake {
+      visibility: hidden;
+    }
+  }
+}
