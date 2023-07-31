@@ -6,12 +6,12 @@ import { Three } from "../components/welcome/Three";
 import { Four } from "../components/welcome/Four";
 
 export const routes: RouteRecordRaw[] = [
-  { path: "/", redirect: "/welcome" },
+  { path: "/", redirect: "/welcome/one" },
   {
     path: "/welcome",
     component: Welcome,
     children: [
-      { path: "", component: One },
+      { path: "", redirect: "/welcome/one" },
       { path: "one", component: One },
       { path: "two", component: Two },
       { path: "three", component: Three },

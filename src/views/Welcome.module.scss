@@ -1,8 +1,12 @@
 .wrapper {
-  height: 100vh;
+  height: calc(100vh - var(--welcome-bottom-nav-height));
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #fffc00, #fffe90);
+  background: linear-gradient(
+    to bottom,
+    var(--welcome-bg-color-start),
+    var(--welcome-bg-color-end)
+  );
   > header {
     flex-shrink: 0;
     display: flex;
