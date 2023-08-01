@@ -6,94 +6,73 @@ import clock from "../../assets/icons/clock.svg";
 import chart from "../../assets/icons/chart.svg";
 import cloud from "../../assets/icons/cloud.svg";
 
-export const One = () => (
+type item = {
+  title1: string;
+  title2: string;
+  iconPath: string;
+  buttons: JSX.Element;
+};
+
+const itemToComponent = (item: item) => (
   <WelcomeLayout>
     {{
       title: () => (
         <h2>
-          会挣钱
+          {item.title1}
           <br />
-          还会省钱
+          {item.title2}
         </h2>
       ),
-      icon: () => <img src={pig} alt="会挣钱"></img>,
-      buttons: () => (
-        <>
-          <RouterLink class={s.fake} to="/start">
-            跳过
-          </RouterLink>
-          <RouterLink to="/welcome/two">下一页</RouterLink>
-          <RouterLink to="/start">跳过</RouterLink>
-        </>
-      ),
+      icon: () => <img src={item.iconPath} alt={item.title1}></img>,
+      buttons: () => item.buttons,
     }}
   </WelcomeLayout>
 );
 
-export const Two = () => (
-  <WelcomeLayout>
-    {{
-      title: () => (
-        <h2>
-          每日提醒
-          <br />
-          不会遗漏每一笔账单
-        </h2>
-      ),
-      icon: () => <img src={clock} alt="每日提醒"></img>,
-      buttons: () => (
-        <>
-          <RouterLink class={s.fake} to="/start">
-            跳过
-          </RouterLink>
-          <RouterLink to="/welcome/three">下一页</RouterLink>
-          <RouterLink to="/start">跳过</RouterLink>
-        </>
-      ),
-    }}
-  </WelcomeLayout>
-);
+const getNextPageButton = (nextPageUrl: string) => {
+  if (nextPageUrl !== "/start") {
+    return (
+      <>
+        <RouterLink class={s.fake} to="/start">
+          跳过
+        </RouterLink>
+        <RouterLink to={nextPageUrl}>下一页</RouterLink>
+        <RouterLink to="/start">跳过</RouterLink>
+      </>
+    );
+  } else {
+    return <RouterLink to="/start">开启应用</RouterLink>;
+  }
+};
 
-export const Three = () => (
-  <WelcomeLayout>
-    {{
-      title: () => (
-        <h2>
-          数据可视化
-          <br />
-          收支一目了然
-        </h2>
-      ),
-      icon: () => <img src={chart} alt="数据可视化"></img>,
-      buttons: () => (
-        <>
-          <RouterLink class={s.fake} to="/start">
-            跳过
-          </RouterLink>
-          <RouterLink to="/welcome/four">下一页</RouterLink>
-          <RouterLink to="/start">跳过</RouterLink>
-        </>
-      ),
-    }}
-  </WelcomeLayout>
-);
+const items: item[] = [
+  {
+    title1: "会挣钱",
+    title2: "还会省钱",
+    iconPath: pig,
+    buttons: getNextPageButton("/welcome/two"),
+  },
+  {
+    title1: "每日提醒",
+    title2: "不会遗漏每一笔账单",
+    iconPath: clock,
+    buttons: getNextPageButton("/welcome/three"),
+  },
+  {
+    title1: "数据可视化",
+    title2: "收支一目了然",
+    iconPath: chart,
+    buttons: getNextPageButton("/welcome/four"),
+  },
+  {
+    title1: "云备份",
+    title2: "再也不怕数据丢失",
+    iconPath: cloud,
+    buttons: <RouterLink to="/start">开启应用</RouterLink>,
+  },
+];
 
-export const Four = () => (
-  <WelcomeLayout>
-    {{
-      title: () => (
-        <h2>
-          云备份
-          <br />
-          再也不怕数据丢失
-        </h2>
-      ),
-      icon: () => <img src={cloud} alt="云备份"></img>,
-      buttons: () => (
-        <>
-          <RouterLink to="/start">开启应用</RouterLink>
-        </>
-      ),
-    }}
-  </WelcomeLayout>
-);
+export const One = () => itemToComponent(items[0]);
+export const Two = () => itemToComponent(items[1]);
+export const Three = () => itemToComponent(items[2]);
+export const Four = () => itemToComponent(items[3]);
