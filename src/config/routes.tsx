@@ -5,6 +5,7 @@ import { Two } from "../components/welcome/Two";
 import { Three } from "../components/welcome/Three";
 import { Four } from "../components/welcome/Four";
 import { NotFound } from "../views/NotFound";
+import { Start } from "../views/Start";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome/one" },
@@ -19,5 +20,7 @@ export const routes: RouteRecordRaw[] = [
       { path: "four", component: Four },
     ],
   },
+  { path: "/start", component: Start },
+
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
