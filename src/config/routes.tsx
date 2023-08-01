@@ -1,9 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import { Welcome } from "../views/Welcome";
-import { One } from "../components/welcome/One";
-import { Two } from "../components/welcome/Two";
-import { Three } from "../components/welcome/Three";
-import { Four } from "../components/welcome/Four";
+import { One, Two, Three, Four } from "../components/welcome/FourItems";
 import { NotFound } from "../views/NotFound";
 import { Start } from "../views/Start";
 
