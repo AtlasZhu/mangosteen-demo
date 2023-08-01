@@ -26,9 +26,9 @@
     bottom: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding-right: 28px;
+    // padding: 0 28px;
     font-size: 28px;
     font-weight: bold;
     color: var(--welcome-text-color);
