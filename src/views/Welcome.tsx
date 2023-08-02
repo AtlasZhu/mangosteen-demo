@@ -1,4 +1,4 @@
-import { Transition, defineComponent } from "vue";
+import { FunctionalComponent, Transition, defineComponent } from "vue";
 import s from "./Welcome.module.scss";
 import logo from "../assets/icons/pineapple.svg";
 import { RouterView, onBeforeRouteUpdate } from "vue-router";
@@ -53,7 +53,7 @@ export const Welcome = defineComponent({
         </header>
         <main>
           <RouterView name="main">
-            {({ Component }: any) => (
+            {({ Component }: { Component: FunctionalComponent }) => (
               <Transition
                 enterFromClass={transitionClasses?.enterFromClass}
                 enterActiveClass={transitionClasses?.enterActiveClass}
