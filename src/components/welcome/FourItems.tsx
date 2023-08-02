@@ -1,13 +1,14 @@
 import { RouterLink } from "vue-router";
 import { WelcomeLayout } from "./WelcomeLayout";
 import s from "./WelcomeLayout.module.scss";
+
 import pig from "../../assets/icons/pig.svg";
 import clock from "../../assets/icons/clock.svg";
 import chart from "../../assets/icons/chart.svg";
 import cloud from "../../assets/icons/cloud.svg";
 
 type item = {
-  iconPath: string;
+  iconId: string;
   title1: string;
   title2: string;
   nextPageUrl: string;
@@ -16,7 +17,11 @@ type item = {
 const itemToComponent = (item: item) => (
   <WelcomeLayout>
     {{
-      icon: () => <img src={item.iconPath} alt={item.title1}></img>,
+      icon: () => (
+        <svg>
+          <use xlinkHref={`#${item.iconId}`} />
+        </svg>
+      ),
       title: () => (
         <h2>
           {item.title1}
@@ -50,25 +55,25 @@ const getNextPageButton = (nextPageUrl: string) => {
 
 const items: item[] = [
   {
-    iconPath: pig,
+    iconId: pig,
     title1: "会挣钱",
     title2: "还会省钱",
     nextPageUrl: "/welcome/2",
   },
   {
-    iconPath: clock,
+    iconId: clock,
     title1: "每日提醒",
     title2: "不会遗漏每一笔账单",
     nextPageUrl: "/welcome/3",
   },
   {
-    iconPath: chart,
+    iconId: chart,
     title1: "数据可视化",
     title2: "收支一目了然",
     nextPageUrl: "/welcome/4",
   },
   {
-    iconPath: cloud,
+    iconId: cloud,
     title1: "云备份",
     title2: "再也不怕数据丢失",
     nextPageUrl: "/start",

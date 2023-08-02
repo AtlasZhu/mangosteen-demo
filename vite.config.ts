@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
       transformOn: true,
       mergeProps: true,
     }),
+    createSvgSpritePlugin({ symbolId: "icon-[name]-[hash]" }),
   ],
   server: {
     host: "localhost", //ip地址
