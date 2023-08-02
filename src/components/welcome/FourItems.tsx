@@ -23,11 +23,10 @@ const itemToComponent = (item: item) => (
         </svg>
       ),
       title: () => (
-        <h2>
-          {item.title1}
-          <br />
-          {item.title2}
-        </h2>
+        <>
+          <h2>{item.title1}</h2>
+          <h2>{item.title2}</h2>
+        </>
       ),
     }}
   </WelcomeLayout>

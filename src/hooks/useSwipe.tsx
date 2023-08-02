@@ -9,8 +9,12 @@ export const useSwipe = (element: Ref<HTMLElement | null>) => {
     if (!start.value || !end.value) return;
     return { x: end.value.x - start.value.x, y: end.value.y - start.value.y };
   });
-  const direciotn = computed(() => {
+  const direction = computed(() => {
+    //这里有待斟酌，如果需求是松开手指的时候才判断方向则去掉叹号，如果每次移动手指都判断方向（以起点作为参照）则加上叹号
+    if (swiping.value) return;
     if (!distance.value) return;
+    console.log("hi");
+
     const { x, y } = distance.value;
     if (Math.abs(x) > Math.abs(y)) {
       return x > 0 ? "right" : "left";
@@ -44,5 +48,5 @@ export const useSwipe = (element: Ref<HTMLElement | null>) => {
     element.value.removeEventListener("touchmove", onMove);
     element.value.removeEventListener("touchend", onEnd);
   });
-  return { swiping, distance, direciotn };
+  return { swiping, distance, direction };
 };
