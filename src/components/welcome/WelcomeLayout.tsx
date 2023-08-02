@@ -7,6 +7,5 @@ export const WelcomeLayout: FunctionalComponent = (attrs, { slots }) => (
       {slots.icon?.()}
       {slots.title?.()}
     </div>
-    <div class={s.actions}>{slots.buttons?.()}</div>
   </div>
 );

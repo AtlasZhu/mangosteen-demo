@@ -16,23 +16,23 @@
       height: 148px;
     }
   }
-  > .actions {
-    position: fixed;
-    z-index: var(--z-index-bottom-nav);
-    background-color: var(--welcome-bg-color-end);
-    height: var(--welcome-bottom-nav-height);
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    // padding: 0 28px;
-    font-size: 28px;
-    font-weight: bold;
-    color: var(--welcome-text-color);
-    > .fake {
-      visibility: hidden;
-    }
+}
+.actions {
+  position: fixed;
+  z-index: var(--z-index-bottom-nav);
+  background-color: var(--welcome-bg-color-end);
+  height: var(--welcome-bottom-nav-height);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  // padding: 0 28px;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--welcome-text-color);
+  > .fake {
+    visibility: hidden;
   }
 }
