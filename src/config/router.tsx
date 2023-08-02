@@ -50,15 +50,3 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export const router = createRouter({ history, routes });
-
-router.afterEach((to, from) => {
-  type customData = { page: string; depth: number };
-  const toData = to.meta.customData as customData;
-  const fromData = from.meta.customData as customData;
-
-  if (toData && fromData && toData?.page === fromData?.page) {
-    to.meta.transition =
-      toData?.depth < fromData?.depth ? "slide-fade-reverse" : "slide-fade";
-    console.log("hihihi");
-  }
-});
