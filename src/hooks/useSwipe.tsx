@@ -1,7 +1,8 @@
 import { Ref, computed, onMounted, onUnmounted, ref } from "vue";
 
 type Point = { x: number; y: number };
-export const useSwipe = (element: Ref<HTMLElement | null>) => {
+
+export const useSwipe = (element: Ref<HTMLElement | undefined>) => {
   const start = ref<Point>();
   const end = ref<Point>();
   const swiping = ref(false);
@@ -23,6 +24,7 @@ export const useSwipe = (element: Ref<HTMLElement | null>) => {
     }
   });
   const onStart = (e: TouchEvent) => {
+    e.preventDefault();
     swiping.value = true;
     start.value = end.value = {
       x: e.touches[0].screenX,

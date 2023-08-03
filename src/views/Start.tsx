@@ -2,7 +2,7 @@ import { defineComponent, ref, watchEffect } from "vue";
 import { useSwipe } from "../hooks/useSwipe";
 export const Start = defineComponent({
   setup() {
-    const ele = ref<HTMLElement | null>(null);
+    const ele = ref<HTMLElement>();
     const { swiping, distance, direction } = useSwipe(ele);
     // watchEffect(() => {
     //   console.log(swiping.value, distance.value, direction.value);
