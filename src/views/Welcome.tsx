@@ -1,7 +1,9 @@
-import { FunctionalComponent, Transition, defineComponent } from "vue";
-import s from "./Welcome.module.scss";
+import { FunctionalComponent, Transition, defineComponent, ref } from "vue";
+import { RouterView } from "vue-router";
 import logo from "../assets/icons/pineapple.svg";
-import { RouterView, onBeforeRouteUpdate } from "vue-router";
+import { WelcomeNextPageButton } from "../components/welcome/WelcomeNextPageButton";
+import s from "./Welcome.module.scss";
+
 const pathMap: string[] = [
   "/welcome/1",
   "/welcome/2",
@@ -22,16 +24,33 @@ const transitionClasses = [
     leaveActiveClass: s.slide_fade_leave_active,
   },
 ];
+
 let indexOfTransitionClasses: number;
+
+const getNextPageUrl = function (urlNow: string) {
+  const indexOfNextPage = pathMap.indexOf(urlNow) + 1;
+  if (indexOfNextPage === pathMap.length) return "/start";
+  return pathMap[indexOfNextPage];
+};
+
+let nextPageUrl = ref<string>("/start");
+
 export const Welcome = defineComponent({
+  beforeRouteEnter(to) {
+    // console.log("执行了beforeRouterEnter");
+    nextPageUrl.value = getNextPageUrl(to.path);
+  },
+  beforeRouteUpdate(to, from) {
+    // console.log("执行了beforeRouteUpdate");
+    const toIndex = pathMap.indexOf(to.path);
+    const fromIndex = pathMap.indexOf(from.path);
+    if (toIndex > -1 && fromIndex > -1) {
+      indexOfTransitionClasses = toIndex > fromIndex ? 1 : 0;
+    }
+    nextPageUrl.value = getNextPageUrl(to.path);
+  },
+
   setup() {
-    onBeforeRouteUpdate((to, from) => {
-      const toIndex = pathMap.indexOf(to.path);
-      const fromIndex = pathMap.indexOf(from.path);
-      if (toIndex > -1 && fromIndex > -1) {
-        indexOfTransitionClasses = toIndex > fromIndex ? 1 : 0;
-      }
-    });
     return () => (
       <div class={s.wrapper}>
         <header>
@@ -41,7 +60,7 @@ export const Welcome = defineComponent({
           <h1>山竹记账</h1>
         </header>
         <main>
-          <RouterView name="main">
+          <RouterView>
             {({ Component }: { Component: FunctionalComponent }) => (
               <Transition
                 enterFromClass={
@@ -63,7 +82,7 @@ export const Welcome = defineComponent({
           </RouterView>
         </main>
         <footer>
-          <RouterView name="footer"></RouterView>
+          <WelcomeNextPageButton nextPageUrl={nextPageUrl.value} />
         </footer>
       </div>
     );

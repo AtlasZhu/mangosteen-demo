@@ -1,4 +1,4 @@
-import { defineComponent, ref, watchEffect } from "vue";
+import { defineComponent, ref } from "vue";
 import { useSwipe } from "../hooks/useSwipe";
 export const Start = defineComponent({
   setup() {

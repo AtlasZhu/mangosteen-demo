@@ -1,6 +1,6 @@
 import { defineComponent } from "vue";
-import s from "./NotFound.module.scss";
 import { RouterLink } from "vue-router";
+import s from "./NotFound.module.scss";
 export const NotFound = defineComponent({
   setup() {
     return () => (
