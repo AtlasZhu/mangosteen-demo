@@ -80,21 +80,21 @@ const items: item[] = [
 ];
 
 export const First = () => itemToComponent(items[0]);
-export const FirstButton = () => getNextPageButton(items[0].nextPageUrl);
+export const FirstActions = () => getNextPageButton(items[0].nextPageUrl);
 First.displayName = "First";
-FirstButton.displayName = "FirstButton";
+FirstActions.displayName = "FirstButton";
 
 export const Second = () => itemToComponent(items[1]);
-export const SecondButton = () => getNextPageButton(items[1].nextPageUrl);
+export const SecondActions = () => getNextPageButton(items[1].nextPageUrl);
 Second.displayName = "Second";
-SecondButton.displayName = "SecondButton";
+SecondActions.displayName = "SecondButton";
 
 export const Third = () => itemToComponent(items[2]);
-export const ThirdButton = () => getNextPageButton(items[2].nextPageUrl);
+export const ThirdActions = () => getNextPageButton(items[2].nextPageUrl);
 Third.displayName = "Third";
-ThirdButton.displayName = "ThirdButton";
+ThirdActions.displayName = "ThirdButton";
 
 export const Fourth = () => itemToComponent(items[3]);
-export const FourthButton = () => getNextPageButton(items[3].nextPageUrl);
+export const FourthActions = () => getNextPageButton(items[3].nextPageUrl);
 Fourth.displayName = "Fourth";
-FourthButton.displayName = "FourthButton";
+FourthActions.displayName = "FourthButton";

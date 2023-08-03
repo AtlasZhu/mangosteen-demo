@@ -49,7 +49,7 @@
 .slide_fade_reverse_enter_active,
 .slide_fade_reverse_leave_active {
   position: absolute;
-  transition: all 340ms ease;
+  transition: all var(--transition-duration) ease;
   top: 0;
   left: 0;
   width: 100%;

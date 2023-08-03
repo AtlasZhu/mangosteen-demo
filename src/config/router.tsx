@@ -4,13 +4,13 @@ import { history } from "../shared/history";
 import { Welcome } from "../views/Welcome";
 import {
   First,
-  FirstButton,
+  FirstActions,
   Second,
-  SecondButton,
+  SecondActions,
   Third,
-  ThirdButton,
+  ThirdActions,
   Fourth,
-  FourthButton,
+  FourthActions,
 } from "../components/welcome/FourItems";
 import { NotFound } from "../views/NotFound";
 import { Start } from "../views/Start";
@@ -24,22 +24,22 @@ const routes: RouteRecordRaw[] = [
       { path: "", redirect: "/welcome/1" },
       {
         path: "1",
-        components: { main: First, footer: FirstButton },
+        components: { main: First, footer: FirstActions },
         meta: { customData: { page: "Welcome", depth: 1 } },
       },
       {
         path: "2",
-        components: { main: Second, footer: SecondButton },
+        components: { main: Second, footer: SecondActions },
         meta: { customData: { page: "Welcome", depth: 2 } },
       },
       {
         path: "3",
-        components: { main: Third, footer: ThirdButton },
+        components: { main: Third, footer: ThirdActions },
         meta: { customData: { page: "Welcome", depth: 3 } },
       },
       {
         path: "4",
-        components: { main: Fourth, footer: FourthButton },
+        components: { main: Fourth, footer: FourthActions },
         meta: { customData: { page: "Welcome", depth: 4 } },
       },
     ],
