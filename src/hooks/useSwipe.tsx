@@ -23,7 +23,12 @@ export const useSwipe = (
   const direction = computed(() => {
     //这里有待斟酌，如果需求是松开手指的时候才判断方向则去掉叹号，如果每次移动手指都判断方向（以起点作为参照）则加上叹号
     if (!swiping.value) return;
-    if (!distance.value) return;
+    if (
+      !distance.value ||
+      Math.abs(distance.value.x) < 24 ||
+      Math.abs(distance.value.y) < 24
+    )
+      return;
 
     const { x, y } = distance.value;
     if (Math.abs(x) > Math.abs(y)) {
