@@ -1,7 +1,14 @@
-import { FunctionalComponent, Transition, defineComponent, ref } from "vue";
-import { RouterView } from "vue-router";
+import {
+  FunctionalComponent,
+  Transition,
+  defineComponent,
+  ref,
+  watchEffect,
+} from "vue";
+import { RouterView, useRoute, useRouter } from "vue-router";
 import logo from "../assets/icons/pineapple.svg";
 import { WelcomeNextPageButton } from "../components/welcome/WelcomeNextPageButton";
+import { useSwipe } from "../hooks/useSwipe";
 import s from "./Welcome.module.scss";
 
 const pathMap: string[] = [
@@ -32,6 +39,10 @@ const getNextPageUrl = function (urlNow: string) {
   if (indexOfNextPage === pathMap.length) return "/start";
   return pathMap[indexOfNextPage];
 };
+const getLastPageUrl = function (urlNow: string) {
+  const indexOfLastPage = pathMap.indexOf(urlNow) - 1;
+  return pathMap[indexOfLastPage];
+};
 
 let nextPageUrl = ref<string>("/start");
 
@@ -51,6 +62,25 @@ export const Welcome = defineComponent({
   },
 
   setup() {
+    const refOfWelcomeItem = ref<HTMLElement>();
+    const { swiping, direction } = useSwipe(refOfWelcomeItem, {
+      beforeStart: (e) => e.preventDefault(),
+    });
+    const route = useRoute();
+    const router = useRouter();
+    watchEffect(() => {
+      if (swiping.value && direction.value === "left") {
+        console.log("1");
+        router.push(getNextPageUrl(route.path));
+      } else if (swiping.value && direction.value === "right") {
+        console.log("2");
+        if (route.path !== "/welcome/1") {
+          router.push(getLastPageUrl(route.path));
+        }
+      }
+      console.log(swiping.value, direction.value);
+    });
+
     return () => (
       <div class={s.wrapper}>
         <header>
@@ -59,7 +89,7 @@ export const Welcome = defineComponent({
           </svg>
           <h1>山竹记账</h1>
         </header>
-        <main>
+        <main ref={refOfWelcomeItem}>
           <RouterView>
             {({ Component }: { Component: FunctionalComponent }) => (
               <Transition
