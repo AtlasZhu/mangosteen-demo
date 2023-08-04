@@ -3,6 +3,7 @@ import {
   Transition,
   defineComponent,
   ref,
+  watch,
   watchEffect,
 } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
@@ -68,17 +69,14 @@ export const Welcome = defineComponent({
     });
     const route = useRoute();
     const router = useRouter();
-    watchEffect(() => {
+    watch([direction], () => {
       if (swiping.value && direction.value === "left") {
-        console.log("1");
         router.push(getNextPageUrl(route.path));
       } else if (swiping.value && direction.value === "right") {
-        console.log("2");
         if (route.path !== "/welcome/1") {
           router.push(getLastPageUrl(route.path));
         }
       }
-      console.log(swiping.value, direction.value);
     });
 
     return () => (

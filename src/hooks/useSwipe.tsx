@@ -25,11 +25,9 @@ export const useSwipe = (
     if (!swiping.value) return;
     if (
       !distance.value ||
-      Math.abs(distance.value.x) < 24 ||
-      Math.abs(distance.value.y) < 24
+      (Math.abs(distance.value.x) < 24 && Math.abs(distance.value.y) < 24)
     )
       return;
-
     const { x, y } = distance.value;
     if (Math.abs(x) > Math.abs(y)) {
       return x > 0 ? "right" : "left";
