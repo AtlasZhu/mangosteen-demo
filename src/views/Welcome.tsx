@@ -4,11 +4,11 @@ import {
   defineComponent,
   ref,
   watch,
-  watchEffect,
 } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import logo from "../assets/icons/pineapple.svg";
 import { WelcomeNextPageButton } from "../components/welcome/WelcomeNextPageButton";
+import { throttle } from "../hooks/throttle";
 import { useSwipe } from "../hooks/useSwipe";
 import s from "./Welcome.module.scss";
 
@@ -69,7 +69,7 @@ export const Welcome = defineComponent({
     });
     const route = useRoute();
     const router = useRouter();
-    watch([direction], () => {
+    const toNextOrLastPage = throttle(() => {
       if (swiping.value && direction.value === "left") {
         router.push(getNextPageUrl(route.path));
       } else if (swiping.value && direction.value === "right") {
@@ -77,7 +77,8 @@ export const Welcome = defineComponent({
           router.push(getLastPageUrl(route.path));
         }
       }
-    });
+    }, 350);
+    watch([direction], toNextOrLastPage);
 
     return () => (
       <div class={s.wrapper}>
