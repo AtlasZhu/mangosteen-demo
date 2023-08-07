@@ -1,4 +1,5 @@
 .wrapper {
+  overflow: hidden;
   height: calc(100vh - var(--welcome-bottom-nav-height));
   display: flex;
   flex-direction: column;
