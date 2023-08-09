@@ -1,4 +1,4 @@
-import { PropType, defineComponent } from "vue";
+import { defineComponent } from "vue";
 export const Icon = defineComponent({
   props: {
     iconName: {
