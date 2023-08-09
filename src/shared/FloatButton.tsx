@@ -1,7 +1,8 @@
-import { PropType, defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import s from "./FloatButton.module.scss";
 import plus from "../assets/icons/plus.svg";
 import { Icon } from "./Icon";
+
 export const FloatButton = defineComponent({
   props: {
     onClick: Function as PropType<(payload: MouseEvent) => void | undefined>,
