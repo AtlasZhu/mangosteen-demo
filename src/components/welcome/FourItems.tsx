@@ -4,6 +4,7 @@ import chart from "../../assets/icons/chart.svg";
 import clock from "../../assets/icons/clock.svg";
 import cloud from "../../assets/icons/cloud.svg";
 import pig from "../../assets/icons/pig.svg";
+import { Icon } from "../../shared/Icon";
 
 type item = {
   iconId: string;
@@ -14,11 +15,7 @@ type item = {
 const itemToComponent = (item: item) => (
   <WelcomeLayout>
     {{
-      icon: () => (
-        <svg>
-          <use xlinkHref={`#${item.iconId}`} />
-        </svg>
-      ),
+      icon: () => <Icon iconName={item.iconId}></Icon>,
       title: () => (
         <>
           <h2>{item.title1}</h2>

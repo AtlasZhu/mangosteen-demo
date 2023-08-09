@@ -1,36 +1,18 @@
 import { defineComponent, ref } from "vue";
-import { throttle } from "../hooks/throttle";
-import { useSwipe } from "../hooks/useSwipe";
+import { Button } from "../shared/Button";
+import s from "./Start.module.scss";
 export const Start = defineComponent({
   setup() {
-    const ele = ref<HTMLElement>();
-    const { swiping, distance, direction } = useSwipe(ele, {
-      beforeStart: (e) => e.preventDefault(),
-    });
-    const x = throttle((message1: string, message2: string) => {
-      console.log(message1, message2);
-    }, 1000);
-    const click = () => {
-      x("hihihi", "helo");
+    const btnClick = () => {
+      console.log("click");
     };
-    // watchEffect(() => {
-    //   console.log(swiping.value, distance.value, direction.value);
-    // });
     return () => (
       <>
-        <div ref={ele}>
-          你好
-          <hr />
-          {JSON.stringify(swiping.value)}
-          <hr />
-          {JSON.stringify(distance.value)}
-          <hr />
-          {direction.value}
-          <hr />
-          这是开始页面
-          <hr />
+        <div class={s.button_wrapper}>
+          <Button class={s.button} onClick={btnClick}>
+            开始记账
+          </Button>
         </div>
-        <div onClick={click}>loghi</div>
       </>
     );
   },
