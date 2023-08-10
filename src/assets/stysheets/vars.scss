@@ -8,15 +8,21 @@
   --z-index-bottom-nav: 10;
   --transition-duration: 340ms;
 
-  --button-bg: #f6fa70;
+  --button-bg: #fffc00;
   --button-border-radius: 12px;
   --button-font-size: 16px;
   --button-height: 48px;
   --button-border-hover-color: #ffc300;
 
-  --float-button-bg: #f6fa70;
+  --float-button-bg: #fffc00;
 
   --navbar-bg-start: var(--welcome-bg-start);
   --navbar-bg-end: var(--welcome-bg-end);
   --navbar-text: #333;
+  --navbar-height: 70px;
+
+  --overlay-z-index: 20;
+  --overlay-bg: white;
+  --overlay-mask-bg: rgba(0, 0, 0, 0.5);
+  --top-safe-area-height: 70px;
 }
