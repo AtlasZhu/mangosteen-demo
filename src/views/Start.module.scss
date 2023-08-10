@@ -1,6 +1,13 @@
-.button {
-  width: 100%;
-  &_wrapper {
-    margin: 16px;
+.button_wrapper {
+  margin: 16px;
+  > .button {
+    width: 100%;
+  }
+}
+.pig_wrapper {
+  padding: 160px;
+  .pig {
+    width: 128px;
+    height: 128px;
   }
 }
