@@ -1,0 +1,22 @@
+.mask {
+  position: fixed;
+  z-index: var(--overlay-z-index);
+  background: var(--overlay-mask-bg);
+  top: var(--top-safe-area-height);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--top-safe-area-height));
+}
+
+.overlay {
+  position: fixed;
+  z-index: calc(var(--overlay-z-index) + 1);
+  background: var(--overlay-bg);
+  top: var(--top-safe-area-height);
+  width: 14em;
+  height: calc(100% - var(--top-safe-area-height));
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+}

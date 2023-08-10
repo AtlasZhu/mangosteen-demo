@@ -5,7 +5,7 @@ import createSvgSpritePlugin from "vite-plugin-svg-sprite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/mangosteen-demo/",
+  base: "/pineapple-bookkeeping/",
   plugins: [
     vue(),
     vueJsx({
