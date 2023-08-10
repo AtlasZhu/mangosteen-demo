@@ -5,8 +5,8 @@
   flex-direction: column;
   background: linear-gradient(
     to bottom,
-    var(--welcome-bg-color-start),
-    var(--welcome-bg-color-end)
+    var(--welcome-bg-start),
+    var(--welcome-bg-end)
   );
   > header {
     flex-shrink: 0;

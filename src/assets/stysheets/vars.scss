@@ -1,6 +1,6 @@
 :root {
-  --welcome-bg-color-start: #fffc00;
-  --welcome-bg-color-end: #f6fa70;
+  --welcome-bg-start: #fffc00;
+  --welcome-bg-end: #f6fa70;
   --welcome-card-bg: #f9f9f9;
   --welcome-text-color: #ff7f3f;
   --welcome-card-border: #eeeded;
@@ -8,11 +8,15 @@
   --z-index-bottom-nav: 10;
   --transition-duration: 340ms;
 
-  --button-bg: #ffe673;
+  --button-bg: #f6fa70;
   --button-border-radius: 12px;
   --button-font-size: 16px;
   --button-height: 48px;
   --button-border-hover-color: #ffc300;
 
-  --float-button-bg: #ffe673;
+  --float-button-bg: #f6fa70;
+
+  --navbar-bg-start: var(--welcome-bg-start);
+  --navbar-bg-end: var(--welcome-bg-end);
+  --navbar-text: #333;
 }
