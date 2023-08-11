@@ -13,24 +13,25 @@ export const Overlay = defineComponent({
       <>
         <div class={s.mask} onClick={props.onClick}></div>
         <div class={s.overlay}>
-          <section>
-            <nav>
-              <ul>
-                <li>
-                  <Icon iconName={svgExport} class={s.icon}></Icon>
-                  <span>导出数据</span>
-                </li>
-                <li>
-                  <Icon iconName={svgChart2} class={s.icon}></Icon>
-                  <span>统计图表</span>
-                </li>
-                <li>
-                  <Icon iconName={svgNotify} class={s.icon}></Icon>
-                  <span>记账提醒</span>
-                </li>
-              </ul>
-            </nav>
-          </section>
+          <div class={s.userStatus}>
+            <h1>未登录用户</h1>点击这里登录
+          </div>
+          <nav class={s.navList}>
+            <ul>
+              <li>
+                <Icon iconName={svgExport} class={s.icon}></Icon>
+                <span>导出数据</span>
+              </li>
+              <li>
+                <Icon iconName={svgChart2} class={s.icon}></Icon>
+                <span>统计图表</span>
+              </li>
+              <li>
+                <Icon iconName={svgNotify} class={s.icon}></Icon>
+                <span>记账提醒</span>
+              </li>
+            </ul>
+          </nav>
         </div>
       </>
     );

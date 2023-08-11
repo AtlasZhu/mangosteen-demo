@@ -20,12 +20,8 @@ export const Start = defineComponent({
     return () => (
       <MainLayout>
         {{
-          icon: (cls: string) => (
-            <Icon
-              iconName={menu}
-              class={cls}
-              onClick={changeOverlayVisible}
-            ></Icon>
+          icon: () => (
+            <Icon iconName={menu} onClick={changeOverlayVisible}></Icon>
           ),
           title: () => "菠萝账本",
           content: () => (
