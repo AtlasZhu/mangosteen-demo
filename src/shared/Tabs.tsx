@@ -27,7 +27,9 @@ export const Tabs = defineComponent({
               </li>
             ))}
           </ul>
-          <div></div>
+          <div>
+            {children.find((item) => item.props?.name === props.selected)}
+          </div>
         </div>
       );
     };
