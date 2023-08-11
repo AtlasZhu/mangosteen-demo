@@ -5,8 +5,8 @@ export const NavBar = defineComponent({
   setup(props, context) {
     return () => (
       <div class={s.navBar}>
-        <span class={s.icon_wrapper}>{context.slots.icon?.()}</span>
-        <span class={s.default_wrapper}>{context.slots.title?.()}</span>
+        <div class={s.icon_wrapper}>{context.slots.icon?.()}</div>
+        <div class={s.default_wrapper}>{context.slots.title?.()}</div>
       </div>
     );
   },

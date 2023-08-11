@@ -1,4 +1,4 @@
-import { defineComponent, PropType, Transition } from "vue";
+import { defineComponent, PropType } from "vue";
 import svgChart2 from "../assets/icons/chart2.svg";
 import svgExport from "../assets/icons/export.svg";
 import svgNotify from "../assets/icons/notify.svg";

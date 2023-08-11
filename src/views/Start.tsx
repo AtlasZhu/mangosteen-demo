@@ -15,7 +15,7 @@ export const Start = defineComponent({
     const overlayVisible = ref(false);
     const changeOverlayVisible = () => {
       overlayVisible.value = !overlayVisible.value;
-      console.log(overlayVisible.value);
+      // console.log(overlayVisible.value);
     };
     return () => (
       <MainLayout>

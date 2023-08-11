@@ -1,0 +1,9 @@
+.tabs {
+  > .nav {
+    > li {
+      &.selected {
+        background: green;
+      }
+    }
+  }
+}
