@@ -11,7 +11,7 @@ interface Options {
 }
 export const useSwipe = (
   element: Ref<HTMLElement | undefined>,
-  options?: Options
+  options?: Options,
 ) => {
   const start = ref<Point>();
   const end = ref<Point>();
