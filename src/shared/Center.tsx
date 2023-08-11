@@ -5,7 +5,7 @@ export const Center = defineComponent({
   props: {
     direction: {
       type: String as PropType<"column" | "row">,
-      default: "column",
+      content: "column",
     },
   },
   setup(props, context) {

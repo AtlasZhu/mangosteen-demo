@@ -1,6 +1,9 @@
-import { RouteRecordRaw, createRouter } from "vue-router";
+import { createRouter, RouteRecordRaw } from "vue-router";
+import { ItemCreate } from "../components/ItemPage/ItemCreate";
+import { ItemList } from "../components/ItemPage/ItemList";
 import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
 import { history } from "../shared/history";
+import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
 import { Start } from "../views/Start";
 import { Welcome } from "../views/Welcome";
@@ -31,7 +34,15 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   { path: "/start", component: Start },
-
+  {
+    path: "/items",
+    component: ItemPage,
+    children: [
+      { path: "", redirect: "/items/create" },
+      { path: "create", component: ItemCreate },
+      { path: "list", component: ItemList },
+    ],
+  },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
 

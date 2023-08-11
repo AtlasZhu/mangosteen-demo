@@ -16,7 +16,7 @@ export default defineConfig({
     createSvgSpritePlugin({ symbolId: "icon-[name]-[hash]" }),
   ],
   server: {
-    host: "localhost", //ip地址
+    host: "192.168.0.2", //ip地址
     port: 3000, // 设置服务启动端口号
     open: false, // 设置服务启动时是否自动打开浏览器
   },
