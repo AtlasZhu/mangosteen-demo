@@ -21,8 +21,7 @@ export const Tabs = defineComponent({
                 class={item.props?.name === props.selected ? s.selected : null}
                 onClick={() =>
                   context.emit("update:selected", item.props?.name)
-                }
-              >
+                }>
                 {item.props?.name}
               </li>
             ))}

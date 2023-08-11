@@ -103,8 +103,7 @@ export const Welcome = defineComponent({
                 }
                 leaveActiveClass={
                   transitionClasses[indexOfTransitionClasses]?.leaveActiveClass
-                }
-              >
+                }>
                 <Component />
               </Transition>
             )}
