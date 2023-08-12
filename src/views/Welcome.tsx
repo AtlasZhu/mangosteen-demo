@@ -65,7 +65,7 @@ export const Welcome = defineComponent({
   setup() {
     const refOfWelcomeItem = ref<HTMLElement>();
     const { swiping, direction } = useSwipe(refOfWelcomeItem, {
-      beforeStart: (e) => e.preventDefault(),
+      beforeStart: e => e.preventDefault(),
     });
     const route = useRoute();
     const router = useRouter();

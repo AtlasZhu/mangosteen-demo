@@ -1,4 +1,6 @@
 :root {
+  --transition-duration: 300ms;
+
   --welcome-bg-start: #fffc00;
   --welcome-bg-end: #f6fa70;
   --welcome-card-bg: #f9f9f9;
@@ -6,27 +8,22 @@
   --welcome-card-border: #eeeded;
   --welcome-bottom-nav-height: 64px;
   --z-index-bottom-nav: 10;
-  --transition-duration: 300ms;
-
   --button-bg: #fffc00;
   --button-border-radius: 12px;
   --button-font-size: 16px;
   --button-height: 48px;
   --button-border-hover-color: #ffc300;
-
   --float-button-bg: #fffc00;
-
   --navbar-bg-start: var(--welcome-bg-start);
   --navbar-bg-end: var(--welcome-bg-end);
   --navbar-text: #333;
   --navbar-height: 80px;
-
   --overlay-z-index: 20;
   --overlay-bg: white;
   --overlay-mask-bg: rgba(0, 0, 0, 0.5);
   --top-safe-area-height: 30px;
-
   --tabs-indicator-bg: rgba(40, 44, 52, 0.3);
-
   --button-border-color: #ddd;
+  --amount-text: #53a867;
+  --date-text: #999;
 }

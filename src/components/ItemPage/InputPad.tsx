@@ -24,14 +24,14 @@ export const InputPad = defineComponent({
     ];
     return () => (
       <div class={s.inputPad_wrapper}>
-        <div class={s.top}>
-          <span>
+        <div class={s.dateAndAmount}>
+          <span class={s.date}>
             <Icon iconName={svgDate} class={s.icon} />
             <span>2023-08-12</span>
           </span>
-          <span class={s.amount}>数字</span>
+          <span class={s.amount}>250￥</span>
         </div>
-        <div class={s.bottom}>
+        <div class={s.buttons}>
           {buttons.map(item => (
             <button onClick={item.onClick}>{item.text}</button>
           ))}
