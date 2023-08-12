@@ -16,7 +16,7 @@ export const Tabs = defineComponent({
       return (
         <div class={s.tabs}>
           <ul class={s.nav}>
-            {children.map((item) => (
+            {children.map(item => (
               <li
                 class={item.props?.name === props.selected ? s.selected : null}
                 onClick={() =>
@@ -27,7 +27,7 @@ export const Tabs = defineComponent({
             ))}
           </ul>
           <div>
-            {children.find((item) => item.props?.name === props.selected)}
+            {children.find(item => item.props?.name === props.selected)}
           </div>
         </div>
       );

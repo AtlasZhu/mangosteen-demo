@@ -1,26 +1,48 @@
 .inputPad_wrapper {
   position: fixed;
-  left: 0;
   bottom: 0;
+  left: 0;
   width: 100%;
-  > .top {
-    .icon {
-      height: 36px;
-      width: 36px;
+
+  > .dateAndAmount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    border-top: 1px solid var(--button-border-color);
+    font-family: monospace;
+
+    > .date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      > .icon {
+        margin-right: 14px;
+        width: 24px;
+        height: 24px;
+
+        fill: var(--amount-text);
+      }
     }
+
     > .amount {
+      color: var(--amount-text);
+      font-size: 20px;
     }
   }
-  > .bottom {
+
+  > .buttons {
     display: flex;
     flex-wrap: wrap;
     border-top: 1px solid var(--button-border-color);
+
     > button {
+      width: 25%;
+      height: 54px;
       border: none;
       border-right: 1px solid var(--button-border-color);
       border-bottom: 1px solid var(--button-border-color);
-      width: 25%;
-      height: 54px;
       background: transparent;
       &:nth-child(4n) {
         border-right: none;
