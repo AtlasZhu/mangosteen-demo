@@ -8,8 +8,8 @@ import {
 import { RouterView, useRoute, useRouter } from "vue-router";
 import logo from "../assets/icons/pineapple.svg";
 import { WelcomeNextPageButton } from "../components/welcome/WelcomeNextPageButton";
-import { throttle } from "../hooks/throttle";
 import { useSwipe } from "../hooks/useSwipe";
+import { throttle } from "../shared/throttle";
 import s from "./Welcome.module.scss";
 
 const pathMap: string[] = [

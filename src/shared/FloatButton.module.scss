@@ -1,14 +1,14 @@
 .floatButton {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 56px;
   height: 56px;
   border-radius: 50%;
   background-color: var(--float-button-bg);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
 
   .icon {
     width: 28px;
