@@ -17,6 +17,7 @@
       align-items: center;
       justify-content: center;
       color: var(--date-text);
+
       > .icon {
         margin-right: 14px;
         width: 24px;
@@ -33,25 +34,32 @@
   }
 
   > .buttons {
-    display: flex;
+    display: grid;
     flex-wrap: wrap;
     border-top: 1px solid var(--button-border-color);
+    background-color: var(--button-border-color);
 
+    grid-template-areas:
+      "button1 button2 button3 clear"
+      "button4 button5 button6 clear"
+      "button7 button8 button9 submit"
+      "button0 button0 dot submit";
+    gap: 1px;
+    grid-auto-rows: 54px;
+    grid-auto-columns: 25%;
     > button {
-      width: 25%;
-      height: 54px;
       border: none;
-      border-right: 1px solid var(--button-border-color);
-      border-bottom: 1px solid var(--button-border-color);
-      background: transparent;
-      &:nth-child(4n) {
-        border-right: none;
+      background: var(--button-bg-color);
+      &:nth-child(1) {
+        background-color: var(--button-bg-color-important);
+
+        grid-area: submit;
       }
-      &:nth-child(13),
-      &:nth-child(14),
-      &:nth-child(15),
-      &:nth-child(16) {
-        border-bottom: none;
+      &:nth-child(2) {
+        grid-area: clear;
+      }
+      &:nth-child(3) {
+        grid-area: button0;
       }
     }
   }
