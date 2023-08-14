@@ -1,0 +1,70 @@
+.form {
+  margin: 16px;
+  > .tagNameWrapper {
+    display: flex;
+    flex-direction: column;
+    > input {
+      margin: 6px 0;
+      padding: 8px;
+      height: 36px;
+      border: 1px solid red;
+      border-radius: 6px;
+    }
+    > span {
+      &.error {
+        color: red;
+      }
+    }
+  }
+  .tagEmojiWrapper {
+    > .tagEmojiTitle {
+      display: inline-block;
+      margin: 6px 0;
+    }
+    > .tagEmojiList {
+      border: 1px solid black;
+      border-radius: 6px;
+      > nav {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        > span {
+          padding: 8px;
+        }
+      }
+      > ul {
+        display: flex;
+        overflow: auto;
+        flex-wrap: wrap;
+        padding: 0 8px;
+        height: calc(32px * 12);
+        font-size: 22px;
+        line-height: 32px;
+        > li {
+          text-align: center;
+        }
+      }
+      &.emojiErrorBorder {
+        border-color: red;
+      }
+    }
+    > .emojiErrorText {
+      display: inline-block;
+      margin: 6px 0;
+      color: red;
+    }
+  }
+  > .emojiTips {
+    text-align: center;
+  }
+  > .buttonWrapper {
+    > .button {
+      margin-top: 16px;
+      width: 100%;
+    }
+  }
+}
