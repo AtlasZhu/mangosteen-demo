@@ -32,7 +32,7 @@ export const time = (date = new Date()) => {
     formatAsArray: (
       pattern: DateKeys[] = ["YYYY", "MM", "DD", "HH", "mm", "ss", "sss"],
     ) => {
-      return pattern.map(item => dateObj[item]);
+      return pattern.map((item) => dateObj[item]);
     },
   };
   return api;

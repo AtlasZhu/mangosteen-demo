@@ -16,18 +16,19 @@ export const Tabs = defineComponent({
       return (
         <div class={s.tabs}>
           <ul class={s.nav}>
-            {children.map(item => (
+            {children.map((item) => (
               <li
                 class={item.props?.name === props.selected ? s.selected : null}
                 onClick={() =>
                   context.emit("update:selected", item.props?.name)
-                }>
+                }
+              >
                 {item.props?.name}
               </li>
             ))}
           </ul>
           <div>
-            {children.find(item => item.props?.name === props.selected)}
+            {children.find((item) => item.props?.name === props.selected)}
           </div>
         </div>
       );

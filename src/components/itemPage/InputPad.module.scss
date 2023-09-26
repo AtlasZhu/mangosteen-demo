@@ -2,40 +2,47 @@
   position: fixed;
   bottom: 0;
   left: 0;
+
   width: 100%;
 
   > .dateAndAmount {
+    font-family: monospace;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 14px;
+
     border-top: 1px solid var(--button-border-color);
-    font-family: monospace;
 
     > .date {
       display: flex;
       align-items: center;
       justify-content: center;
+
       color: var(--date-text);
 
       > .icon {
-        margin-right: 14px;
         width: 24px;
         height: 24px;
+        margin-right: 14px;
 
         fill: var(--amount-text);
       }
     }
 
     > .amount {
-      color: var(--amount-text);
       font-size: 20px;
+
+      color: var(--amount-text);
     }
   }
 
   > .buttons {
     display: grid;
     flex-wrap: wrap;
+
     border-top: 1px solid var(--button-border-color);
     background-color: var(--button-border-color);
 

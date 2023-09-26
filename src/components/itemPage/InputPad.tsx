@@ -86,11 +86,12 @@ export const InputPad = defineComponent({
             <Popup
               v-model:show={refDatePickerVisible.value}
               position="bottom"
-              style="{ height: '30%' }">
+              style="{ height: '30%' }"
+            >
               <DatePicker
                 v-model={currentDate}
                 title="选择日期"
-                onConfirm={date => {
+                onConfirm={(date) => {
                   setDate(date.selectedValues);
                   hideDatePicker();
                 }}
@@ -101,7 +102,7 @@ export const InputPad = defineComponent({
           <span class={s.amount}>{refAmountText.value.join("")}</span>
         </div>
         <div class={s.buttons}>
-          {buttons.map(item => (
+          {buttons.map((item) => (
             <button onClick={item.onClick}>{item.text}</button>
           ))}
         </div>
