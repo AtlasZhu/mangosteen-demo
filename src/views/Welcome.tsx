@@ -1,10 +1,4 @@
-import {
-  defineComponent,
-  FunctionalComponent,
-  ref,
-  Transition,
-  watch,
-} from "vue";
+import { defineComponent, FunctionalComponent, ref, Transition, watch } from "vue";
 import { RouterView, useRoute, useRouter } from "vue-router";
 import logo from "../assets/icons/pineapple.svg";
 import { WelcomeNextPageButton } from "../components/welcome/WelcomeNextPageButton";
@@ -12,12 +6,7 @@ import { useSwipe } from "../hooks/useSwipe";
 import { throttle } from "../shared/throttle";
 import s from "./Welcome.module.scss";
 
-const pathMap: string[] = [
-  "/welcome/1",
-  "/welcome/2",
-  "/welcome/3",
-  "/welcome/4",
-];
+const pathMap: string[] = ["/welcome/1", "/welcome/2", "/welcome/3", "/welcome/4"];
 const transitionClasses = [
   {
     enterFromClass: s.slide_fade_reverse_enter_from,
@@ -65,7 +54,7 @@ export const Welcome = defineComponent({
   setup() {
     const refOfWelcomeItem = ref<HTMLElement>();
     const { swiping, direction } = useSwipe(refOfWelcomeItem, {
-      beforeStart: (e) => e.preventDefault(),
+      beforeStart: e => e.preventDefault(),
     });
     const route = useRoute();
     const router = useRouter();
@@ -92,19 +81,10 @@ export const Welcome = defineComponent({
           <RouterView>
             {({ Component }: { Component: FunctionalComponent }) => (
               <Transition
-                enterFromClass={
-                  transitionClasses[indexOfTransitionClasses]?.enterFromClass
-                }
-                enterActiveClass={
-                  transitionClasses[indexOfTransitionClasses]?.enterActiveClass
-                }
-                leaveToClass={
-                  transitionClasses[indexOfTransitionClasses]?.leaveToClass
-                }
-                leaveActiveClass={
-                  transitionClasses[indexOfTransitionClasses]?.leaveActiveClass
-                }
-              >
+                enterFromClass={transitionClasses[indexOfTransitionClasses]?.enterFromClass}
+                enterActiveClass={transitionClasses[indexOfTransitionClasses]?.enterActiveClass}
+                leaveToClass={transitionClasses[indexOfTransitionClasses]?.leaveToClass}
+                leaveActiveClass={transitionClasses[indexOfTransitionClasses]?.leaveActiveClass}>
                 <Component />
               </Transition>
             )}

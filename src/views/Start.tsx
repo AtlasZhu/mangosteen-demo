@@ -20,9 +20,7 @@ export const Start = defineComponent({
     return () => (
       <MainLayout>
         {{
-          icon: () => (
-            <Icon iconName={menu} onClick={changeOverlayVisible}></Icon>
-          ),
+          icon: () => <Icon iconName={menu} onClick={changeOverlayVisible}></Icon>,
           title: () => "菠萝账本",
           content: () => (
             <>
@@ -37,9 +35,7 @@ export const Start = defineComponent({
               <RouterLink to="/items/create">
                 <FloatButton></FloatButton>
               </RouterLink>
-              {overlayVisible.value && (
-                <Overlay onClick={changeOverlayVisible}></Overlay>
-              )}
+              {overlayVisible.value && <Overlay onClick={changeOverlayVisible}></Overlay>}
             </>
           ),
         }}

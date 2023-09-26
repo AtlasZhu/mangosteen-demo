@@ -16,11 +16,7 @@
   width: 14em;
   height: calc(100% - var(--top-safe-area-height));
   > .userStatus {
-    background: linear-gradient(
-      to Bottom,
-      var(--welcome-bg-start),
-      var(--welcome-bg-end)
-    );
+    background: linear-gradient(to Bottom, var(--welcome-bg-start), var(--welcome-bg-end));
     padding: 24px;
   }
   > .navList {

@@ -9,10 +9,7 @@ interface Options {
   beforeEnd?: (e: TouchEvent) => void;
   afterEnd?: (e: TouchEvent) => void;
 }
-export const useSwipe = (
-  element: Ref<HTMLElement | undefined>,
-  options?: Options,
-) => {
+export const useSwipe = (element: Ref<HTMLElement | undefined>, options?: Options) => {
   const start = ref<Point>();
   const end = ref<Point>();
   const swiping = ref(false);
@@ -23,11 +20,7 @@ export const useSwipe = (
   const direction = computed(() => {
     //这里有待斟酌，如果需求是松开手指的时候才判断方向则去掉叹号，如果每次移动手指都判断方向（以起点作为参照）则加上叹号
     if (!swiping.value) return;
-    if (
-      !distance.value ||
-      (Math.abs(distance.value.x) < 24 && Math.abs(distance.value.y) < 24)
-    )
-      return;
+    if (!distance.value || (Math.abs(distance.value.x) < 24 && Math.abs(distance.value.y) < 24)) return;
     const { x, y } = distance.value;
     if (Math.abs(x) > Math.abs(y)) {
       return x > 0 ? "right" : "left";

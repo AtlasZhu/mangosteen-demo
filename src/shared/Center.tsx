@@ -9,10 +9,6 @@ export const Center = defineComponent({
     },
   },
   setup(props, context) {
-    return () => (
-      <div class={[s.center, s[props.direction]]}>
-        {context.slots.default?.()}
-      </div>
-    );
+    return () => <div class={[s.center, s[props.direction]]}>{context.slots.default?.()}</div>;
   },
 });
