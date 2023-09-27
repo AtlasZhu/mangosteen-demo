@@ -18,10 +18,7 @@ export const emojiList: EmojiList = [
       "\u{1F607}",
     ],
   ],
-  [
-    "face-affection",
-    ["\u{1F970}", "\u{1F60D}", "\u{1F929}", "\u{1F618}", "\u{1F617}", "\u{263A}", "\u{1F61A}", "\u{1F619}"],
-  ],
+  ["face-affection", ["\u{1F970}", "\u{1F60D}", "\u{1F929}", "\u{1F618}", "\u{1F617}", "\u{1F61A}", "\u{1F619}"]],
   ["face-tongue", ["\u{1F60B}", "\u{1F61B}", "\u{1F61C}", "\u{1F92A}", "\u{1F61D}", "\u{1F911}"]],
   ["face-hand", ["\u{1F917}", "\u{1F92D}", "\u{1F92B}", "\u{1F914}"]],
   [
@@ -64,7 +61,6 @@ export const emojiList: EmojiList = [
       "\u{1F615}",
       "\u{1F61F}",
       "\u{1F641}",
-      "\u{2639}",
       "\u{1F62E}",
       "\u{1F62F}",
       "\u{1F632}",
