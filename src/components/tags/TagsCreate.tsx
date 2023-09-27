@@ -1,11 +1,13 @@
-import { defineComponent } from "vue";
+import { defineComponent, reactive } from "vue";
 import svgBack from "../../assets/icons/back.svg";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Button } from "../../shared/Button";
+import { EmojiSelect } from "../../shared/EmojiSelect";
 import { Icon } from "../../shared/Icon";
 import s from "./TagsCreate.module.scss";
 export const TagsCreate = defineComponent({
   setup() {
+    const formData = reactive({ name: "", sign: "" });
     return () => (
       <MainLayout>
         {{
@@ -15,162 +17,12 @@ export const TagsCreate = defineComponent({
             <form class={s.form}>
               <div class={s.tagNameWrapper}>
                 <span>标签名</span>
-                <input />
+                <input v-model={formData.name} />
                 <span class={s.error}>必填</span>
               </div>
               <div class={s.tagEmojiWrapper}>
-                <span class={s.tagEmojiTitle}>符号</span>
-                <div class={[s.tagEmojiList, s.emojiErrorBorder]}>
-                  <nav>
-                    <span>表情</span>
-                    <span>手势</span>
-                    <span>职业</span>
-                    <span>衣服</span>
-                    <span>动物</span>
-                    <span>自然</span>
-                    <span>食物</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                    <span>运动</span>
-                  </nav>
-                  <ul>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                    <li>{"\u{1F600}"}</li>
-                  </ul>
-                </div>
+                <span class={s.tagEmojiTitle}>符号: {formData.sign}</span>
+                <EmojiSelect v-model={formData.sign} />
                 <span class={s.emojiErrorText}>必填</span>
               </div>
               <div class={s.emojiTips}>

@@ -21,7 +21,14 @@ export const ItemCreate = defineComponent({
           content: () => (
             <>
               <Tabs v-model:selected={refSelected.value}>
-                <Tab name="支出">icon列表</Tab>
+                <Tab name="支出">
+                  icon列表
+                  <br />
+                  <br />
+                  <h2>
+                    <RouterLink to={"/tags/create"}>創建tags</RouterLink>
+                  </h2>
+                </Tab>
                 <Tab name="收入">icon列表2</Tab>
               </Tabs>
               <InputPad></InputPad>
