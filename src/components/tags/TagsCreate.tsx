@@ -21,7 +21,6 @@ export const TagsCreate = defineComponent({
               <div class={s.tagNameWrapper}>
                 <span>标签名</span>
                 <input v-model={formData.name} />
-                <input v-model={formData.name} />
                 <span class={s.error}>必填</span>
               </div>
               <div class={s.tagEmojiWrapper}>
