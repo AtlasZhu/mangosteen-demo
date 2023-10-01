@@ -1,15 +1,15 @@
 .tabs {
+  position: relative;
   > .nav {
     display: flex;
     align-items: center;
-
     text-align: center;
-
     background: var(--navbar-bg-end);
+    position: sticky;
+    top: 0;
     > li {
       flex-grow: 1;
       flex-shrink: 0;
-
       padding: 12px 0;
       &.selected {
         position: relative;
@@ -21,7 +21,7 @@
           display: block;
 
           width: 100%;
-          height: 6px;
+          height: 3px;
 
           content: "";
 
@@ -29,5 +29,8 @@
         }
       }
     }
+  }
+  .tab {
+    height: 100%;
   }
 }

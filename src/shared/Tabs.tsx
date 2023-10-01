@@ -23,7 +23,7 @@ export const Tabs = defineComponent({
               </li>
             ))}
           </ul>
-          <div>{children.find(item => item.props?.name === props.selected)}</div>
+          <div class={s.tab}>{children.find(item => item.props?.name === props.selected)}</div>
         </div>
       );
     };
@@ -32,6 +32,6 @@ export const Tabs = defineComponent({
 export const Tab = defineComponent({
   props: { name: { type: String, required: true } },
   setup(props, context) {
-    return () => <div>{context.slots.default?.()}</div>;
+    return () => <>{context.slots.default?.()}</>;
   },
 });
