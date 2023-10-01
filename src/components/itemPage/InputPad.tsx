@@ -13,6 +13,7 @@ export const InputPad = defineComponent({
     const refAmountText = ref<[amountTextType]>(["0"]);
 
     const appendAmountText = (text: amountTextType) => {
+      if (refAmountText.value.length >= 16) return;
       const dotIndex = refAmountText.value.indexOf(".");
       if (dotIndex > -1 && refAmountText.value.slice(dotIndex + 1).length >= 2) return;
 
