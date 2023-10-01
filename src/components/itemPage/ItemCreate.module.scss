@@ -1,0 +1,22 @@
+.tag_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  > li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    height: calc(20vw * 1.14);
+
+    > .sign {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 12vw;
+      height: 12vw;
+      border-radius: 50%;
+      background-color: var(--button-bg);
+    }
+  }
+}
