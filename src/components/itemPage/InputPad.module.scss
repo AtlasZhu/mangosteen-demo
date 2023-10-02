@@ -64,6 +64,9 @@
       &:nth-child(3) {
         grid-area: button0;
       }
+      &:hover {
+        background-color: beige;
+      }
     }
   }
 }

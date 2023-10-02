@@ -32,7 +32,7 @@ export const TagForm = defineComponent({
           <span class={s.emojiErrorText}>{errors["sign"] ? errors["sign"] : "　"}</span>
         </div>
         <div class={s.emojiTips}>
-          <p>记账时长按标签即可进行编辑</p>
+          <p>长按标签即可进行编辑</p>
         </div>
         <div class={s.buttonWrapper}>
           <Button class={s.button}>确定</Button>

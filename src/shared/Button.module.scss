@@ -1,11 +1,29 @@
 .button {
   font-size: var(--button-font-size);
   height: var(--button-height);
-  background-color: var(--button-bg);
   padding: 8px 16px;
-  border: 1.8px solid var(--button-bg);
   border-radius: var(--button-border-radius);
-  &:hover {
-    border: 1.8px solid var(--button-border-hover-color);
+
+  &.important {
+    background-color: var(--button-bg);
+    border: 1.8px solid var(--button-bg);
+    &:hover {
+      border: 1.8px solid var(--button-border-hover-color);
+    }
+  }
+  &.normal {
+    background-color: white;
+    border: 1.8px solid white;
+    &:hover {
+      border: 1.8px solid grey;
+    }
+  }
+  &.danger {
+    background-color: rgb(211, 16, 16);
+    border: 1.8px solid rgb(211, 16, 16);
+    color: whitesmoke;
+    &:hover {
+      border: 2px solid #830606;
+    }
   }
 }

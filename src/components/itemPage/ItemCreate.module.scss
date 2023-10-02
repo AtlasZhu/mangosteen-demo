@@ -44,6 +44,9 @@
           height: 12vw;
           border-radius: 50%;
           background-color: var(--button-bg);
+          &:hover {
+            border: 4px solid var(--button-border-hover-color);
+          }
         }
       }
     }

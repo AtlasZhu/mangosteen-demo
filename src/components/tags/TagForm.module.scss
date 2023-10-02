@@ -40,3 +40,13 @@
     }
   }
 }
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 16px 16px;
+  > .deleteTag,
+  .deleteTagAndRecord {
+    width: calc(50% - 8px);
+  }
+}
