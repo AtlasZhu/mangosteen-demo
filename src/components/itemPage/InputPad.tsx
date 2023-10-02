@@ -5,7 +5,7 @@ import "vant/es/popup/style";
 import { defineComponent, ref } from "vue";
 import svgDate from "../../assets/icons/date.svg";
 import { Icon } from "../../shared/Icon";
-import { time } from "../../shared/time";
+import { Time } from "../../shared/time";
 import s from "./InputPad.module.scss";
 export const InputPad = defineComponent({
   setup() {
@@ -47,7 +47,7 @@ export const InputPad = defineComponent({
       { text: "9", onClick: () => appendAmountText("9") },
       { text: ".", onClick: () => appendAmountText(".") },
     ];
-    let currentDate = time().formatAsArray(["YYYY", "MM", "DD"]);
+    let currentDate = new Time().formatAsArray(["YYYY", "MM", "DD"]);
     const refDate = ref(currentDate);
     const refDatePickerVisible = ref(false);
     const showDatePicker = () => {

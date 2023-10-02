@@ -1,37 +1,90 @@
-export const time = (date = new Date()) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
-  const millSecond = date.getMilliseconds();
+type DateKeys = "YYYY" | "MM" | "DD" | "HH" | "mm" | "ss" | "sss";
+export class Time {
+  date: Date;
+  constructor(date = new Date()) {
+    this.date = date;
+  }
+  getDateObj() {
+    return {
+      year: this.date.getFullYear(),
+      month: this.date.getMonth() + 1,
+      day: this.date.getDate(),
+      hour: this.date.getHours(),
+      minute: this.date.getMinutes(),
+      second: this.date.getSeconds(),
+      millSecond: this.date.getMilliseconds(),
+    };
+  }
+  getDateStringObj() {
+    const dateObj = this.getDateObj();
+    return {
+      YYYY: dateObj.year.toString().padStart(4, "0"),
+      MM: dateObj.month.toString().padStart(2, "0"),
+      DD: dateObj.day.toString().padStart(2, "0"),
+      HH: dateObj.hour.toString().padStart(2, "0"),
+      mm: dateObj.minute.toString().padStart(2, "0"),
+      ss: dateObj.second.toString().padStart(2, "0"),
+      sss: dateObj.millSecond.toString().padStart(3, "0"),
+    };
+  }
+  formatAsString(pattern = "YYYY-MM-DD-HH-mm-ss-sss") {
+    const dateStringObj = this.getDateStringObj();
+    return pattern
+      .replace("YYYY", dateStringObj.YYYY)
+      .replace("MM", dateStringObj.MM)
+      .replace("DD", dateStringObj.DD)
+      .replace("HH", dateStringObj.HH)
+      .replace("mm", dateStringObj.mm)
+      .replace("ss", dateStringObj.ss)
+      .replace("sss", dateStringObj.sss);
+  }
+  formatAsArray(pattern: DateKeys[] = ["YYYY", "MM", "DD", "HH", "mm", "ss", "sss"]) {
+    const dateStringObj = this.getDateStringObj();
+    return pattern.map(item => dateStringObj[item]);
+  }
 
-  const dateObj = {
-    YYYY: year.toString().padStart(4, "0"),
-    MM: month.toString().padStart(2, "0"),
-    DD: day.toString().padStart(2, "0"),
-    HH: hour.toString().padStart(2, "0"),
-    mm: minute.toString().padStart(2, "0"),
-    ss: second.toString().padStart(2, "0"),
-    sss: millSecond.toString().padStart(3, "0"),
-  };
-  type DateKeys = "YYYY" | "MM" | "DD" | "HH" | "mm" | "ss" | "sss";
-
-  const api = {
-    formatAsString: (pattern = "YYYY-MM-DD-HH-mm-ss-sss") => {
-      return pattern
-        .replace("YYYY", dateObj.YYYY)
-        .replace("MM", dateObj.MM)
-        .replace("DD", dateObj.DD)
-        .replace("HH", dateObj.HH)
-        .replace("mm", dateObj.mm)
-        .replace("ss", dateObj.ss)
-        .replace("sss", dateObj.sss);
-    },
-    formatAsArray: (pattern: DateKeys[] = ["YYYY", "MM", "DD", "HH", "mm", "ss", "sss"]) => {
-      return pattern.map(item => dateObj[item]);
-    },
-  };
-  return api;
-};
+  firstDayOfMonth() {
+    return new Time(new Date(this.date.getFullYear(), this.date.getMonth(), 1, 0, 0, 0));
+  }
+  firstDayOfYear() {
+    return new Time(new Date(this.date.getFullYear(), 0, 1, 0, 0, 0));
+  }
+  lastDayOfMonth() {
+    return new Time(new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0, 0, 0, 0));
+  }
+  lastDayOfYear() {
+    return new Time(new Date(this.date.getFullYear() + 1, 0, 0, 0, 0, 0));
+  }
+  add(amount: number, unit: "year" | "month" | "day" | "hour" | "minute" | "second" | "millisecond") {
+    let date = new Date(this.date.getTime());
+    switch (unit) {
+      case "year":
+        date.setFullYear(date.getFullYear() + amount);
+        break;
+      case "month":
+        const date1 = date.getDate();
+        date.setDate(1);
+        date.setMonth(date.getMonth() + amount);
+        const date2 = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0);
+        date.setDate(Math.min(date1, date2.getDate()));
+        break;
+      case "day":
+        date.setDate(date.getDate() + amount);
+        break;
+      case "hour":
+        date.setHours(date.getHours() + amount);
+        break;
+      case "minute":
+        date.setMinutes(date.getSeconds() + amount);
+        break;
+      case "second":
+        date.setSeconds(date.getSeconds() + amount);
+        break;
+      case "millisecond":
+        date.setMilliseconds(date.getMilliseconds() + amount);
+        break;
+      default:
+        throw new Error("Time.add :unknown unit");
+    }
+  }
+}
