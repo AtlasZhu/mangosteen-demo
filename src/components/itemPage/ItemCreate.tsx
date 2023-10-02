@@ -361,7 +361,9 @@ export const ItemCreate = defineComponent({
                     <ul>
                       <li>
                         <div class={s.addTag}>
-                          <Icon iconName={svgPlus}></Icon>
+                          <RouterLink to={"/tags/create"}>
+                            <Icon iconName={svgPlus}></Icon>
+                          </RouterLink>
                         </div>
                         <div>{"增加"}</div>
                       </li>

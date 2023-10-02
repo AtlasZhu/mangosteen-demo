@@ -25,10 +25,15 @@
           width: 12vw;
           height: 12vw;
           border-radius: 50%;
-          // border: 1px solid var(--button-border-hover-color);
-          > svg {
-            height: 6vw;
-            width: 6vw;
+          border: 1px solid var(--button-border-hover-color);
+          > a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            > svg {
+              height: 8vw;
+              width: 8vw;
+            }
           }
         }
         > .sign {
