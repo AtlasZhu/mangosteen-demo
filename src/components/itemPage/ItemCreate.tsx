@@ -363,7 +363,7 @@ export const ItemCreate = defineComponent({
                         <div class={s.addTag}>
                           <Icon iconName={svgPlus}></Icon>
                         </div>
-                        {"增加标签"}
+                        <div>{"增加"}</div>
                       </li>
                       {refExpensesTags.value.map(tag => (
                         <li>
