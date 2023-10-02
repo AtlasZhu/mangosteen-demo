@@ -1,0 +1,45 @@
+.overlayWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .overlayContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 86%;
+    height: 40%;
+    padding: 1.5rem;
+    background-color: rgb(234, 236, 191);
+    > header {
+      font-size: 1.3rem;
+    }
+    > main > label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      white-space: nowrap;
+      width: 100%;
+      &:not(:first-child) {
+        display: flex;
+        margin-top: 12px;
+      }
+      > input {
+        height: 2.6rem;
+        width: 100%;
+        border: transparent;
+        margin-top: 0.5rem;
+        border-radius: 0.5rem;
+        padding: 0.3rem 0.8rem;
+      }
+    }
+    > footer {
+      display: flex;
+      justify-content: space-between;
+      > .cancel,
+      .confirm {
+        width: 46%;
+      }
+    }
+  }
+}
