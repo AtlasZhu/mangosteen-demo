@@ -86,5 +86,6 @@ export class Time {
       default:
         throw new Error("Time.add :unknown unit");
     }
+    return new Time(date);
   }
 }
