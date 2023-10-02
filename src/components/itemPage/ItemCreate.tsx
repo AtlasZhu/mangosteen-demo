@@ -331,7 +331,7 @@ export const ItemCreate = defineComponent({
       },
       {
         id: 3,
-        name: "娱乐",
+        name: "最后一个",
         sign: "￥",
         category: "expenses",
       },

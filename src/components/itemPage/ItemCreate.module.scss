@@ -2,9 +2,11 @@
   height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   .tag_wrapper {
     height: calc(100vh - 80px - 293px - 44.6px);
-    overflow: scroll;
+    overflow-y: auto;
+    width: calc(100% + 17px);
     > ul {
       display: flex;
       flex-wrap: wrap;
@@ -25,8 +27,8 @@
           border-radius: 50%;
           // border: 1px solid var(--button-border-hover-color);
           > svg {
-            height: 8vw;
-            width: 8vw;
+            height: 6vw;
+            width: 6vw;
           }
         }
         > .sign {
