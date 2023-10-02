@@ -14,9 +14,9 @@ export const TagForm = defineComponent({
     ];
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({}); //errors的key必存在于formData的key中
     const onFormSubmit = (e: Event) => {
+      e.preventDefault();
       Object.assign(errors, { name: undefined, sign: undefined }); //清空上次校验后，可能残留的errors
       Object.assign(errors, validate(formData, rules));
-      e.preventDefault();
     };
     return () => (
       <form class={s.form} onSubmit={onFormSubmit}>
