@@ -1,5 +1,5 @@
 import { Overlay } from "vant";
-import { defineComponent, ref, watchEffect } from "vue";
+import { defineComponent, ref } from "vue";
 import svgMenu from "../../assets/icons/menu.svg";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Button } from "../../shared/Button";
@@ -22,9 +22,6 @@ export const ItemList = defineComponent({
     ];
     const customTime = ref({ start: new Time().formatAsString(), end: new Time().formatAsString() });
     const refOverlayVisible = ref(false);
-    watchEffect(() => {
-      if (refSelected.value === "自定义时间") refOverlayVisible.value = true;
-    });
     return () => (
       <MainLayout>
         {{
@@ -32,7 +29,11 @@ export const ItemList = defineComponent({
           title: () => "菠萝账本",
           content: () => (
             <>
-              <Tabs v-model:selected={refSelected.value}>
+              <Tabs
+                v-model:selected={refSelected.value}
+                onUpdate:selected={value => {
+                  if (value === "自定义时间") refOverlayVisible.value = true;
+                }}>
                 <Tab name="本月">
                   <ItemSummary startTime={timeList[0].start} endTime={timeList[0].end} />
                 </Tab>
