@@ -15,6 +15,7 @@
   top: var(--top-safe-area-height);
   width: 14em;
   height: calc(100% - var(--top-safe-area-height));
+  left: 0;
   > .userStatus {
     background: linear-gradient(to Bottom, var(--welcome-bg-start), var(--welcome-bg-end));
     padding: 24px;
@@ -33,12 +34,3 @@
     }
   }
 }
-
-//.overlayLeaveToClass,
-//.overlayEnterFromClass {
-//  transform: translateX(-100%);
-//}
-//.overlayLeaveActiveClass,
-//.overlayEnterActiveClass {
-//  transition: all var(--transition-duration) ease;
-//}

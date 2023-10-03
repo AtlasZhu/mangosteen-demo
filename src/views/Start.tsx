@@ -1,26 +1,20 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { RouterLink } from "vue-router";
-import menu from "../assets/icons/menu.svg";
 import pig from "../assets/icons/pig.svg";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
-import { Overlay } from "../shared/Overlay";
+import { OverlayIcon } from "../shared/OverlayIcon";
 import s from "./Start.module.scss";
 
 export const Start = defineComponent({
   setup() {
-    const overlayVisible = ref(false);
-    const changeOverlayVisible = () => {
-      overlayVisible.value = !overlayVisible.value;
-      // console.log(overlayVisible.value);
-    };
     return () => (
       <MainLayout>
         {{
-          icon: () => <Icon iconName={menu} onClick={changeOverlayVisible}></Icon>,
+          icon: () => <OverlayIcon />,
           title: () => "菠萝账本",
           content: () => (
             <>
@@ -35,7 +29,6 @@ export const Start = defineComponent({
               <RouterLink to="/items/create">
                 <FloatButton></FloatButton>
               </RouterLink>
-              {overlayVisible.value && <Overlay onClick={changeOverlayVisible}></Overlay>}
             </>
           ),
         }}
