@@ -7,6 +7,7 @@ import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
 import { history } from "../shared/history";
 import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
+import { SignInPage } from "../views/SignInPage";
 import { Start } from "../views/Start";
 import { TagsPage } from "../views/TagsPage";
 import { Welcome } from "../views/Welcome";
@@ -55,6 +56,7 @@ const routes: RouteRecordRaw[] = [
       { path: "edit", component: TagsEdit },
     ],
   },
+  { path: "/signin", component: SignInPage },
 
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];

@@ -24,10 +24,11 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
         }
         break;
       case "pattern":
-        if (value && !rule.regex.test(value.toString())) {
+        if (value === undefined || value === null || !rule.regex.test(value.toString())) {
           errors[key] = errors[key] ?? [];
           errors[key]?.push(message);
         }
+
         break;
       default:
         return;
