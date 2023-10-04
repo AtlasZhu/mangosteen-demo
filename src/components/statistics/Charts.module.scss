@@ -1,10 +1,21 @@
-.selectWrapper {
+.wrapper {
   padding: 16px;
-  > select {
-    width: 70%;
-    height: 2.8rem;
-    border-radius: 8px;
-    margin-left: 16px;
-    padding-left: 16px;
+  .selectWrapper {
+    > select {
+      width: 70%;
+      height: 2.8rem;
+      border-radius: 8px;
+      margin-left: 16px;
+      padding-left: 16px;
+    }
+  }
+  .chartsWrapper {
+    margin-top: 16px;
+    > .lineChart {
+      height: 128px;
+    }
+    > .pieChart {
+      height: 70vw;
+    }
   }
 }

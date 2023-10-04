@@ -21,7 +21,7 @@ export default defineConfig({
   ],
   server: {
     host: "localhost", //ip地址
-    port: 3000, // 设置服务启动端口号
+    port: 20408, // 设置服务启动端口号
     open: false, // 设置服务启动时是否自动打开浏览器
   },
 });
