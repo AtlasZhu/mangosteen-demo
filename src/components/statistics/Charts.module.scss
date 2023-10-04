@@ -1,0 +1,10 @@
+.selectWrapper {
+  padding: 16px;
+  > select {
+    width: 70%;
+    height: 2.8rem;
+    border-radius: 8px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+}
