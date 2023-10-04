@@ -11,8 +11,6 @@ export const SignInPage = defineComponent({
     const formData = reactive({ email: "", validationCode: "" });
     const errors = reactive({ email: [], validationCode: [] });
     const login = () => {
-      console.log(11);
-
       Object.assign(errors, { email: [], validationCode: [] });
       Object.assign(
         errors,
@@ -43,7 +41,7 @@ export const SignInPage = defineComponent({
               <label class={s.validationCodeWrapper}>
                 验证码
                 <div class={s.validationCode}>
-                  <input v-model={formData.validationCode}></input>
+                  <input v-model={formData.validationCode} placeholder="输入验证码"></input>
                   <Button class={s.validationCodeSendButton}>发送验证码</Button>
                 </div>
                 <p>{errors.validationCode[0] ?? "　"}</p>

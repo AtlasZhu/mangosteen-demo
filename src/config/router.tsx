@@ -9,6 +9,7 @@ import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
 import { SignInPage } from "../views/SignInPage";
 import { Start } from "../views/Start";
+import { StatisticsPage } from "../views/StatisiticsPage";
 import { TagsPage } from "../views/TagsPage";
 import { Welcome } from "../views/Welcome";
 
@@ -57,7 +58,7 @@ const routes: RouteRecordRaw[] = [
     ],
   },
   { path: "/signin", component: SignInPage },
-
+  { path: "/statistics", component: StatisticsPage },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
 
