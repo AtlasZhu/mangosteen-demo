@@ -6,6 +6,7 @@
     text-align: center;
     background: var(--navbar-bg-end);
     position: sticky;
+    z-index: 1;
     top: 0;
     > li {
       flex-grow: 1;

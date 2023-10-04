@@ -1,5 +1,5 @@
 import { defineComponent, ref } from "vue";
-import menu from "../assets/icons/menu.svg";
+import svgMenu from "../assets/icons/menu.svg";
 import { Icon } from "./Icon";
 import { Overlay } from "./Overlay";
 export const OverlayIcon = defineComponent({
@@ -10,7 +10,7 @@ export const OverlayIcon = defineComponent({
     };
     return () => (
       <>
-        <Icon iconName={menu} onClick={changeOverlayVisible}></Icon>
+        <Icon iconName={svgMenu} onClick={changeOverlayVisible}></Icon>
         {overlayVisible.value && <Overlay onClick={changeOverlayVisible}></Overlay>}
       </>
     );
