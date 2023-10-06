@@ -1,4 +1,5 @@
-import { defineComponent, reactive } from "vue";
+import axios from "axios";
+import { defineComponent, reactive, ref } from "vue";
 import svgBack from "../assets/icons/back.svg";
 import svgPineapple from "../assets/icons/pineapple.svg";
 import { MainLayout } from "../layouts/MainLayout";
@@ -10,21 +11,64 @@ export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({ email: "", validationCode: "" });
     const errors = reactive({ email: [], validationCode: [] });
-    const login = () => {
+    const checkForm = (checkType: "email" | "all") => {
       Object.assign(errors, { email: [], validationCode: [] });
+      if (checkType === "all") {
+        Object.assign(
+          errors,
+          validate(formData, [
+            {
+              key: "validationCode",
+              type: "pattern",
+              regex: /^\d{6}$/,
+              message: "验证码为六位数字",
+            },
+          ]),
+        );
+      }
       Object.assign(
         errors,
         validate(formData, [
-          { key: "email", type: "pattern", regex: /^.+@.+\..+$/, message: "邮箱格式不规范" },
           {
-            key: "validationCode",
+            key: "email",
             type: "pattern",
-            regex: /^\d{6}$/,
-            message: "验证码为六位数字",
+            regex: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$/,
+            message: "邮箱格式不规范",
           },
         ]),
       );
     };
+    const login = () => {
+      checkForm("all");
+    };
+    const sendCode = () => {
+      return axios.post("/api/v1/validation_codes", { email: formData.email });
+    };
+
+    const count = ref(0);
+    const isCounting = ref(false);
+    const countInterval = ref<number>();
+    const onClickSendCodeButton = () => {
+      if (isCounting.value) return;
+      checkForm("email");
+      if (errors.email.length > 0) return;
+
+      sendCode().then(res => {
+        console.log(res);
+
+        count.value = 3;
+        isCounting.value = true;
+        countInterval.value = setInterval(() => {
+          count.value--;
+          if (count.value <= 0) {
+            clearInterval(countInterval.value);
+            countInterval.value = undefined;
+            isCounting.value = false;
+          }
+        }, 1000);
+      });
+    };
+
     return () => (
       <MainLayout>
         {{
@@ -42,7 +86,12 @@ export const SignInPage = defineComponent({
                 验证码
                 <div class={s.validationCode}>
                   <input v-model={formData.validationCode} placeholder="输入验证码"></input>
-                  <Button class={s.validationCodeSendButton}>发送验证码</Button>
+                  <Button
+                    disabled={isCounting.value}
+                    class={s.validationCodeSendButton}
+                    onClick={onClickSendCodeButton}>
+                    {isCounting.value ? <span>{count.value}秒后可重新发送</span> : <span> 发送验证码</span>}
+                  </Button>
                 </div>
                 <p>{errors.validationCode[0] ?? "　"}</p>
               </label>

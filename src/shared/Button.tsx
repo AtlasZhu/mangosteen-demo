@@ -10,6 +10,9 @@ export const Button = defineComponent({
       type: String as PropType<"important" | "normal" | "danger">,
       default: "important",
     },
+    disabled: {
+      type: Boolean,
+    },
   },
   setup(props, context) {
     const classArray = [s.button];
@@ -20,7 +23,7 @@ export const Button = defineComponent({
       classArray.push(s.important);
     }
     return () => (
-      <button onClick={props.onClick} class={classArray}>
+      <button disabled={props.disabled} onClick={props.onClick} class={classArray}>
         {context.slots.default?.()}
       </button>
     );
