@@ -1,22 +1,24 @@
-import axios from "axios";
 import { defineComponent, reactive, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import svgBack from "../assets/icons/back.svg";
 import svgPineapple from "../assets/icons/pineapple.svg";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
+import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
-import { validate } from "../shared/validate";
+import { clearErrors, hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({ email: "", validationCode: "" });
     const errors = reactive({ email: [], validationCode: [] });
     const checkForm = (checkType: "email" | "all") => {
-      Object.assign(errors, { email: [], validationCode: [] });
+      clearErrors(errors);
       if (checkType === "all") {
         Object.assign(
           errors,
           validate(formData, [
+            { key: "validationCode", type: "required", message: "必填" },
             {
               key: "validationCode",
               type: "pattern",
@@ -29,6 +31,7 @@ export const SignInPage = defineComponent({
       Object.assign(
         errors,
         validate(formData, [
+          { key: "email", type: "required", message: "必填" },
           {
             key: "email",
             type: "pattern",
@@ -38,35 +41,56 @@ export const SignInPage = defineComponent({
         ]),
       );
     };
-    const login = () => {
-      checkForm("all");
-    };
-    const sendCode = () => {
-      return axios.post("/api/v1/validation_codes", { email: formData.email });
-    };
 
+    const sendCode = () => {
+      return http.post("validation_codes", { email: formData.email });
+    };
+    const onResponseError = (error: any) => {
+      if (error.response?.status === 422) {
+        clearErrors(errors);
+        Object.assign(errors, error.response.data.errors);
+      }
+    };
     const count = ref(0);
     const isCounting = ref(false);
     const countInterval = ref<number>();
+    const buttonDisabled = ref(false);
     const onClickSendCodeButton = () => {
       if (isCounting.value) return;
       checkForm("email");
-      if (errors.email.length > 0) return;
-
-      sendCode().then(res => {
-        console.log(res);
-
-        count.value = 3;
-        isCounting.value = true;
-        countInterval.value = setInterval(() => {
-          count.value--;
-          if (count.value <= 0) {
-            clearInterval(countInterval.value);
-            countInterval.value = undefined;
-            isCounting.value = false;
-          }
-        }, 1000);
-      });
+      if (hasError(errors)) return;
+      buttonDisabled.value = true;
+      sendCode()
+        .then(() => {
+          count.value = 3;
+          isCounting.value = true;
+          countInterval.value = setInterval(() => {
+            count.value--;
+            if (count.value <= 0) {
+              clearInterval(countInterval.value);
+              countInterval.value = undefined;
+              isCounting.value = false;
+            }
+          }, 1000);
+        })
+        .catch(onResponseError)
+        .finally(() => {
+          buttonDisabled.value = false;
+        });
+    };
+    const router = useRouter();
+    const route = useRoute();
+    const login = () => {
+      checkForm("all");
+      if (hasError(errors)) return;
+      http
+        .post<{ jwt: string }>("/session", formData)
+        .then(response => {
+          localStorage.setItem("jwt", response.data.jwt);
+          const returnTo = route.query.return_to?.toString();
+          router.push(returnTo || "/");
+        })
+        .catch(onResponseError);
     };
 
     return () => (
@@ -87,10 +111,10 @@ export const SignInPage = defineComponent({
                 <div class={s.validationCode}>
                   <input v-model={formData.validationCode} placeholder="输入验证码"></input>
                   <Button
-                    disabled={isCounting.value}
+                    disabled={isCounting.value || buttonDisabled.value}
                     class={s.validationCodeSendButton}
                     onClick={onClickSendCodeButton}>
-                    {isCounting.value ? <span>{count.value}秒后可重新发送</span> : <span> 发送验证码</span>}
+                    {isCounting.value ? <span>已发送，{count.value}秒后可重发</span> : <span> 发送验证码</span>}
                   </Button>
                 </div>
                 <p>{errors.validationCode[0] ?? "　"}</p>

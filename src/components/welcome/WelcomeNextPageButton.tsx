@@ -5,7 +5,6 @@ export const WelcomeNextPageButton = defineComponent({
   props: { nextPageUrl: { type: String, required: true } },
   setup(props) {
     return () => {
-      // console.log(props.nextPageUrl);
       if (props.nextPageUrl !== "/start") {
         return (
           <div class={s.actions}>

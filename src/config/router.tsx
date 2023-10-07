@@ -57,7 +57,7 @@ const routes: RouteRecordRaw[] = [
       { path: "edit", component: TagsEdit },
     ],
   },
-  { path: "/signin", component: SignInPage },
+  { path: "/sign_in", component: SignInPage },
   { path: "/statistics", component: StatisticsPage },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
