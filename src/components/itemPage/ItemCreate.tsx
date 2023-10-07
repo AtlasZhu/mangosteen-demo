@@ -1,8 +1,9 @@
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, reactive, ref } from "vue";
 import { RouterLink } from "vue-router";
 import svgBack from "../../assets/icons/back.svg";
 import svgPlus from "../../assets/icons/plus.svg";
 import { MainLayout } from "../../layouts/MainLayout";
+import { Button } from "../../shared/Button";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
@@ -10,21 +11,33 @@ import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 export const ItemCreate = defineComponent({
   setup() {
-    const refSelected = ref("支出");
-    type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
     const expenseTagExample = {
       id: 1,
       name: "餐费",
       sign: "￥",
       kind: "expenses",
     };
+
+    const refSelected = ref("支出");
+
+    type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
+    type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
+
     const refExpensesTags = ref<Tag[]>([]);
     const refIncomeTags = ref<Tag[]>([]);
+
+    const tagsInfo = reactive({ page: 0, hasMore: false });
+
     onMounted(() => {
-      http
-        .get<{ resources: Tag[] }>("/tags", { kind: "expenses" })
-        .then(response => (refExpensesTags.value = response.data.resources));
+      http.get<Resources<Tag>>("/tags", { kind: "expenses" }).then(response => {
+        const { resources, pager } = response.data;
+        const { page, per_page, count } = pager;
+        refExpensesTags.value = resources;
+        tagsInfo.page++;
+        tagsInfo.hasMore = (page - 1) * per_page + resources.length < count;
+      });
     });
+
     return () => (
       <MainLayout>
         {{
@@ -55,6 +68,12 @@ export const ItemCreate = defineComponent({
                         </li>
                       ))}
                     </ul>
+
+                    {tagsInfo.hasMore && (
+                      <div class={s.loadMore_wrapper}>
+                        <Button class={s.loadMore}>加载下一页</Button>
+                      </div>
+                    )}
                   </div>
                 </Tab>
 

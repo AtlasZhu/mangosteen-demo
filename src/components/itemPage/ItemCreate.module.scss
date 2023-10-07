@@ -50,5 +50,15 @@
         }
       }
     }
+    > .loadMore_wrapper {
+      width: 100%;
+      margin: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      > .loadMore {
+        width: 8em;
+      }
+    }
   }
 }
