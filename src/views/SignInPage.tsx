@@ -45,6 +45,7 @@ export const SignInPage = defineComponent({
     const sendCode = () => {
       return http.post("validation_codes", { email: formData.email });
     };
+
     const onResponseError = (error: any) => {
       if (error.response?.status === 422) {
         clearErrors(errors);
