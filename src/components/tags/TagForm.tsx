@@ -9,7 +9,7 @@ export const TagForm = defineComponent({
     const formData = reactive({ name: "", sign: "" });
     const rules: Rules<typeof formData> = [
       { key: "name", type: "required", message: "必填" },
-      { key: "name", type: "pattern", regex: /^.{1,18}$/, message: "限制1到18个字符之间" },
+      { key: "name", type: "pattern", regex: /^.{1,10}$/, message: "限制1到18个字符之间" },
       { key: "sign", type: "required", message: "必填" },
     ];
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({}); //errors的key必存在于formData的key中

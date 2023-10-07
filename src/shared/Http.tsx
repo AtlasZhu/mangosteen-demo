@@ -40,7 +40,7 @@ http.instance.interceptors.request.use(requestConfig => {
 });
 http.instance.interceptors.response.use(
   response => {
-    console.log(response);
+    console.log("接收到数据：", response.data);
     return response;
   },
   error => {
