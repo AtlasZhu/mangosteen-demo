@@ -35,3 +35,18 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
   });
   return errors;
 };
+export const clearErrors = (errors: Record<string, string[]>) => {
+  for (let key in errors) {
+    errors[key] = [];
+  }
+};
+export const hasError = (errors: Record<string, string[]>) => {
+  let errorExist = false;
+  for (let key in errors) {
+    if (errors[key].length > 0) {
+      errorExist = true;
+      break;
+    }
+  }
+  return errorExist;
+};
