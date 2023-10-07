@@ -33,11 +33,14 @@ export class Http {
 
 export const http = new Http("/api/v1");
 
-http.instance.interceptors.request.use();
+http.instance.interceptors.request.use(requestConfig => {
+  const jwt = localStorage.getItem("jwt");
+  requestConfig.headers.Authorization = `Bearer ${jwt}`;
+  return requestConfig;
+});
 http.instance.interceptors.response.use(
   response => {
     console.log(response);
-
     return response;
   },
   error => {

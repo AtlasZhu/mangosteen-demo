@@ -5,6 +5,7 @@ import { TagsCreate } from "../components/tags/TagsCreate";
 import { TagsEdit } from "../components/tags/TagsEdit";
 import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
 import { history } from "../shared/history";
+import { mePromise } from "../shared/me";
 import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
 import { SignInPage } from "../views/SignInPage";
@@ -19,8 +20,6 @@ const routes: RouteRecordRaw[] = [
     path: "/welcome",
     component: Welcome,
     beforeEnter: (to, enter, next) => {
-      console.log("跳过welcome页");
-
       localStorage.getItem("skipFeatures") === "yes" ? next("/start") : next();
     },
     children: [
@@ -68,3 +67,23 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export const router = createRouter({ history, routes });
+
+const noLoginCheckList = {
+  exact: ["/", "/start"],
+  startWith: ["/welcome", "/sign_in"],
+};
+router.beforeEach((to, from) => {
+  let noLoginCheck = false;
+  noLoginCheckList.startWith.forEach(value => {
+    if (to.path.startsWith(value)) noLoginCheck = true;
+  });
+  if (noLoginCheckList.exact.indexOf(to.path) >= 0) noLoginCheck = true;
+
+  return (
+    noLoginCheck ||
+    mePromise.then(
+      () => true,
+      () => "/sign_in?return_to=" + to.path,
+    )
+  );
+});

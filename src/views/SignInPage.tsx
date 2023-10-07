@@ -6,6 +6,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
+import { refreshMe } from "../shared/me";
 import { clearErrors, hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
@@ -89,7 +90,9 @@ export const SignInPage = defineComponent({
         .then(response => {
           localStorage.setItem("jwt", response.data.jwt);
           const returnTo = route.query.return_to?.toString();
-          router.push(returnTo || "/");
+          refreshMe()
+            .then(() => router.push(returnTo || "/"))
+            .catch(() => alert("身份信息异常"));
         })
         .catch(onResponseError);
     };
