@@ -14,12 +14,10 @@ export const SignInPage = defineComponent({
     const errors = reactive({ email: [], validationCode: [] });
     const checkForm = (checkType: "email" | "all") => {
       clearErrors(errors);
-      clearErrors(errors);
       if (checkType === "all") {
         Object.assign(
           errors,
           validate(formData, [
-            { key: "validationCode", type: "required", message: "必填" },
             { key: "validationCode", type: "required", message: "必填" },
             {
               key: "validationCode",
@@ -34,7 +32,6 @@ export const SignInPage = defineComponent({
         errors,
         validate(formData, [
           { key: "email", type: "required", message: "必填" },
-          { key: "email", type: "required", message: "必填" },
           {
             key: "email",
             type: "pattern",
@@ -47,7 +44,6 @@ export const SignInPage = defineComponent({
 
     const sendCode = () => {
       return http.post("validation_codes", { email: formData.email });
-      return http.post("validation_codes", { email: formData.email });
     };
     const onResponseError = (error: any) => {
       if (error.response?.status === 422) {
@@ -56,39 +52,13 @@ export const SignInPage = defineComponent({
       }
     };
 
-    const onResponseError = (error: any) => {
-      if (error.response?.status === 422) {
-        clearErrors(errors);
-        Object.assign(errors, error.response.data.errors);
-      }
-    };
     const count = ref(0);
     const isCounting = ref(false);
     const countInterval = ref<number>();
     const buttonDisabled = ref(false);
-    const buttonDisabled = ref(false);
     const onClickSendCodeButton = () => {
       if (isCounting.value) return;
       checkForm("email");
-      if (hasError(errors)) return;
-      buttonDisabled.value = true;
-      sendCode()
-        .then(() => {
-          count.value = 3;
-          isCounting.value = true;
-          countInterval.value = setInterval(() => {
-            count.value--;
-            if (count.value <= 0) {
-              clearInterval(countInterval.value);
-              countInterval.value = undefined;
-              isCounting.value = false;
-            }
-          }, 1000);
-        })
-        .catch(onResponseError)
-        .finally(() => {
-          buttonDisabled.value = false;
-        });
       if (hasError(errors)) return;
       buttonDisabled.value = true;
       sendCode()
