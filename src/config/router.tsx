@@ -18,6 +18,11 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/welcome",
     component: Welcome,
+    beforeEnter: (to, enter, next) => {
+      console.log("跳过welcome页");
+
+      localStorage.getItem("skipFeatures") === "yes" ? next("/start") : next();
+    },
     children: [
       { path: "", redirect: "/welcome/1" },
       {
