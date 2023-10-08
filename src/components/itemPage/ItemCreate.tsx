@@ -1,8 +1,7 @@
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import { RouterLink } from "vue-router";
 import svgBack from "../../assets/icons/back.svg";
 import { MainLayout } from "../../layouts/MainLayout";
-import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { InputPad } from "./InputPad";
@@ -11,22 +10,6 @@ import { ItemTags } from "./ItemTags";
 export const ItemCreate = defineComponent({
   setup() {
     const refSelected = ref("支出");
-
-    type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
-    const refExpensesTags = ref<Tag[]>([]);
-    const refIncomeTags = ref<Tag[]>([]);
-
-    const tagsInfo = reactive({ page: 0, hasMore: false });
-    type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
-    const loadMore = () => {
-      http.get<Resources<Tag>>("/tags", { kind: "expenses", page: tagsInfo.page + 1 }).then(response => {
-        const { resources, pager } = response.data;
-        refExpensesTags.value.push(...resources);
-        tagsInfo.page++;
-        tagsInfo.hasMore = refExpensesTags.value.length < pager.count;
-      });
-    };
-    onMounted(loadMore);
 
     return () => (
       <MainLayout>

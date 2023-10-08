@@ -20,9 +20,8 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: "127.0.0.1", //ip地址
+    host: "localhost", //ip地址
     port: 20408, // 设置服务启动端口号
     open: false, // 设置服务启动时是否自动打开浏览器
-    proxy: { "/api/v1": { target: "https://www.fastmock.site/mock/3af9c137d6379ae88c3930b6c95c8153/bookkeeping" } },
   },
 });
