@@ -6,8 +6,9 @@ import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import s from "./ItemTags.module.scss";
 export const ItemTags = defineComponent({
-  props: { kind: { type: String as PropType<"expenses" | "income">, required: true } },
-  setup(props) {
+  props: { kind: { type: String as PropType<"expenses" | "income">, required: true }, selected: { type: Number } },
+  emits: ["update:selected"],
+  setup(props, context) {
     type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
 
     const refTags = ref<Tag[]>([]);
@@ -23,7 +24,9 @@ export const ItemTags = defineComponent({
       });
     };
     onMounted(loadMore);
-
+    const onTagSelect = (id: number) => {
+      context.emit("update:selected", id);
+    };
     return () => (
       <div class={s.tag_wrapper}>
         <ul>
@@ -36,8 +39,8 @@ export const ItemTags = defineComponent({
             <div>{"增加"}</div>
           </li>
           {refTags.value.map(tag => (
-            <li>
-              <div class={s.sign}>{tag.sign}</div>
+            <li onClick={() => onTagSelect(tag.id)}>
+              <div class={[s.sign, tag.id === props.selected && s.selected]}>{tag.sign}</div>
               <span class={s.name}>{tag.name}</span>
             </li>
           ))}

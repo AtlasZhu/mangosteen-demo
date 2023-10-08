@@ -1,8 +1,8 @@
 type DateKeys = "YYYY" | "MM" | "DD" | "HH" | "mm" | "ss" | "sss";
 export class Time {
   date: Date;
-  constructor(date = new Date()) {
-    this.date = date;
+  constructor(date: Date | string = new Date()) {
+    this.date = date instanceof Date ? date : new Date(date);
   }
   getDateObj() {
     return {

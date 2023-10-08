@@ -47,7 +47,7 @@ const routes: RouteRecordRaw[] = [
     path: "/items",
     component: ItemPage,
     children: [
-      { path: "", redirect: "/items/create" },
+      { path: "", redirect: "/items/list" },
       { path: "create", component: ItemCreate },
       { path: "list", component: ItemList },
     ],
