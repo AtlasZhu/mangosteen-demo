@@ -1,16 +1,16 @@
 import { defineComponent } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
+import { BackIcon } from "../../shared/BackIcon";
 import { Button } from "../../shared/Button";
 import { TagForm } from "./TagForm";
 import s from "./TagForm.module.scss";
-import { BackIcon } from "../../shared/BackIcon";
 export const TagsEdit = defineComponent({
   setup() {
     return () => (
       <MainLayout>
         {{
           icon: () => <BackIcon />,
-          title: () => "新建标签",
+          title: () => "编辑标签",
           content: () => (
             <>
               <TagForm />
