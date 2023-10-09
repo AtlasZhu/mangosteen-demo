@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 interface ValidateData {
   [k: string]: string | number | null | undefined | ValidateData; //被校验的数据可能是简单数据类型，也可能是复杂数据类型，因此ValidateData设置为递归的
 }
@@ -43,10 +45,25 @@ export const clearErrors = (errors: Record<string, string[]>) => {
 export const hasError = (errors: Record<string, string[]>) => {
   let errorExist = false;
   for (let key in errors) {
-    if (errors[key].length > 0) {
+    if (errors[key]?.length > 0) {
       errorExist = true;
       break;
     }
   }
   return errorExist;
+};
+
+export const onAxiosError = (error: any, errorCode: number, fn: Function, throwError: boolean = true) => {
+  if (error.response) {
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status === errorCode) {
+      fn(axiosError.response.data);
+    }
+  }
+  if (throwError) throw error;
+};
+
+export const assignErrors = (errorsForm: Record<string, string[]>, errors: Record<string, string[]>) => {
+  clearErrors(errorsForm);
+  Object.assign(errorsForm, errors);
 };

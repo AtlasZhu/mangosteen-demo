@@ -6,7 +6,7 @@ import { Button } from "../shared/Button";
 import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
 import { refreshMe } from "../shared/me";
-import { clearErrors, hasError, validate } from "../shared/validate";
+import { assignErrors, hasError, onAxiosError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 import { BackIcon } from "../shared/BackIcon";
 export const SignInPage = defineComponent({
@@ -14,9 +14,8 @@ export const SignInPage = defineComponent({
     const formData = reactive({ email: "", validationCode: "" });
     const errors = reactive({ email: [], validationCode: [] });
     const checkForm = (checkType: "email" | "all") => {
-      clearErrors(errors);
       if (checkType === "all") {
-        Object.assign(
+        assignErrors(
           errors,
           validate(formData, [
             { key: "validationCode", type: "required", message: "必填" },
@@ -29,7 +28,7 @@ export const SignInPage = defineComponent({
           ]),
         );
       }
-      Object.assign(
+      assignErrors(
         errors,
         validate(formData, [
           { key: "email", type: "required", message: "必填" },
@@ -47,12 +46,10 @@ export const SignInPage = defineComponent({
       return http.post("/validation_codes", { email: formData.email });
     };
     const onResponseError = (error: any) => {
-      if (error.response?.status === 422) {
-        clearErrors(errors);
-        Object.assign(errors, error.response.data.errors);
-      }
+      onAxiosError(error, 422, (data: any) => {
+        assignErrors(errors, data.errors);
+      });
     };
-
     const count = ref(0);
     const isCounting = ref(false);
     const countInterval = ref<number>();

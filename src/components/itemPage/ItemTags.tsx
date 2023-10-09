@@ -32,7 +32,7 @@ export const ItemTags = defineComponent({
         <ul>
           <li>
             <div class={s.addTag}>
-              <RouterLink to={"/tags/create"}>
+              <RouterLink to={"/tags/create?kind="+props.kind}>
                 <Icon iconName={svgPlus}></Icon>
               </RouterLink>
             </div>

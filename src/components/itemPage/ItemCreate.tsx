@@ -9,6 +9,7 @@ import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { ItemTags } from "./ItemTags";
 import { BackIcon } from "../../shared/BackIcon";
+import { onAxiosError as onAxiosError } from "../../shared/validate";
 export const ItemCreate = defineComponent({
   setup() {
     const formData = reactive({
@@ -18,20 +19,14 @@ export const ItemCreate = defineComponent({
       amount: 0,
     });
     const router = useRouter();
+    const handleError = (data: any) => showDialog({ title: "错误", message: Object.values(data.errors).join("\n") });
     const onSubmit = () => {
       http
         .post("/items", formData)
         .then(() => {
           router.push("/items/list");
         })
-        .catch(error => {
-          if (error.response?.status === 422) {
-            showDialog({
-              title: "错误",
-              message: Object.values(error.response.data.errors).join("\n"),
-            });
-          }
-        });
+        .catch(error => onAxiosError(error, 422, handleError, false));
     };
     return () => (
       <MainLayout>

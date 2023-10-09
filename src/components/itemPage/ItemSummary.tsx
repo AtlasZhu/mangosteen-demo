@@ -1,12 +1,17 @@
 import { defineComponent } from "vue";
 import { FloatButton } from "../../shared/FloatButton";
 import s from "./ItemSummary.module.scss";
+import { useRouter } from "vue-router";
 export const ItemSummary = defineComponent({
   props: {
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
   },
   setup() {
+    const router = useRouter();
+    const onClickAddItemButton = () => {
+      router.push("/items/create");
+    };
     return () => (
       <div class={s.wrapper}>
         <ul class={s.total}>
@@ -38,7 +43,7 @@ export const ItemSummary = defineComponent({
           </li>
         </ul>
         <div class={s.more}>向下滑动加载更多</div>
-        <FloatButton />
+        <FloatButton onClick={onClickAddItemButton} />
       </div>
     );
   },
