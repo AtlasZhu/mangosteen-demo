@@ -1,15 +1,14 @@
 import { showDialog } from "vant";
 import "vant/es/dialog/style";
 import { defineComponent, reactive } from "vue";
-import { RouterLink, useRouter } from "vue-router";
-import svgBack from "../../assets/icons/back.svg";
+import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { http } from "../../shared/Http";
-import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { ItemTags } from "./ItemTags";
+import { BackIcon } from "../../shared/BackIcon";
 export const ItemCreate = defineComponent({
   setup() {
     const formData = reactive({
@@ -37,11 +36,7 @@ export const ItemCreate = defineComponent({
     return () => (
       <MainLayout>
         {{
-          icon: () => (
-            <RouterLink to="/start">
-              <Icon iconName={svgBack} />
-            </RouterLink>
-          ),
+          icon: () => <BackIcon />,
           title: () => "记一笔",
           content: () => (
             <div class={s.wrapper}>

@@ -1,14 +1,13 @@
 import { defineComponent } from "vue";
-import svgBack from "../../assets/icons/back.svg";
 import { MainLayout } from "../../layouts/MainLayout";
-import { Icon } from "../../shared/Icon";
 import { TagForm } from "./TagForm";
+import { BackIcon } from "../../shared/BackIcon";
 export const TagsCreate = defineComponent({
   setup() {
     return () => (
       <MainLayout>
         {{
-          icon: () => <Icon iconName={svgBack} />,
+          icon: () => <BackIcon />,
           title: () => "新建标签",
           content: () => <TagForm></TagForm>,
         }}

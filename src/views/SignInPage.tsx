@@ -1,6 +1,5 @@
 import { defineComponent, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import svgBack from "../assets/icons/back.svg";
 import svgPineapple from "../assets/icons/pineapple.svg";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
@@ -9,6 +8,7 @@ import { Icon } from "../shared/Icon";
 import { refreshMe } from "../shared/me";
 import { clearErrors, hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
+import { BackIcon } from "../shared/BackIcon";
 export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({ email: "", validationCode: "" });
@@ -100,7 +100,7 @@ export const SignInPage = defineComponent({
     return () => (
       <MainLayout>
         {{
-          icon: () => <Icon iconName={svgBack}></Icon>,
+          icon: () => <BackIcon />,
           title: () => "登录",
           content: () => (
             <div class={s.signInWrapper}>
