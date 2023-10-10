@@ -14,4 +14,5 @@ type Item = {
   tags_id: number[];
   happen_at: string;
   amount: number;
+  tags: Tag[];
 };

@@ -65,26 +65,26 @@ export const ItemSummary = defineComponent({
           <ul class={s.total}>
             <li>
               <span>收入</span>
-              <span>{itemsBalance.income}</span>
+              <Money amount={itemsBalance.income}></Money>
             </li>
             <li>
               <span>支出</span>
-              <span>{itemsBalance.expenses}</span>
+              <Money amount={itemsBalance.expenses}></Money>
             </li>
             <li>
               <span>净收入</span>
-              <span>{itemsBalance.balance}</span>
+              <Money amount={itemsBalance.balance}></Money>
             </li>
           </ul>
           <ul class={s.list}>
             {itemsInfo.items.map(item => (
               <li>
                 <div class={s.sign}>
-                  <span>{item.tags_id[0]}</span>
+                  <span>{item.tags[0].sign}</span>
                 </div>
                 <div class={s.text}>
                   <div class={s.tagAndAmount}>
-                    <span class={s.tag}>{item.tags_id[0]}</span>
+                    <span class={s.tag}>{item.tags[0].name}</span>
                     <Money class={s.amount} amount={item.amount}></Money>
                   </div>
                   <DateTime class={s.time} time={item.happen_at}></DateTime>

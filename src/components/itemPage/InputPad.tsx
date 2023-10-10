@@ -1,12 +1,11 @@
-import { Cell, DatePicker, Popup } from "vant";
 import "vant/es/cell/style";
 import "vant/es/date-picker/style";
 import "vant/es/popup/style";
 import { defineComponent, ref } from "vue";
 import svgDate from "../../assets/icons/date.svg";
 import { Icon } from "../../shared/Icon";
-import { Time } from "../../shared/time";
 import s from "./InputPad.module.scss";
+import { MyTimePicker } from "./MyTimePicker";
 export const InputPad = defineComponent({
   props: { time: String, amount: Number, onSubmit: Function },
   setup(props, context) {
@@ -54,21 +53,9 @@ export const InputPad = defineComponent({
       { text: "9", onClick: () => appendAmountText("9") },
       { text: ".", onClick: () => appendAmountText(".") },
     ];
-    let currentDate = new Time(props.time).formatAsArray(["YYYY", "MM", "DD"]);
-
-    const refDate = ref(currentDate);
-    const refDatePickerVisible = ref(false);
-
-    const showDatePicker = () => {
-      refDatePickerVisible.value = true;
-    };
-    const hideDatePicker = () => {
-      refDatePickerVisible.value = false;
-    };
-
-    const setDate = (date: any) => {
-      refDate.value = date;
-      context.emit("update:time", new Date(date.join("-")).toISOString());
+    const refDate = ref(new Date());
+    const onConfirm = () => {
+      context.emit("update:time", refDate.value.toISOString());
     };
 
     return () => (
@@ -76,18 +63,7 @@ export const InputPad = defineComponent({
         <div class={s.dateAndAmount}>
           <span class={s.date}>
             <Icon iconName={svgDate} class={s.icon} />
-            <Cell title={refDate.value.join("-")} is-link onClick={showDatePicker} />
-            <Popup v-model:show={refDatePickerVisible.value} position="bottom" style="{ height: '30%' }">
-              <DatePicker
-                v-model={currentDate}
-                title="选择日期"
-                onConfirm={date => {
-                  setDate(date.selectedValues);
-                  hideDatePicker();
-                }}
-                onCancel={hideDatePicker}
-              />
-            </Popup>
+            <MyTimePicker title="选择日期" v-model:date={refDate.value} onConfirm={onConfirm}></MyTimePicker>
           </span>
           <span class={s.amount}>{refAmountText.value.join("") + "￥"}</span>
         </div>
