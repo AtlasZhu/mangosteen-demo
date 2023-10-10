@@ -1,14 +1,38 @@
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { Button } from "../../shared/Button";
 import { FloatButton } from "../../shared/FloatButton";
+import { http } from "../../shared/Http";
 import s from "./ItemSummary.module.scss";
 export const ItemSummary = defineComponent({
   props: {
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
+
+    const itemsInfo = reactive<{ items: Item[]; page: number; hasMore: boolean }>({
+      items: [],
+      page: 0,
+      hasMore: false,
+    });
+    const loadMore = () => {
+      const requestForm = {
+        happen_after: props.startTime,
+        happen_before: props.endTime,
+        page: itemsInfo.page + 1,
+      };
+      console.log(requestForm);
+      http.get<Resources<Item>>("/items", requestForm).then(response => {
+        const { resources, pager } = response.data;
+        itemsInfo.items.push(...resources);
+        itemsInfo.page++;
+        itemsInfo.hasMore = itemsInfo.items.length < pager.count;
+      });
+    };
+    onMounted(loadMore);
+
     const onClickAddItemButton = () => {
       router.push("/items/create");
     };
@@ -29,6 +53,21 @@ export const ItemSummary = defineComponent({
           </li>
         </ul>
         <ul class={s.list}>
+          {itemsInfo.items.map(item => (
+            <li>
+              <div class={s.sign}>
+                <span>{item.tags_id[0]}</span>
+              </div>
+              <div class={s.text}>
+                <div class={s.tagAndAmount}>
+                  <span class={s.tag}>{item.tags_id[0]}</span>
+                  <span class={s.amount}>{item.happen_at}</span>
+                </div>
+                <div class={s.time}>{item.happen_at}</div>
+              </div>
+            </li>
+          ))}
+
           <li>
             <div class={s.sign}>
               <span>X</span>
@@ -42,7 +81,16 @@ export const ItemSummary = defineComponent({
             </div>
           </li>
         </ul>
-        <div class={s.more}>向下滑动加载更多</div>
+
+        <div class={s.more}>
+          {itemsInfo.hasMore ? (
+            <Button class={s.loadMoreButton} onClick={loadMore}>
+              加载更多
+            </Button>
+          ) : (
+            <span>没有更多</span>
+          )}
+        </div>
         <FloatButton onClick={onClickAddItemButton} />
       </div>
     );

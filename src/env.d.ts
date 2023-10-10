@@ -8,3 +8,10 @@ declare module "*.vue" {
 }
 
 type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
+type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
+type Item = {
+  kind: "支出" | "收入";
+  tags_id: number[];
+  happen_at: string;
+  amount: number;
+};

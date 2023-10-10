@@ -12,7 +12,6 @@ export const ItemTags = defineComponent({
     const refTags = ref<Tag[]>([]);
     const tagsInfo = reactive({ page: 0, hasMore: false });
 
-    type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
     const loadMore = () => {
       http.get<Resources<Tag>>("/tags", { kind: props.kind, page: tagsInfo.page + 1 }).then(response => {
         const { resources, pager } = response.data;
