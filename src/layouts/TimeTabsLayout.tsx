@@ -84,11 +84,17 @@ export const TimeTabsLayout = defineComponent({
                   <main>
                     <div>
                       开始时间:
-                      <MyTimePicker title="选择开始时间" v-model:date={datePickerSelect.start}></MyTimePicker>
+                      <MyTimePicker
+                        class={s.picker}
+                        title="选择开始时间"
+                        v-model:date={datePickerSelect.start}></MyTimePicker>
                     </div>
                     <div>
                       结束时间:
-                      <MyTimePicker title="选择截至时间" v-model:date={datePickerSelect.end}></MyTimePicker>
+                      <MyTimePicker
+                        class={s.picker}
+                        title="选择截至时间"
+                        v-model:date={datePickerSelect.end}></MyTimePicker>
                     </div>
                   </main>
                   <footer>

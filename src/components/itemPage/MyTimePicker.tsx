@@ -37,7 +37,7 @@ export const MyTimePicker = defineComponent({
       togglePickerVisible();
     };
     return () => (
-      <>
+      <div>
         <Cell title={pInfo.dateSelected.join("-")} is-link onClick={togglePickerVisible} />
         <Popup v-model:show={pInfo.visible} position="bottom" style="{ height: '30%' }">
           <DatePicker
@@ -47,7 +47,7 @@ export const MyTimePicker = defineComponent({
             onCancel={togglePickerVisible}
           />
         </Popup>
-      </>
+      </div>
     );
   },
 });
