@@ -16,3 +16,5 @@ type Item = {
   amount: number;
   tags: Tag[];
 };
+
+type User = { email: string };

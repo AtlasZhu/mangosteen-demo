@@ -13,9 +13,11 @@
     margin-top: 16px;
     > .lineChart {
       height: 128px;
+      width: 100%;
     }
     > .pieChart {
       height: 70vw;
+      width: 100%;
     }
   }
 }
