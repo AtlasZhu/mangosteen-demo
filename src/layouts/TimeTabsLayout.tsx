@@ -1,5 +1,6 @@
 import { Overlay } from "vant";
 import { PropType, defineComponent, reactive, ref } from "vue";
+import { MyTimePicker } from "../components/itemPage/MyTimePicker";
 import { Button } from "../shared/Button";
 import { OverlayIcon } from "../shared/OverlayIcon";
 import { Tab, Tabs } from "../shared/Tabs";
@@ -31,16 +32,27 @@ export const TimeTabsLayout = defineComponent({
       refOverlayVisible.value = !refOverlayVisible.value;
     };
 
+    const datePickerSelect = reactive({
+      start: new Date(),
+      end: new Date(),
+    });
+
     const customTime = reactive<{ start?: string; end?: string }>({ start: undefined, end: undefined });
     const refCustomList = ref<HTMLDivElement>();
-    const displayOverlay = () => {
-      if (customTime.start && customTime.end && refCustomList.value) {
+
+    const onConfirm = () => {
+      const start = datePickerSelect.start.toISOString();
+      const end = datePickerSelect.end.toISOString();
+      if (start !== end && refCustomList.value) {
+        customTime.start = start;
+        customTime.end = end;
         const refCustomListValue = refCustomList.value as any;
         refCustomListValue.loadFirstPage?.();
       }
       changeOverlayVisible();
     };
-    const hideOverlay = changeOverlayVisible;
+    const onCancel = changeOverlayVisible;
+
     return () => (
       <MainLayout>
         {{
@@ -70,18 +82,20 @@ export const TimeTabsLayout = defineComponent({
                 <div class={s.overlayContent}>
                   <header>请选择时间</header>
                   <main>
-                    <label>
-                      开始时间: <input v-model={customTime.start}></input>
-                    </label>
-                    <label>
-                      结束时间: <input v-model={customTime.end}></input>
-                    </label>
+                    <div>
+                      开始时间:
+                      <MyTimePicker title="选择开始时间" v-model:date={datePickerSelect.start}></MyTimePicker>
+                    </div>
+                    <div>
+                      结束时间:
+                      <MyTimePicker title="选择截至时间" v-model:date={datePickerSelect.end}></MyTimePicker>
+                    </div>
                   </main>
                   <footer>
-                    <Button onClick={hideOverlay} class={s.cancel}>
+                    <Button onClick={onCancel} class={s.cancel}>
                       取消
                     </Button>
-                    <Button onClick={displayOverlay} class={s.confirm}>
+                    <Button onClick={onConfirm} class={s.confirm}>
                       确定
                     </Button>
                   </footer>
