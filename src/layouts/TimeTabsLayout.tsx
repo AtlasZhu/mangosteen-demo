@@ -1,5 +1,5 @@
 import { Overlay } from "vant";
-import { PropType, defineComponent, ref } from "vue";
+import { PropType, defineComponent, reactive, ref } from "vue";
 import { Button } from "../shared/Button";
 import { OverlayIcon } from "../shared/OverlayIcon";
 import { Tab, Tabs } from "../shared/Tabs";
@@ -8,8 +8,8 @@ import { MainLayout } from "./MainLayout";
 import s from "./TimeTabsLayout.module.scss";
 const demo = defineComponent({
   props: {
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
+    startTime: { type: String },
+    endTime: { type: String },
   },
 });
 export const TimeTabsLayout = defineComponent({
@@ -25,11 +25,22 @@ export const TimeTabsLayout = defineComponent({
       },
       { start: time.firstDayOfYear().formatAsString(), end: time.lastDayOfYear().formatAsString() },
     ];
-    const customTime = ref({ start: new Time().formatAsString(), end: new Time().formatAsString() });
+
     const refOverlayVisible = ref(false);
     const changeOverlayVisible = () => {
       refOverlayVisible.value = !refOverlayVisible.value;
     };
+
+    const customTime = reactive<{ start?: string; end?: string }>({ start: undefined, end: undefined });
+    const refCustomList = ref<HTMLDivElement>();
+    const displayOverlay = () => {
+      if (customTime.start && customTime.end && refCustomList.value) {
+        const refCustomListValue = refCustomList.value as any;
+        refCustomListValue.loadFirstPage?.();
+      }
+      changeOverlayVisible();
+    };
+    const hideOverlay = changeOverlayVisible;
     return () => (
       <MainLayout>
         {{
@@ -52,7 +63,7 @@ export const TimeTabsLayout = defineComponent({
                   <props.component startTime={timeList[2].start} endTime={timeList[2].end} />
                 </Tab>
                 <Tab name="自定义时间">
-                  <props.component startTime={customTime.value.start} endTime={customTime.value.end} />
+                  <props.component ref={refCustomList} startTime={customTime.start} endTime={customTime.end} />
                 </Tab>
               </Tabs>
               <Overlay show={refOverlayVisible.value} class={s.overlayWrapper}>
@@ -60,17 +71,17 @@ export const TimeTabsLayout = defineComponent({
                   <header>请选择时间</header>
                   <main>
                     <label>
-                      开始时间: <input v-model={customTime.value.start}></input>
+                      开始时间: <input v-model={customTime.start}></input>
                     </label>
                     <label>
-                      结束时间: <input v-model={customTime.value.end}></input>
+                      结束时间: <input v-model={customTime.end}></input>
                     </label>
                   </main>
                   <footer>
-                    <Button onClick={changeOverlayVisible} class={s.cancel}>
+                    <Button onClick={hideOverlay} class={s.cancel}>
                       取消
                     </Button>
-                    <Button onClick={changeOverlayVisible} class={s.confirm}>
+                    <Button onClick={displayOverlay} class={s.confirm}>
                       确定
                     </Button>
                   </footer>

@@ -6,8 +6,8 @@ import { PieChart } from "./PieChart";
 
 export const Charts = defineComponent({
   props: {
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
+    startTime: { type: String },
+    endTime: { type: String },
   },
   setup() {
     const kind = ref("expenses");

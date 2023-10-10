@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { onAxiosError } from "./validate";
 
 export class Http {
@@ -41,8 +41,11 @@ http.instance.interceptors.request.use(requestConfig => {
 });
 http.instance.interceptors.response.use(
   response => {
-    console.log("接收到数据：", response.data);
+    console.log("接收到数据：", JSON.stringify(response.data));
     return response;
   },
-  error => onAxiosError(error,429,()=>{alert("操作过于频繁")})
+  error =>
+    onAxiosError(error, 429, () => {
+      alert("操作过于频繁");
+    }),
 );
