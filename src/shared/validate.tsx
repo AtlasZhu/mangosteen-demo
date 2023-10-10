@@ -18,6 +18,7 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
   rules.forEach(rule => {
     const { key, type, message } = rule;
     const value = formData[key];
+
     switch (type) {
       case "required":
         if (value === null || value === undefined || value === "") {
@@ -32,6 +33,7 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
         }
         break;
       default:
+        console.log(value, type);
         return;
     }
   });
@@ -65,5 +67,7 @@ export const onAxiosError = (error: any, errorCode: number, fn: Function, throwE
 
 export const assignErrors = (errorsForm: Record<string, string[]>, errors: Record<string, string[]>) => {
   clearErrors(errorsForm);
+  console.log(2222, JSON.stringify(errorsForm), JSON.stringify(errors));
   Object.assign(errorsForm, errors);
+  console.log(3333, JSON.stringify(errorsForm), JSON.stringify(errors));
 };

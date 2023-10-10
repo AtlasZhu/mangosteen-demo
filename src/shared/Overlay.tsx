@@ -23,7 +23,6 @@ export const Overlay = defineComponent({
         .catch(() => {
           console.log("身份信息错误");
         });
-      console.log(me);
     });
     const onSignOut = () => {
       showConfirmDialog({ title: "提示", message: "确定要退出登录吗？" }).then(() => {

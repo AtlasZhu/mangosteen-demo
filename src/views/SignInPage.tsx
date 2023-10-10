@@ -2,35 +2,29 @@ import { defineComponent, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import svgPineapple from "../assets/icons/pineapple.svg";
 import { MainLayout } from "../layouts/MainLayout";
+import { BackIcon } from "../shared/BackIcon";
 import { Button } from "../shared/Button";
 import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
 import { refreshMe } from "../shared/me";
-import { assignErrors, hasError, onAxiosError, validate } from "../shared/validate";
+import { Rules, assignErrors, hasError, onAxiosError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
-import { BackIcon } from "../shared/BackIcon";
 export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({ email: "", validationCode: "" });
     const errors = reactive({ email: [], validationCode: [] });
     const checkForm = (checkType: "email" | "all") => {
-      if (checkType === "all") {
-        assignErrors(
-          errors,
-          validate(formData, [
-            { key: "validationCode", type: "required", message: "必填" },
-            {
-              key: "validationCode",
-              type: "pattern",
-              regex: /^\d{6}$/,
-              message: "验证码为六位数字",
-            },
-          ]),
-        );
-      }
-      assignErrors(
-        errors,
-        validate(formData, [
+      const rules: { validationCode: Rules<typeof formData>; email: Rules<typeof formData> } = {
+        validationCode: [
+          { key: "validationCode", type: "required", message: "必填" },
+          {
+            key: "validationCode",
+            type: "pattern",
+            regex: /^\d{6}$/,
+            message: "验证码为六位数字",
+          },
+        ],
+        email: [
           { key: "email", type: "required", message: "必填" },
           {
             key: "email",
@@ -38,8 +32,12 @@ export const SignInPage = defineComponent({
             regex: /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$/,
             message: "邮箱格式不规范",
           },
-        ]),
-      );
+        ],
+      };
+      if (checkType === "all") {
+        assignErrors(errors, validate(formData, rules.validationCode));
+      }
+      assignErrors(errors, validate(formData, rules.validationCode.concat(rules.email)));
     };
 
     const sendCode = () => {
