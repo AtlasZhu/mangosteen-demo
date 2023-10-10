@@ -5,7 +5,7 @@ export const LineChart = defineComponent({
   setup() {
     const refLineChart = ref<HTMLDivElement>();
     onMounted(() => {
-      if (!refLineChart.value) return;
+      if (!refLineChart.value) return console.log("ref绑定失败");
       const option = {
         grid: [{ left: 0, right: 0, top: 0, bottom: 20 }],
         xAxis: {
