@@ -14,7 +14,13 @@ const demo = defineComponent({
   },
 });
 export const TimeTabsLayout = defineComponent({
-  props: { component: { type: Object as PropType<typeof demo>, required: true } },
+  props: {
+    component: { type: Object as PropType<typeof demo>, required: true },
+    rerenderOnChangeTab: {
+      type: Boolean,
+      default: false,
+    },
+  },
   setup(props) {
     const refSelected = ref("本月");
     const time = new Time();
@@ -64,7 +70,8 @@ export const TimeTabsLayout = defineComponent({
                 v-model:selected={refSelected.value}
                 onUpdate:selected={value => {
                   if (value === "自定义时间") changeOverlayVisible();
-                }}>
+                }}
+                rerenderOnChangeTab={props.rerenderOnChangeTab}>
                 <Tab name="本月">
                   <props.component startTime={timeList[0].start} endTime={timeList[0].end} />
                 </Tab>

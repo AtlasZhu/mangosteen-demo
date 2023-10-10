@@ -23,6 +23,7 @@ export const LineChart = defineComponent({
         ],
       };
       echarts.init(refLineChart.value).setOption(option);
+      console.log("init");
     });
     return () => <div ref={refLineChart}></div>;
   },

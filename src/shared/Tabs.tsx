@@ -4,6 +4,10 @@ import s from "./Tabs.module.scss";
 export const Tabs = defineComponent({
   props: {
     selected: { type: String },
+    rerenderOnChangeTab: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["update:selected"],
   setup(props, context) {
@@ -24,11 +28,17 @@ export const Tabs = defineComponent({
               </li>
             ))}
           </ul>
-          <div class={s.tab}>
-            {children.map(item => (
-              <div v-show={item.props?.name === props.selected}>{item}</div>
-            ))}
-          </div>
+          {props.rerenderOnChangeTab ? (
+            <div class={s.tab} key={props.selected}>
+              {children.find(item => item.props?.name === props.selected)}
+            </div>
+          ) : (
+            <div class={s.tab}>
+              {children.map(item => (
+                <div v-show={item.props?.name === props.selected}>{item}</div>
+              ))}
+            </div>
+          )}
         </div>
       );
     };
