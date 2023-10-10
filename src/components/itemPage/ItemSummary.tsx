@@ -1,8 +1,10 @@
 import { defineComponent, onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { Button } from "../../shared/Button";
+import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
 import { http } from "../../shared/Http";
+import { Money } from "../../shared/Money";
 import s from "./ItemSummary.module.scss";
 export const ItemSummary = defineComponent({
   props: {
@@ -72,25 +74,12 @@ export const ItemSummary = defineComponent({
                 <div class={s.text}>
                   <div class={s.tagAndAmount}>
                     <span class={s.tag}>{item.tags_id[0]}</span>
-                    <span class={s.amount}>{item.happen_at}</span>
+                    <Money class={s.amount} amount={item.amount}></Money>
                   </div>
-                  <div class={s.time}>{item.happen_at}</div>
+                  <DateTime class={s.time} time={item.happen_at}></DateTime>
                 </div>
               </li>
             ))}
-
-            <li>
-              <div class={s.sign}>
-                <span>X</span>
-              </div>
-              <div class={s.text}>
-                <div class={s.tagAndAmount}>
-                  <span class={s.tag}>旅行</span>
-                  <span class={s.amount}>￥1234</span>
-                </div>
-                <div class={s.time}>2000-01-01 12:39</div>
-              </div>
-            </li>
           </ul>
 
           <div class={s.more}>
