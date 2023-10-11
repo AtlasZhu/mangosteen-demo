@@ -13,12 +13,14 @@ export const ItemTags = defineComponent({
     const tagsInfo = reactive({ page: 0, hasMore: false });
 
     const loadMore = () => {
-      http.get<Resources<Tag>>("/tags", { kind: props.kind, page: tagsInfo.page + 1 }).then(response => {
-        const { resources, pager } = response.data;
-        refTags.value.push(...resources);
-        tagsInfo.page++;
-        tagsInfo.hasMore = refTags.value.length < pager.count;
-      });
+      http
+        .get<Resources<Tag>>("/tags", { kind: props.kind, page: tagsInfo.page + 1 }, { _autoLoading: true })
+        .then(response => {
+          const { resources, pager } = response.data;
+          refTags.value.push(...resources);
+          tagsInfo.page++;
+          tagsInfo.hasMore = refTags.value.length < pager.count;
+        });
     };
     onMounted(loadMore);
     const onTagSelect = (id: number) => {

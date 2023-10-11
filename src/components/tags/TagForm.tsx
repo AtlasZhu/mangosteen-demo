@@ -48,8 +48,8 @@ export const TagForm = defineComponent({
       assignErrors(errors, validate(formData, rules));
       if (!hasError(errors)) {
         const promise = (await formData.id)
-          ? http.patch(`/tags/${formData.id}`, formData)
-          : http.post("/tags", formData);
+          ? http.patch(`/tags/${formData.id}`, formData, { _autoLoading: true })
+          : http.post("/tags", formData, { _autoLoading: true });
         await promise
           .then(() => {
             router.back();

@@ -21,7 +21,11 @@ export const TagsEdit = defineComponent({
         .then(() => {
           const id = route.params.id;
           http
-            .delete(`/tags/${id.toString()}`, { withItems: options?.withItems ?? false })
+            .delete(
+              `/tags/${id.toString()}`,
+              { withItems: options?.withItems ? "true" : "false" },
+              { _autoLoading: true },
+            )
             .then(() => {
               router.back();
             })

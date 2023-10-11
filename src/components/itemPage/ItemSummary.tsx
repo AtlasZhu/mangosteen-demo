@@ -36,7 +36,7 @@ export const ItemSummary = defineComponent({
         });
       }
 
-      http.get<Resources<Item>>("/items", requestForm).then(response => {
+      http.get<Resources<Item>>("/items", requestForm, { _autoLoading: true }).then(response => {
         const { resources, pager } = response.data;
         itemsInfo.items.push(...resources);
         itemsInfo.page++;

@@ -3,13 +3,13 @@ import "vant/es/dialog/style";
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
+import { BackIcon } from "../../shared/BackIcon";
 import { http } from "../../shared/Http";
 import { Tab, Tabs } from "../../shared/Tabs";
+import { onAxiosError } from "../../shared/validate";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { ItemTags } from "./ItemTags";
-import { BackIcon } from "../../shared/BackIcon";
-import { onAxiosError as onAxiosError } from "../../shared/validate";
 export const ItemCreate = defineComponent({
   setup() {
     const formData = reactive({
@@ -22,7 +22,7 @@ export const ItemCreate = defineComponent({
     const handleError = (data: any) => showDialog({ title: "错误", message: Object.values(data.errors).join("\n") });
     const onSubmit = () => {
       http
-        .post("/items", formData)
+        .post("/items", formData, { _autoLoading: true })
         .then(() => {
           router.push("/items/list");
         })

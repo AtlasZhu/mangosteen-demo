@@ -81,7 +81,7 @@ export const SignInPage = defineComponent({
       checkForm("all");
       if (hasError(errors)) return;
       http
-        .post<{ jwt: string }>("/session", formData)
+        .post<{ jwt: string }>("/session", formData, { _autoLoading: true })
         .then(response => {
           localStorage.setItem("jwt", response.data.jwt);
           const returnTo = route.query.return_to?.toString();

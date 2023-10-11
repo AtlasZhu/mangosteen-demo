@@ -45,12 +45,16 @@ export const Charts = defineComponent({
 
     const fetchData1 = async () => {
       if (!props.startTime || !props.endTime) return;
-      const response = await http.get<{ groups: Data1; summary: number }>("/items/summary", {
-        happen_after: props.startTime,
-        happen_before: props.endTime,
-        kind: kind.value,
-        group_by: "happen_at",
-      });
+      const response = await http.get<{ groups: Data1; summary: number }>(
+        "/items/summary",
+        {
+          happen_after: props.startTime,
+          happen_before: props.endTime,
+          kind: kind.value,
+          group_by: "happen_at",
+        },
+        { _autoLoading: true },
+      );
       data1.value = response.data.groups;
     };
     onMounted(fetchData1);
