@@ -85,6 +85,12 @@ export const Charts = defineComponent({
       }));
     });
 
+    const loadFirstPage = () => {
+      fetchData1();
+      fetchData2();
+    };
+    context.expose({ loadFirstPage });
+
     return () => {
       if (!props.endTime || !props.startTime) return <div>请先选择时间</div>;
       return (
@@ -99,7 +105,7 @@ export const Charts = defineComponent({
           <div class={s.chartsWrapper}>
             <LineChart class={s.lineChart} data={betterData1.value}></LineChart>
             <PieChart class={s.pieChart} data={betterData2.value}></PieChart>
-            <BarChart></BarChart>
+            <BarChart data={betterData3.value}></BarChart>
           </div>
         </div>
       );

@@ -1,30 +1,39 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent, PropType } from "vue";
+import { getMoney } from "../../shared/utils";
 import s from "./BarChart.module.scss";
 export const BarChart = defineComponent({
-  setup() {
-    const data = reactive([
-      { tag: { id: 1, name: "房租", sign: "x" }, amount: 3000, percent: "" },
-      { tag: { id: 2, name: "吃饭", sign: "x" }, amount: 1200, percent: "" },
-      { tag: { id: 3, name: "水电", sign: "x" }, amount: 300, percent: "" },
-    ]);
-    const total = data.reduce((sum, item) => sum + item.amount, 0);
-    data.map(item => (item.percent = Math.round((item.amount / total) * 1000) / 10 + "%"));
+  props: {
+    data: {
+      type: Array as PropType<{ tag: Tag; amount: number; percent: number }[]>,
+    },
+  },
+  setup: (props, context) => {
     return () => (
       <div class={s.wrapper}>
-        {data.map(item => (
-          <div class={s.barWrapper}>
-            <div class={s.sign}>{item.tag.sign}</div>
-            <div class={s.content}>
-              <div class={s.text}>
-                <div>
-                  {item.tag.name} - {item.percent}
+        {props.data && props.data.length > 0 ? (
+          props.data.map(({ tag, amount, percent }) => {
+            return (
+              <div class={s.topItem}>
+                <div class={s.sign}>{tag.sign}</div>
+                <div class={s.bar_wrapper}>
+                  <div class={s.bar_text}>
+                    <span>
+                      {tag.name} - {percent}%
+                    </span>
+                    <span>
+                      ￥<div>{getMoney(amount)}</div>
+                    </span>
+                  </div>
+                  <div class={s.bar}>
+                    <div class={s.bar_inner} style={{ width: `${percent}%` }}></div>
+                  </div>
                 </div>
-                <div>{item.amount}</div>
               </div>
-              <div class={s.bar}></div>
-            </div>
-          </div>
-        ))}
+            );
+          })
+        ) : (
+          <div>没有数据</div>
+        )}
       </div>
     );
   },
