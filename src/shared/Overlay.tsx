@@ -50,7 +50,7 @@ export const Overlay = defineComponent({
           </div>
           <nav class={s.navList}>
             <ul>
-              <RouterLink to="/start">
+              <RouterLink to="/items">
                 <li>
                   <Icon iconName={svgExport} class={s.icon}></Icon>
                   <span>导出数据</span>

@@ -9,7 +9,6 @@ import { mePromise } from "../shared/me";
 import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
 import { SignInPage } from "../views/SignInPage";
-import { Start } from "../views/Start";
 import { StatisticsPage } from "../views/StatisiticsPage";
 import { TagsPage } from "../views/TagsPage";
 import { Welcome } from "../views/Welcome";
@@ -20,7 +19,7 @@ const routes: RouteRecordRaw[] = [
     path: "/welcome",
     component: Welcome,
     beforeEnter: (to, enter, next) => {
-      localStorage.getItem("skipFeatures") === "yes" ? next("/start") : next();
+      localStorage.getItem("skipFeatures") === "yes" ? next("/items") : next();
     },
     children: [
       { path: "", redirect: "/welcome/1" },
@@ -42,7 +41,6 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
-  { path: "/start", component: Start },
   {
     path: "/items",
     component: ItemPage,
@@ -69,7 +67,7 @@ const routes: RouteRecordRaw[] = [
 export const router = createRouter({ history, routes });
 
 const noLoginCheckList = {
-  exact: ["/", "/start"],
+  exact: ["/", "/items"],
   startWith: ["/welcome", "/sign_in"],
 };
 router.beforeEach((to, from) => {

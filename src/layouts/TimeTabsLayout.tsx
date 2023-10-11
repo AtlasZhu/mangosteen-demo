@@ -57,7 +57,8 @@ export const TimeTabsLayout = defineComponent({
         customTime.start = start;
         customTime.end = end;
         const refCustomListValue = refCustomList.value as any;
-        refCustomListValue.loadFirstPage?.();
+        console.log(1, start, end);
+        refCustomListValue.loadFirstPage(start, end);
       }
       changeOverlayVisible();
     };
@@ -118,14 +119,16 @@ export const TimeTabsLayout = defineComponent({
                       <MyTimePicker
                         class={s.picker}
                         title="选择开始时间"
-                        v-model:date={datePickerSelect.start}></MyTimePicker>
+                        v-model:date={datePickerSelect.start}
+                        defaultMessage="点击这里选择"></MyTimePicker>
                     </div>
                     <div>
                       结束时间:
                       <MyTimePicker
                         class={s.picker}
                         title="选择截至时间"
-                        v-model:date={datePickerSelect.end}></MyTimePicker>
+                        v-model:date={datePickerSelect.end}
+                        defaultMessage="点击这里选择"></MyTimePicker>
                     </div>
                   </main>
                   <footer>

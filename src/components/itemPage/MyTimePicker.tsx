@@ -1,5 +1,5 @@
 import { Cell, DatePicker, Popup } from "vant";
-import { defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive, ref } from "vue";
 import { Time } from "../../shared/time";
 
 export const MyTimePicker = defineComponent({
@@ -9,6 +9,7 @@ export const MyTimePicker = defineComponent({
     onConfirm: {
       type: Function,
     },
+    defaultMessage: { type: String, required: false },
   },
 
   setup(props, context) {
@@ -28,27 +29,38 @@ export const MyTimePicker = defineComponent({
     const togglePickerVisible = () => {
       pInfo.visible = !pInfo.visible;
     };
+    let timeHasBeenSelected = ref(false);
     const onClickConfirm = () => {
       pInfo.dateSelected = pInfo.pickerModelDate;
       const [year, month, day] = pInfo.dateSelected;
       const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
       context.emit("update:date", date);
+      timeHasBeenSelected.value = true;
       props.onConfirm?.();
       togglePickerVisible();
     };
-    return () => (
-      <div>
-        <Cell title={pInfo.dateSelected.join("-")} is-link onClick={togglePickerVisible} />
-        <Popup v-model:show={pInfo.visible} position="bottom" style="{ height: '30%' }">
-          <DatePicker
-            modelValue={new Time(props.date).formatAsArray(["YYYY", "MM", "DD"])}
-            v-model={pInfo.pickerModelDate}
-            title="选择日期"
-            onConfirm={onClickConfirm}
-            onCancel={togglePickerVisible}
-          />
-        </Popup>
-      </div>
-    );
+    const messageShow = computed(() => {
+      if (!props.defaultMessage || timeHasBeenSelected.value) {
+        return pInfo.dateSelected.join("-");
+      } else {
+        return props.defaultMessage;
+      }
+    });
+    return () => {
+      return (
+        <div>
+          <Cell title={messageShow.value} is-link onClick={togglePickerVisible} />
+          <Popup v-model:show={pInfo.visible} position="bottom" style="{ height: '30%' }">
+            <DatePicker
+              modelValue={new Time(props.date).formatAsArray(["YYYY", "MM", "DD"])}
+              v-model={pInfo.pickerModelDate}
+              title="选择日期"
+              onConfirm={onClickConfirm}
+              onCancel={togglePickerVisible}
+            />
+          </Popup>
+        </div>
+      );
+    };
   },
 });

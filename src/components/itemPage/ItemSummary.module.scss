@@ -71,3 +71,17 @@
     }
   }
 }
+
+.button_wrapper {
+  margin: 16px;
+  > .button {
+    width: 100%;
+  }
+}
+.pig_wrapper {
+  padding: 120px;
+  .pig {
+    width: 128px;
+    height: 128px;
+  }
+}

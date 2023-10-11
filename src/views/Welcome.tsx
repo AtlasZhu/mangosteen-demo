@@ -26,7 +26,7 @@ let indexOfTransitionClasses: number;
 
 const getNextPageUrl = function (urlNow: string) {
   const indexOfNextPage = pathMap.indexOf(urlNow) + 1;
-  if (indexOfNextPage === pathMap.length) return "/start";
+  if (indexOfNextPage === pathMap.length) return "/items";
   return pathMap[indexOfNextPage];
 };
 const getLastPageUrl = function (urlNow: string) {
@@ -34,7 +34,7 @@ const getLastPageUrl = function (urlNow: string) {
   return pathMap[indexOfLastPage];
 };
 
-let nextPageUrl = ref<string>("/start");
+let nextPageUrl = ref<string>("/items");
 
 export const Welcome = defineComponent({
   beforeRouteEnter(to) {
