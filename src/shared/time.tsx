@@ -27,6 +27,9 @@ export class Time {
       sss: dateObj.millSecond.toString().padStart(3, "0"),
     };
   }
+  getTimeStamp() {
+    return this.date.getTime();
+  }
   formatAsString(pattern = "YYYY-MM-DD") {
     const dateStringObj = this.getDateStringObj();
     return pattern

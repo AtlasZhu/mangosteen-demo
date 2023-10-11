@@ -1,35 +1,96 @@
-import { computed, defineComponent, onMounted, ref } from "vue";
+import { PropType, computed, defineComponent, onMounted, ref, watch } from "vue";
 import { http } from "../../shared/Http";
+import { Time } from "../../shared/time";
 import { BarChart } from "./BarChart";
 import s from "./Charts.module.scss";
 import { LineChart } from "./LineChart";
 import { PieChart } from "./PieChart";
 
+const DAY = 24 * 3600 * 1000;
+
 type Data1Item = { happen_at: string; amount: number };
 type Data1 = Data1Item[];
+type Data2Item = { tag_id: number; tag: Tag; amount: number };
+type Data2 = Data2Item[];
 export const Charts = defineComponent({
   props: {
-    startTime: { type: String },
-    endTime: { type: String },
+    startTime: {
+      type: String as PropType<string>,
+      required: false,
+    },
+    endTime: {
+      type: String as PropType<string>,
+      required: false,
+    },
   },
-  setup(props) {
+  setup: (props, context) => {
     const kind = ref("expenses");
     const data1 = ref<Data1>([]);
-    const betterData1 = computed<[string, number][]>(() => data1.value.map(item => [item.happen_at, item.amount]));
-    console.log(props.startTime, props.endTime);
-    onMounted(() => {
-      http
-        .get<{ groups: Data1; summary: number }>("/items/summary", {
-          happen_after: props.startTime,
-          happen_before: props.endTime,
-          kind: kind.value,
-        })
-        .then(response => {
-          console.log("response.data:", response.data);
-          data1.value = response.data.groups;
-        })
-        .catch();
+    const betterData1 = computed<[string, number][]>(() => {
+      if (!props.startTime || !props.endTime) {
+        return [];
+      }
+      const diff = new Date(props.endTime).getTime() - new Date(props.startTime).getTime();
+      const n = diff / DAY + 1;
+      return Array.from({ length: n }).map((_, i) => {
+        const time = new Time(props.startTime + "T00:00:00.000+0800").add(i, "day").getTimeStamp();
+
+        const item = data1.value[0];
+
+        if (item) {
+          console.log(
+            1,
+            new Date(item?.happen_at).getTime(),
+            new Time(props.startTime + "T00:00:00.000+0800").add(i, "day").formatAsString(),
+          );
+        }
+
+        const amount = item && new Date(item?.happen_at).getTime() === time ? data1.value.shift()!.amount : 0;
+        console.log(item);
+        return [new Date(time).toISOString(), amount];
+      });
     });
+
+    const fetchData1 = async () => {
+      const response = await http.get<{ groups: Data1; summary: number }>("/items/summary", {
+        happen_after: props.startTime,
+        happen_before: props.endTime,
+        kind: kind.value,
+        group_by: "happen_at",
+      });
+      data1.value = response.data.groups;
+    };
+    onMounted(fetchData1);
+    watch(() => kind.value, fetchData1);
+
+    const data2 = ref<Data2>([]);
+    const betterData2 = computed<{ name: string; value: number }[]>(() =>
+      data2.value.map(item => ({
+        name: item.tag.name,
+        value: item.amount,
+      })),
+    );
+
+    const betterData3 = computed<{ tag: Tag; amount: number; percent: number }[]>(() => {
+      const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
+      return data2.value.map(item => ({
+        ...item,
+        percent: Math.round((item.amount / total) * 100),
+      }));
+    });
+
+    const fetchData2 = async () => {
+      const response = await http.get<{ groups: Data2; summary: number }>("/items/summary", {
+        happen_after: props.startTime,
+        happen_before: props.endTime,
+        kind: kind.value,
+        group_by: "tag_id",
+        _mock: "itemSummary",
+      });
+      data2.value = response.data.groups;
+    };
+    onMounted(fetchData2);
+    watch(() => kind.value, fetchData2);
 
     return () => (
       <div class={s.wrapper}>

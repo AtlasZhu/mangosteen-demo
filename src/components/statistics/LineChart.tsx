@@ -55,7 +55,7 @@ export const LineChart = defineComponent({
           },
         ],
       });
-      console.log("init");
+      console.log(JSON.stringify(props.data));
     });
     watch(
       () => props.data,
