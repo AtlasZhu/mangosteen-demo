@@ -4,7 +4,7 @@ import { Button } from "../../shared/Button";
 import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
 import { http } from "../../shared/Http";
-import { Money } from "../../shared/Money";
+import { getMoney } from "../../shared/utils";
 import s from "./ItemSummary.module.scss";
 export const ItemSummary = defineComponent({
   props: {
@@ -65,15 +65,15 @@ export const ItemSummary = defineComponent({
           <ul class={s.total}>
             <li>
               <span>收入</span>
-              <Money amount={itemsBalance.income}></Money>
+              <span>{getMoney(itemsBalance.income)}￥</span>
             </li>
             <li>
               <span>支出</span>
-              <Money amount={itemsBalance.expenses}></Money>
+              <span>{getMoney(itemsBalance.expenses)}￥</span>
             </li>
             <li>
               <span>净收入</span>
-              <Money amount={itemsBalance.balance}></Money>
+              <span>{getMoney(itemsBalance.balance)}￥</span>
             </li>
           </ul>
           <ul class={s.list}>
@@ -85,7 +85,7 @@ export const ItemSummary = defineComponent({
                 <div class={s.text}>
                   <div class={s.tagAndAmount}>
                     <span class={s.tag}>{item.tags[0].name}</span>
-                    <Money class={s.amount} amount={item.amount}></Money>
+                    <span class={s.amount}>{getMoney(item.amount)}￥</span>
                   </div>
                   <DateTime class={s.time} time={item.happen_at}></DateTime>
                 </div>
