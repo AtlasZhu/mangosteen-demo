@@ -39,7 +39,6 @@ export const Charts = defineComponent({
         const item = data1.value[0];
 
         const amount = item && new Date(item?.happen_at).getTime() === time ? data1.value.shift()!.amount : 0;
-        console.log(time);
         return [new Date(time).toISOString(), amount];
       });
     });
@@ -65,14 +64,6 @@ export const Charts = defineComponent({
       })),
     );
 
-    const betterData3 = computed<{ tag: Tag; amount: number; percent: number }[]>(() => {
-      const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
-      return data2.value.map(item => ({
-        ...item,
-        percent: Math.round((item.amount / total) * 100),
-      }));
-    });
-
     const fetchData2 = async () => {
       if (!props.startTime || !props.endTime) return;
       const response = await http.get<{ groups: Data2; summary: number }>("/items/summary", {
@@ -85,6 +76,14 @@ export const Charts = defineComponent({
     };
     onMounted(fetchData2);
     watch(() => kind.value, fetchData2);
+
+    const betterData3 = computed<{ tag: Tag; amount: number; percent: number }[]>(() => {
+      const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
+      return data2.value.map(item => ({
+        ...item,
+        percent: Math.round((item.amount / total) * 100),
+      }));
+    });
 
     return () => {
       if (!props.endTime || !props.startTime) return <div>请先选择时间</div>;
@@ -99,7 +98,7 @@ export const Charts = defineComponent({
           </div>
           <div class={s.chartsWrapper}>
             <LineChart class={s.lineChart} data={betterData1.value}></LineChart>
-            <PieChart class={s.pieChart}></PieChart>
+            <PieChart class={s.pieChart} data={betterData2.value}></PieChart>
             <BarChart></BarChart>
           </div>
         </div>
