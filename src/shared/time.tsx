@@ -27,7 +27,7 @@ export class Time {
       sss: dateObj.millSecond.toString().padStart(3, "0"),
     };
   }
-  formatAsString(pattern = "YYYY-MM-DD-HH-mm-ss-sss") {
+  formatAsString(pattern = "YYYY-MM-DD") {
     const dateStringObj = this.getDateStringObj();
     return pattern
       .replace("YYYY", dateStringObj.YYYY)
