@@ -41,6 +41,7 @@ export const MyTimePicker = defineComponent({
         <Cell title={pInfo.dateSelected.join("-")} is-link onClick={togglePickerVisible} />
         <Popup v-model:show={pInfo.visible} position="bottom" style="{ height: '30%' }">
           <DatePicker
+            modelValue={new Time(props.date).formatAsArray(["YYYY", "MM", "DD"])}
             v-model={pInfo.pickerModelDate}
             title="选择日期"
             onConfirm={onClickConfirm}
