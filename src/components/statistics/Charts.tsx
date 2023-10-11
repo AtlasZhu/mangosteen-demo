@@ -26,8 +26,9 @@ export const Charts = defineComponent({
   setup: (props, context) => {
     const kind = ref("expenses");
     const data1 = ref<Data1>([]);
+
     const betterData1 = computed<[string, number][]>(() => {
-      if (!props.startTime || !props.endTime) {
+      if (!props.startTime || !props.endTime || !data1.value[0]) {
         return [];
       }
       const diff = new Date(props.endTime).getTime() - new Date(props.startTime).getTime();
@@ -37,21 +38,14 @@ export const Charts = defineComponent({
 
         const item = data1.value[0];
 
-        if (item) {
-          console.log(
-            1,
-            new Date(item?.happen_at).getTime(),
-            new Time(props.startTime + "T00:00:00.000+0800").add(i, "day").formatAsString(),
-          );
-        }
-
         const amount = item && new Date(item?.happen_at).getTime() === time ? data1.value.shift()!.amount : 0;
-        console.log(item);
+        console.log(time);
         return [new Date(time).toISOString(), amount];
       });
     });
 
     const fetchData1 = async () => {
+      if (!props.startTime || !props.endTime) return;
       const response = await http.get<{ groups: Data1; summary: number }>("/items/summary", {
         happen_after: props.startTime,
         happen_before: props.endTime,
@@ -80,33 +74,36 @@ export const Charts = defineComponent({
     });
 
     const fetchData2 = async () => {
+      if (!props.startTime || !props.endTime) return;
       const response = await http.get<{ groups: Data2; summary: number }>("/items/summary", {
         happen_after: props.startTime,
         happen_before: props.endTime,
         kind: kind.value,
         group_by: "tag_id",
-        _mock: "itemSummary",
       });
       data2.value = response.data.groups;
     };
     onMounted(fetchData2);
     watch(() => kind.value, fetchData2);
 
-    return () => (
-      <div class={s.wrapper}>
-        <div class={s.selectWrapper}>
-          类型:
-          <select v-model={kind.value}>
-            <option value="expenses">支出</option>
-            <option value="income">收入</option>
-          </select>
+    return () => {
+      if (!props.endTime || !props.startTime) return <div>请先选择时间</div>;
+      return (
+        <div class={s.wrapper}>
+          <div class={s.selectWrapper}>
+            类型:
+            <select v-model={kind.value}>
+              <option value="expenses">支出</option>
+              <option value="income">收入</option>
+            </select>
+          </div>
+          <div class={s.chartsWrapper}>
+            <LineChart class={s.lineChart} data={betterData1.value}></LineChart>
+            <PieChart class={s.pieChart}></PieChart>
+            <BarChart></BarChart>
+          </div>
         </div>
-        <div class={s.chartsWrapper}>
-          <LineChart class={s.lineChart} data={betterData1.value}></LineChart>
-          <PieChart class={s.pieChart}></PieChart>
-          <BarChart></BarChart>
-        </div>
-      </div>
-    );
+      );
+    };
   },
 });
