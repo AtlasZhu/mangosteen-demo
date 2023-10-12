@@ -13,7 +13,7 @@ import { ItemTags } from "./ItemTags";
 export const ItemCreate = defineComponent({
   setup() {
     const formData = reactive({
-      kind: "支出",
+      kind: "expenses",
       tags_id: [],
       happen_at: new Date().toISOString(),
       amount: 0,
@@ -36,10 +36,10 @@ export const ItemCreate = defineComponent({
           content: () => (
             <div class={s.wrapper}>
               <Tabs v-model:selected={formData.kind}>
-                <Tab name="支出">
+                <Tab value="expenses" name="支出">
                   <ItemTags kind="expenses" v-model:selected={formData.tags_id[0]} />
                 </Tab>
-                <Tab name="收入">
+                <Tab value="expenses" name="收入">
                   <ItemTags kind="income" v-model:selected={formData.tags_id[0]} />
                 </Tab>
               </Tabs>

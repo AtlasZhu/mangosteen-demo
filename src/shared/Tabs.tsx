@@ -22,20 +22,20 @@ export const Tabs = defineComponent({
           <ul class={s.nav}>
             {children.map(item => (
               <li
-                class={item.props?.name === props.selected ? s.selected : null}
-                onClick={() => context.emit("update:selected", item.props?.name)}>
+                class={item.props?.value === props.selected ? s.selected : null}
+                onClick={() => context.emit("update:selected", item.props?.value)}>
                 {item.props?.name}
               </li>
             ))}
           </ul>
           {props.rerenderOnChangeTab ? (
             <div class={s.tab} key={props.selected}>
-              {children.find(item => item.props?.name === props.selected)}
+              {children.find(item => item.props?.value === props.selected)}
             </div>
           ) : (
             <div class={s.tab}>
               {children.map(item => (
-                <div v-show={item.props?.name === props.selected}>{item}</div>
+                <div v-show={item.props?.value === props.selected}>{item}</div>
               ))}
             </div>
           )}
@@ -45,7 +45,7 @@ export const Tabs = defineComponent({
   },
 });
 export const Tab = defineComponent({
-  props: { name: { type: String, required: true } },
+  props: { name: { type: String, required: true }, value: { type: String, required: true } },
   setup(props, context) {
     return () => <>{context.slots.default?.()}</>;
   },
