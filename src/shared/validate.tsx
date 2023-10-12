@@ -35,7 +35,6 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
         break;
       case "pattern":
         if (!isEmpty && !rule.regex.test(value!.toString())) {
-<<<<<<< HEAD
           errors[key] = errors[key] ?? [];
           errors[key]?.push(message);
         }
@@ -43,18 +42,11 @@ export const validate = <T extends ValidateData>(formData: T, rules: Rules<T>) =
 
       case "notEqual":
         if (!isEmpty && value === rule.value) {
-=======
->>>>>>> e925087d9375892301ad20f698b2b5a69c8da776
           errors[key] = errors[key] ?? [];
           errors[key]?.push(message);
         }
         break;
 
-      case "notEqual":
-        if (!isEmpty || value === rule.value) {
-          errors[key] = errors[key] ?? [];
-          errors[key]?.push(message);
-        }
       default:
         console.log(value, type);
         return;
