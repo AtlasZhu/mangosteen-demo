@@ -6,27 +6,58 @@ import { MainLayout } from "../../layouts/MainLayout";
 import { BackIcon } from "../../shared/BackIcon";
 import { http } from "../../shared/Http";
 import { Tab, Tabs } from "../../shared/Tabs";
-import { onAxiosError } from "../../shared/validate";
+import { Rules, assignErrors, hasError, onAxiosError, validate } from "../../shared/validate";
 import { InputPad } from "./InputPad";
 import s from "./ItemCreate.module.scss";
 import { ItemTags } from "./ItemTags";
 export const ItemCreate = defineComponent({
   setup() {
-    const formData = reactive({
+    const formData = reactive<Partial<Item>>({
       kind: "expenses",
-      tags_id: [],
+      tag_ids: [],
       happen_at: new Date().toISOString(),
       amount: 0,
     });
+    const formErrors = reactive<FormErrors<typeof formData>>({ kind: [], tag_ids: [], amount: [], happen_at: [] });
+    const rules: Rules<typeof formData> = [
+      { key: "kind", type: "required", message: "类型必填" },
+      { key: "tag_ids", type: "required", message: "标签必填" },
+      { key: "amount", type: "required", message: "金额必填" },
+      { key: "amount", type: "notEqual", value: 0, message: "金额不能为0" },
+      { key: "happen_at", type: "required", message: "时间必填" },
+    ];
     const router = useRouter();
-    const handleError = (data: any) => showDialog({ title: "错误", message: Object.values(data.errors).join("\n") });
+    const handleError = (errors: typeof formErrors) =>
+      showDialog({
+        title: "错误",
+        message: Object.values(errors)
+          .filter(item => item.length > 0)
+          .join("\n"),
+      });
     const onSubmit = () => {
+      assignErrors(formErrors, validate(formData, rules));
+      if (formData.tag_ids?.length === 0) {
+        formErrors.tag_ids.push("标签必填");
+      }
+      if (hasError(formErrors)) {
+        handleError(formErrors);
+        return;
+      }
       http
         .post("/items", formData, { _autoLoading: true })
         .then(() => {
           router.push("/items/list");
         })
-        .catch(error => onAxiosError(error, 422, handleError, false));
+        .catch(error =>
+          onAxiosError(
+            error,
+            422,
+            (data: { errors: typeof formErrors }) => {
+              handleError(data.errors);
+            },
+            false,
+          ),
+        );
     };
     return () => (
       <MainLayout>
@@ -37,10 +68,10 @@ export const ItemCreate = defineComponent({
             <div class={s.wrapper}>
               <Tabs v-model:selected={formData.kind}>
                 <Tab value="expenses" name="支出">
-                  <ItemTags kind="expenses" v-model:selected={formData.tags_id[0]} />
+                  <ItemTags kind="expenses" v-model:selected={formData.tag_ids![0]} />
                 </Tab>
-                <Tab value="expenses" name="收入">
-                  <ItemTags kind="income" v-model:selected={formData.tags_id[0]} />
+                <Tab value="income" name="收入">
+                  <ItemTags kind="income" v-model:selected={formData.tag_ids![0]} />
                 </Tab>
               </Tabs>
               <InputPad
