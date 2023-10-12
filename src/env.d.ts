@@ -7,14 +7,28 @@ declare module "*.vue" {
   export default component;
 }
 
-type Tag = { id: number; name: string; sign: string; kind: "expenses" | "income" };
+type Tag = { id: number; user_id: number; name: string; sign: string; kind: "expenses" | "income" };
+
 type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
+
 type Item = {
-  kind: "expenses" | "expenses";
-  tags_id: number[];
-  happen_at: string;
+  id: number;
+  user_id: number;
   amount: number;
+  tag_ids: number[];
   tags: Tag[];
+  happen_at: string;
+  kind: "expenses" | "expenses";
 };
 
-type User = { email: string };
+type User = { id: number; email: string };
+
+type FormErrors<T> = { [k in keyof typeof T]: string[] };
+
+type JSONValue = null | string | number | boolean | JSONObject | JSONArray;
+
+interface JSONObject {
+  [key: string]: JSONValue;
+}
+
+interface JSONArray extends Array<JSONValue> {}

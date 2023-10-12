@@ -42,7 +42,7 @@ export const TagForm = defineComponent({
           });
       }
     });
-    const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({}); //errors的key必存在于formData的key中
+    const errors = reactive<FormErrors<typeof formData>>({}); //errors的key必存在于formData的key中
     const onFormSubmit = async (e: Event) => {
       e.preventDefault();
       assignErrors(errors, validate(formData, rules));
