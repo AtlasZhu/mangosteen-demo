@@ -4,6 +4,7 @@ import { ItemList } from "../components/itemPage/ItemList";
 import { TagsCreate } from "../components/tags/TagsCreate";
 import { TagsEdit } from "../components/tags/TagsEdit";
 import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
+import { ComingSoon } from "../shared/ComingSoon";
 import { history } from "../shared/history";
 import { mePromise } from "../shared/me";
 import { ItemPage } from "../views/ItemPage";
@@ -61,6 +62,8 @@ const routes: RouteRecordRaw[] = [
   },
   { path: "/sign_in", component: SignInPage },
   { path: "/statistics", component: StatisticsPage },
+  { path: "/export", component: ComingSoon },
+  { path: "/notify", component: ComingSoon },
   { path: "/:pathMatch(.*)*", component: NotFound },
 ];
 
