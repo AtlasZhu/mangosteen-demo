@@ -4,8 +4,8 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import svgChart2 from "../assets/icons/chart2.svg";
 import svgExport from "../assets/icons/export.svg";
 import svgNotify from "../assets/icons/notify.svg";
+import { useMeStore } from "../stores/useMeStore";
 import { Icon } from "./Icon";
-import { mePromise } from "./me";
 import s from "./Overlay.module.scss";
 export const Overlay = defineComponent({
   props: {
@@ -14,10 +14,11 @@ export const Overlay = defineComponent({
   setup(props) {
     const route = useRoute();
     const router = useRouter();
+    const meStore = useMeStore();
     const me = reactive<User>({ email: "" });
     onMounted(() => {
-      mePromise
-        .then(response => {
+      meStore.mePromise
+        ?.then(response => {
           Object.assign(me, response.data.resource);
         })
         .catch(() => {

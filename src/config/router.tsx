@@ -6,7 +6,6 @@ import { TagsEdit } from "../components/tags/TagsEdit";
 import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
 import { ComingSoon } from "../shared/ComingSoon";
 import { history } from "../shared/history";
-import { mePromise } from "../shared/me";
 import { ItemPage } from "../views/ItemPage";
 import { NotFound } from "../views/NotFound";
 import { SignInPage } from "../views/SignInPage";
@@ -68,23 +67,3 @@ const routes: RouteRecordRaw[] = [
 ];
 
 export const router = createRouter({ history, routes });
-
-const noLoginCheckList = {
-  exact: ["/", "/items"],
-  startWith: ["/welcome", "/sign_in"],
-};
-router.beforeEach((to, from) => {
-  let noLoginCheck = false;
-  noLoginCheckList.startWith.forEach(value => {
-    if (to.path.startsWith(value)) noLoginCheck = true;
-  });
-  if (noLoginCheckList.exact.indexOf(to.path) >= 0) noLoginCheck = true;
-
-  return (
-    noLoginCheck ||
-    mePromise.then(
-      () => true,
-      () => "/sign_in?return_to=" + to.path,
-    )
-  );
-});

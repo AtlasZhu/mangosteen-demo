@@ -11,6 +11,10 @@ type Tag = { id: number; user_id: number; name: string; sign: string; kind: "exp
 
 type Resources<T> = { resources: T[]; pager: { page: number; per_page: number; count: number } };
 
+type Resource<T> = {
+  resource: T;
+};
+
 type Item = {
   id: number;
   user_id: number;
@@ -21,7 +25,7 @@ type Item = {
   kind: "expenses" | "expenses";
 };
 
-type User = { id: number; email: string };
+type User = { id?: number; email: string };
 
 type FormErrors<T> = { [k in keyof typeof T]: string[] };
 

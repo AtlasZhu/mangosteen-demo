@@ -6,8 +6,8 @@ import { BackIcon } from "../shared/BackIcon";
 import { Button } from "../shared/Button";
 import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
-import { refreshMe } from "../shared/me";
 import { Rules, assignErrors, hasError, onAxiosError, validate } from "../shared/validate";
+import { useMeStore } from "../stores/useMeStore";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup() {
@@ -77,6 +77,7 @@ export const SignInPage = defineComponent({
     };
     const router = useRouter();
     const route = useRoute();
+    const meStore = useMeStore();
     const login = () => {
       checkForm("all");
       if (hasError(errors)) return;
@@ -85,8 +86,9 @@ export const SignInPage = defineComponent({
         .then(response => {
           localStorage.setItem("jwt", response.data.jwt);
           const returnTo = route.query.return_to?.toString();
-          refreshMe()
-            .then(() => router.push(returnTo || "/"))
+          meStore
+            .refreshMe()
+            ?.then(() => router.push(returnTo || "/"))
             .catch(() => alert("身份信息异常"));
         })
         .catch(onResponseError);
