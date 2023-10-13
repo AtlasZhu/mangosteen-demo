@@ -23,4 +23,3 @@ export const useMeStore = defineStore<string, MeState, {}, MeActions>("me", {
     },
   },
 });
-console.log(1);

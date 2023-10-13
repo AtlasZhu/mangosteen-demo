@@ -1,6 +1,7 @@
 import { PropType, computed, defineComponent, onMounted, ref, watch } from "vue";
 import { http } from "../../shared/Http";
 import { Time } from "../../shared/time";
+import { useMeStore } from "../../stores/useMeStore";
 import { BarChart } from "./BarChart";
 import s from "./Charts.module.scss";
 import { LineChart } from "./LineChart";
@@ -26,7 +27,7 @@ export const Charts = defineComponent({
   setup: (props, context) => {
     const kind = ref("expenses");
     const data1 = ref<Data1>([]);
-
+    const meStore = useMeStore();
     const betterData1 = computed<[string, number][]>(() => {
       if (!props.startTime || !props.endTime || !data1.value[0]) {
         return [];
@@ -45,6 +46,7 @@ export const Charts = defineComponent({
 
     const fetchData1 = async () => {
       if (!props.startTime || !props.endTime) return;
+      await meStore.mePromise;
       const response = await http.get<{ groups: Data1; summary: number }>(
         "/items/summary",
         {
@@ -70,6 +72,7 @@ export const Charts = defineComponent({
 
     const fetchData2 = async () => {
       if (!props.startTime || !props.endTime) return;
+      await meStore.mePromise;
       const response = await http.get<{ groups: Data2; summary: number }>("/items/summary", {
         happen_after: props.startTime,
         happen_before: props.endTime,

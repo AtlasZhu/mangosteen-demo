@@ -16,16 +16,19 @@ const meStore = useMeStore();
 meStore.refreshMe();
 
 const noLoginCheckList = {
-  exact: ["/", "/items"],
+  exact: ["/", "/items/list"],
   startWith: ["/welcome", "/sign_in"],
 };
 
 router.beforeEach((to, from) => {
   let noLoginCheck = false;
-  noLoginCheckList.startWith.forEach(value => {
-    if (to.path.startsWith(value)) noLoginCheck = true;
-  });
-  if (noLoginCheckList.exact.indexOf(to.path) >= 0) noLoginCheck = true;
+  if (noLoginCheckList.exact.indexOf(to.path) >= 0) {
+    noLoginCheck = true;
+  } else {
+    noLoginCheckList.startWith.forEach(value => {
+      if (to.path.startsWith(value)) noLoginCheck = true;
+    });
+  }
 
   return (
     noLoginCheck ||

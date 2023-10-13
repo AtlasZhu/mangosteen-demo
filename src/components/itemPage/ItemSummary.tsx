@@ -8,6 +8,7 @@ import { FloatButton } from "../../shared/FloatButton";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { getMoney } from "../../shared/utils";
+import { useMeStore } from "../../stores/useMeStore";
 import s from "./ItemSummary.module.scss";
 export const ItemSummary = defineComponent({
   props: {
@@ -24,7 +25,7 @@ export const ItemSummary = defineComponent({
     });
     const itemsBalance = reactive({ expenses: 0, income: 0, balance: 0 });
 
-    const loadMore = (startTime?: string, endTime?: string) => {
+    const loadMore = async (startTime?: string, endTime?: string) => {
       console.log(startTime, endTime);
 
       if (!startTime || !endTime) {
@@ -40,13 +41,13 @@ export const ItemSummary = defineComponent({
         page: itemsInfo.page + 1,
       };
       console.log(requestForm);
-
+      const meStore = useMeStore();
+      await meStore.mePromise;
       if (itemsInfo.page === 0) {
         http.get("/items/balance", requestForm).then(response => {
           Object.assign(itemsBalance, response.data);
         });
       }
-
       http.get<Resources<Item>>("/items", requestForm, { _autoLoading: true }).then(response => {
         const { resources, pager } = response.data;
         itemsInfo.items.push(...resources);

@@ -85,7 +85,8 @@ export const SignInPage = defineComponent({
         .post<{ jwt: string }>("/session", formData, { _autoLoading: true })
         .then(response => {
           localStorage.setItem("jwt", response.data.jwt);
-          const returnTo = route.query.return_to?.toString();
+          let returnTo = route.query.return_to?.toString();
+          if (returnTo === "/export" || returnTo === "notify") returnTo = undefined;
           meStore
             .refreshMe()
             ?.then(() => router.push(returnTo || "/"))
