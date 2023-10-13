@@ -23,7 +23,7 @@ export const TagsEdit = defineComponent({
           http
             .delete(
               `/tags/${id.toString()}`,
-              { withItems: options?.withItems ? "true" : "false" },
+              { with_items: options?.withItems ? "true" : "false" },
               { _autoLoading: true },
             )
             .then(() => {
