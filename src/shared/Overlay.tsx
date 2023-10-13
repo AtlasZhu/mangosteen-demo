@@ -16,14 +16,9 @@ export const Overlay = defineComponent({
     const router = useRouter();
     const meStore = useMeStore();
     const me = reactive<User>({ email: "" });
-    onMounted(() => {
-      meStore.mePromise
-        ?.then(response => {
-          Object.assign(me, response.data.resource);
-        })
-        .catch(() => {
-          console.log("身份信息错误");
-        });
+    onMounted(async () => {
+      await meStore.mePromise;
+      Object.assign(me, meStore.me);
     });
     const onSignOut = () => {
       showConfirmDialog({ title: "提示", message: "确定要退出登录吗？" }).then(() => {

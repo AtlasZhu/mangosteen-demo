@@ -1,4 +1,5 @@
-import { PropType, computed, defineComponent, onMounted, ref, watch } from "vue";
+import { PropType, computed, defineComponent, ref, watch } from "vue";
+import { useAfterMe } from "../../hooks/useAfterMe";
 import { http } from "../../shared/Http";
 import { Time } from "../../shared/time";
 import { useMeStore } from "../../stores/useMeStore";
@@ -59,7 +60,7 @@ export const Charts = defineComponent({
       );
       data1.value = response.data.groups;
     };
-    onMounted(fetchData1);
+    useAfterMe(fetchData1);
     watch(() => kind.value, fetchData1);
 
     const data2 = ref<Data2>([]);
@@ -81,7 +82,7 @@ export const Charts = defineComponent({
       });
       data2.value = response.data.groups;
     };
-    onMounted(fetchData2);
+    useAfterMe(fetchData2);
     watch(() => kind.value, fetchData2);
 
     const betterData3 = computed<{ tag: Tag; amount: number; percent: number }[]>(() => {

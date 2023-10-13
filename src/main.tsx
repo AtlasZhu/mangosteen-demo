@@ -20,7 +20,7 @@ const noLoginCheckList = {
   startWith: ["/welcome", "/sign_in"],
 };
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   let noLoginCheck = false;
   if (noLoginCheckList.exact.indexOf(to.path) >= 0) {
     noLoginCheck = true;
@@ -29,12 +29,13 @@ router.beforeEach((to, from) => {
       if (to.path.startsWith(value)) noLoginCheck = true;
     });
   }
+  let result;
+  try {
+    await meStore.mePromise;
+    result = true;
+  } catch (error) {
+    result = "/sign_in?return_to=" + to.path;
+  }
 
-  return (
-    noLoginCheck ||
-    meStore.mePromise?.then(
-      () => true,
-      () => "/sign_in?return_to=" + to.path,
-    )
-  );
+  return noLoginCheck || result;
 });

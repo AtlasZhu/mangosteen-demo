@@ -1,6 +1,7 @@
-import { defineComponent, onMounted, reactive } from "vue";
+import { defineComponent, reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import pig from "../../assets/icons/pig.svg";
+import { useAfterMe } from "../../hooks/useAfterMe";
 import { Button } from "../../shared/Button";
 import { Center } from "../../shared/Center";
 import { DateTime } from "../../shared/DateTime";
@@ -65,7 +66,7 @@ export const ItemSummary = defineComponent({
     };
     context.expose({ loadFirstPage });
 
-    onMounted(loadMore);
+    useAfterMe(loadMore);
 
     const onClickAddItemButton = () => {
       router.push("/items/create");

@@ -18,7 +18,10 @@ export const useMeStore = defineStore<string, MeState, {}, MeActions>("me", {
   }),
   actions: {
     refreshMe() {
-      this.mePromise = http.get<Resource<User>>("/me");
+      this.mePromise = http.get<Resource<User>>("/me").then(response => {
+        this.me = response.data.resource;
+        return response;
+      });
       return this.mePromise;
     },
   },

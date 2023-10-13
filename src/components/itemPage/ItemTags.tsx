@@ -1,6 +1,7 @@
-import { PropType, defineComponent, onMounted, reactive, ref } from "vue";
+import { PropType, defineComponent, reactive, ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import svgPlus from "../../assets/icons/plus.svg";
+import { useAfterMe } from "../../hooks/useAfterMe";
 import { Button } from "../../shared/Button";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
@@ -22,7 +23,7 @@ export const ItemTags = defineComponent({
           tagsInfo.hasMore = refTags.value.length < pager.count;
         });
     };
-    onMounted(loadMore);
+    useAfterMe(loadMore);
     const onTagSelect = (id: number) => {
       context.emit("update:selected", id);
     };
