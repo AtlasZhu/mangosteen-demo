@@ -44,11 +44,8 @@ export const TagsEdit = defineComponent({
             <>
               <TagForm />
               <div class={s.actions}>
-                <Button class={s.deleteTag} level="danger" onClick={() => onDelete()}>
-                  删除标签
-                </Button>
                 <Button class={s.deleteTagAndRecord} level="danger" onClick={() => onDelete({ withItems: true })}>
-                  删除标签和记账
+                  删除标签（对应的记账也会被删除）
                 </Button>
               </div>
             </>
