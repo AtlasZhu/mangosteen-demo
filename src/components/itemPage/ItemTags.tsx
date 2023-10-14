@@ -37,7 +37,7 @@ export const ItemTags = defineComponent({
       targetY = e.touches[0].clientY;
       timer = setTimeout(() => {
         clearTimeout(timer);
-        router.push(`/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.path}`);
+        router.push(`/tags/${tagId}/edit?kind=${props.kind}`);
       }, 1000);
     };
     const onTouchEnd = (e: TouchEvent) => {
