@@ -1,4 +1,4 @@
-import { defineComponent, reactive } from "vue";
+import { defineComponent } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 import pig from "../../assets/icons/pig.svg";
 import { useAfterMe } from "../../hooks/useAfterMe";
@@ -6,10 +6,9 @@ import { Button } from "../../shared/Button";
 import { Center } from "../../shared/Center";
 import { DateTime } from "../../shared/DateTime";
 import { FloatButton } from "../../shared/FloatButton";
-import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { getMoney } from "../../shared/utils";
-import { useMeStore } from "../../stores/useMeStore";
+import { useItemStore } from "../../stores/useItemStore";
 import s from "./ItemSummary.module.scss";
 export const ItemSummary = defineComponent({
   props: {
@@ -19,54 +18,17 @@ export const ItemSummary = defineComponent({
   setup(props, context) {
     const router = useRouter();
 
-    const itemsInfo = reactive<{ items: Item[]; page: number; hasMore: boolean }>({
-      items: [],
-      page: 0,
-      hasMore: false,
-    });
-    const itemsBalance = reactive({ expenses: 0, income: 0, balance: 0 });
-
-    const loadMore = async (startTime?: string, endTime?: string) => {
-      console.log(startTime, endTime);
-
-      if (!startTime || !endTime) {
-        startTime = props.startTime;
-        endTime = props.endTime;
-      }
-
-      if (!startTime || !endTime) return;
-
-      const requestForm = {
-        happen_after: startTime,
-        happen_before: endTime,
-        page: itemsInfo.page + 1,
-      };
-      console.log(requestForm);
-      const meStore = useMeStore();
-      await meStore.mePromise;
-      if (itemsInfo.page === 0) {
-        http.get("/items/balance", requestForm).then(response => {
-          Object.assign(itemsBalance, response.data);
-        });
-      }
-      http.get<Resources<Item>>("/items", requestForm, { _autoLoading: true }).then(response => {
-        const { resources, pager } = response.data;
-        itemsInfo.items.push(...resources);
-        itemsInfo.page++;
-        itemsInfo.hasMore = itemsInfo.items.length < pager.count;
-      });
-    };
+    const itemStore = useItemStore(`item-${props.startTime}-${props.endTime}`);
 
     const loadFirstPage = (startTime?: string, endTime?: string) => {
-      itemsInfo.items = [];
-      itemsInfo.page = 0;
-      itemsInfo.hasMore = false;
-      loadMore(startTime, endTime);
-      console.log(JSON.stringify(itemsInfo));
+      itemStore.$reset();
+      itemStore.fetchItems(startTime, endTime);
     };
     context.expose({ loadFirstPage });
 
-    useAfterMe(loadMore);
+    useAfterMe(() => {
+      itemStore.fetchItems(props.startTime, props.endTime);
+    });
 
     const onClickAddItemButton = () => {
       router.push("/items/create");
@@ -75,24 +37,24 @@ export const ItemSummary = defineComponent({
     return () => {
       return (
         <div class={s.wrapper}>
-          {itemsInfo.items && itemsInfo.items.length > 0 ? (
+          {itemStore.items && itemStore.items.length > 0 ? (
             <>
               <ul class={s.total}>
                 <li>
                   <span>收入</span>
-                  <span>{getMoney(itemsBalance.income)}￥</span>
+                  <span>{getMoney(itemStore.balance.income)}￥</span>
                 </li>
                 <li>
                   <span>支出</span>
-                  <span>{getMoney(itemsBalance.expenses)}￥</span>
+                  <span>{getMoney(itemStore.balance.expenses)}￥</span>
                 </li>
                 <li>
                   <span>净收入</span>
-                  <span>{getMoney(itemsBalance.balance)}￥</span>
+                  <span>{getMoney(itemStore.balance.balance)}￥</span>
                 </li>
               </ul>
               <ul class={s.list}>
-                {itemsInfo.items.map(item => (
+                {itemStore.items.map(item => (
                   <li>
                     <div class={s.sign}>
                       <span>{item.tags && item.tags.length > 0 ? item.tags[0].sign : "💰"}</span>
@@ -109,8 +71,8 @@ export const ItemSummary = defineComponent({
               </ul>
 
               <div class={s.more}>
-                {itemsInfo.hasMore ? (
-                  <Button class={s.loadMoreButton} onClick={() => loadMore()}>
+                {itemStore.hasMore ? (
+                  <Button class={s.loadMoreButton} onClick={() => itemStore.fetchItems(props.startTime, props.endTime)}>
                     加载更多
                   </Button>
                 ) : (
