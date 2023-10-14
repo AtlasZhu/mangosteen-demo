@@ -54,7 +54,7 @@ export const MyTimePicker = defineComponent({
             <DatePicker
               modelValue={new Time(props.date).formatAsArray(["YYYY", "MM", "DD"])}
               v-model={pInfo.pickerModelDate}
-              title="选择日期"
+              title={props.title}
               onConfirm={onClickConfirm}
               onCancel={togglePickerVisible}
             />
