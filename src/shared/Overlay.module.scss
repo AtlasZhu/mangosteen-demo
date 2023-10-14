@@ -31,14 +31,22 @@
   }
   > .navList {
     list-style: none;
-    > ul li {
-      margin: 16px 24px;
-      display: flex;
-      align-items: center;
-      > .icon {
-        width: 36px;
-        height: 36px;
-        margin-right: 16px;
+    > ul {
+      li {
+        margin: 16px 24px;
+        display: flex;
+        align-items: center;
+        padding: 2px;
+        > .icon {
+          width: 36px;
+          height: 36px;
+          margin-right: 16px;
+        }
+      }
+      > .router-link-active {
+        > li {
+          background-color: #fffc00;
+        }
       }
     }
   }

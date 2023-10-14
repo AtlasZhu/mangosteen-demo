@@ -3,8 +3,8 @@ import "vant/es/dialog/style";
 import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
-import { BackIcon } from "../../shared/BackIcon";
 import { http } from "../../shared/Http";
+import { OverlayIcon } from "../../shared/OverlayIcon";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { Rules, assignErrors, hasError, onAxiosError, validate } from "../../shared/validate";
 import { InputPad } from "./InputPad";
@@ -62,7 +62,7 @@ export const ItemCreate = defineComponent({
     return () => (
       <MainLayout>
         {{
-          icon: () => <BackIcon />,
+          icon: () => <OverlayIcon></OverlayIcon>,
           title: () => "记一笔",
           content: () => (
             <div class={s.wrapper}>

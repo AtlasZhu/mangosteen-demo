@@ -1,8 +1,10 @@
 import { showConfirmDialog } from "vant";
 import { defineComponent, onMounted, PropType, reactive } from "vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
+import svgBook from "../assets/icons/book.svg";
 import svgChart2 from "../assets/icons/chart2.svg";
 import svgExport from "../assets/icons/export.svg";
+import svgList from "../assets/icons/list.svg";
 import svgNotify from "../assets/icons/notify.svg";
 import { useMeStore } from "../stores/useMeStore";
 import { Icon } from "./Icon";
@@ -51,21 +53,35 @@ export const Overlay = defineComponent({
           </div>
           <nav class={s.navList}>
             <ul>
-              <RouterLink to="/statistics">
+              <RouterLink to="/items/list" activeClass={s["router-link-active"]}>
+                <li>
+                  <Icon iconName={svgList} class={s.icon}></Icon>
+                  <span>查看账目</span>
+                </li>
+              </RouterLink>
+
+              <RouterLink to="/items/create" activeClass={s["router-link-active"]}>
+                <li>
+                  <Icon iconName={svgBook} class={s.icon}></Icon>
+                  <span>开始记账</span>
+                </li>
+              </RouterLink>
+
+              <RouterLink to="/statistics" activeClass={s["router-link-active"]}>
                 <li>
                   <Icon iconName={svgChart2} class={s.icon}></Icon>
                   <span>统计图表</span>
                 </li>
               </RouterLink>
 
-              <RouterLink to="/export">
+              <RouterLink to="/export" activeClass={s["router-link-active"]}>
                 <li>
                   <Icon iconName={svgNotify} class={s.icon}></Icon>
                   <span>记账提醒</span>
                 </li>
               </RouterLink>
 
-              <RouterLink to="/notify">
+              <RouterLink to="/notify" activeClass={s["router-link-active"]}>
                 <li>
                   <Icon iconName={svgExport} class={s.icon}></Icon>
                   <span>导出数据</span>
