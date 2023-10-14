@@ -1,51 +1,58 @@
-.mask {
+.wrapper {
   position: fixed;
-  z-index: var(--overlay-z-index);
-  background: var(--overlay-mask-bg);
-  top: var(--top-safe-area-height);
+  top: 0;
   left: 0;
-  width: 100%;
-  height: calc(100% - var(--top-safe-area-height));
-}
-
-.overlay {
-  position: fixed;
-  z-index: calc(var(--overlay-z-index) + 1);
-  background: var(--overlay-bg);
-  top: var(--top-safe-area-height);
-  width: 60%;
-  height: calc(100% - var(--top-safe-area-height));
-  left: 0;
-  > .userStatus {
-    background: linear-gradient(to Bottom, var(--welcome-bg-start), var(--welcome-bg-end));
-    padding: 24px;
-    overflow: hidden;
-    > .userInfo {
-      > .userEmail {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        margin: 8px 0;
-      }
-    }
+  width: 100vw;
+  height: 100vh;
+  > .mask {
+    position: absolute;
+    z-index: var(--overlay-z-index);
+    background: var(--overlay-mask-bg);
+    top: var(--top-safe-area-height);
+    left: 0;
+    width: 200%;
+    height: calc(100% - var(--top-safe-area-height));
   }
-  > .navList {
-    list-style: none;
-    > ul {
-      li {
-        margin: 16px 24px;
-        display: flex;
-        align-items: center;
-        padding: 2px;
-        > .icon {
-          width: 36px;
-          height: 36px;
-          margin-right: 16px;
+
+  > .overlay {
+    position: absolute;
+    z-index: calc(var(--overlay-z-index) + 1);
+    background: var(--overlay-bg);
+    top: var(--top-safe-area-height);
+    width: 60%;
+    height: calc(100% - var(--top-safe-area-height));
+    left: 0;
+    > .userStatus {
+      background: linear-gradient(to Bottom, var(--welcome-bg-start), var(--welcome-bg-end));
+      padding: 24px;
+      overflow: hidden;
+      > .userInfo {
+        > .userEmail {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 100%;
+          margin: 8px 0;
         }
       }
-      > .router-link-active {
-        > li {
-          background-color: #fffc00;
+    }
+    > .navList {
+      list-style: none;
+      > ul {
+        li {
+          margin: 16px 24px;
+          display: flex;
+          align-items: center;
+          padding: 2px;
+          > .icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 16px;
+          }
+        }
+        > .router-link-active {
+          > li {
+            background-color: #fffc00;
+          }
         }
       }
     }

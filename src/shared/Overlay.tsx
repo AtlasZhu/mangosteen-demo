@@ -34,8 +34,9 @@ export const Overlay = defineComponent({
       });
     };
     return () => (
-      <>
+      <div class={s.wrapper}>
         <div class={s.mask} onClick={props.onClick}></div>
+
         <div class={s.overlay}>
           <div class={s.userStatus}>
             {me.email ? (
@@ -90,7 +91,7 @@ export const Overlay = defineComponent({
             </ul>
           </nav>
         </div>
-      </>
+      </div>
     );
   },
 });
