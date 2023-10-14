@@ -19,7 +19,9 @@ export const ComingSoon = defineComponent({
         <p class={s.text}>敬请期待</p>
 
         <RouterLink to="/items/list">
-          <p class={s.backToHomePage}>点此回到首页</p>
+          <div class={s.backToHomePage}>
+            <span>点此回到首页</span>
+          </div>
         </RouterLink>
       </div>
     );

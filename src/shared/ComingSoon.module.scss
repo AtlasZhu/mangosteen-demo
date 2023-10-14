@@ -15,4 +15,9 @@
   margin-top: 24px;
   text-align: center;
   font-size: 24px;
+  > span {
+    padding: 12px;
+    border: 1px solid #a3a3a3;
+    border-radius: 12px;
+  }
 }
