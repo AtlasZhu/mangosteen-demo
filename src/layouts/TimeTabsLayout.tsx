@@ -1,4 +1,4 @@
-import { Overlay } from "vant";
+import { Overlay, showDialog } from "vant";
 import { PropType, defineComponent, reactive, ref } from "vue";
 import { MyTimePicker } from "../components/itemPage/MyTimePicker";
 import { Button } from "../shared/Button";
@@ -51,14 +51,21 @@ export const TimeTabsLayout = defineComponent({
     const refCustomList = ref<HTMLDivElement>();
 
     const onConfirm = () => {
-      const start = new Time(datePickerSelect.start).formatAsString();
-      const end = new Time(datePickerSelect.end).formatAsString();
-      if (start !== end && refCustomList.value) {
-        customTime.start = start;
-        customTime.end = end;
+      const start = new Time(datePickerSelect.start);
+      const end = new Time(datePickerSelect.end);
+      const startString = new Time(datePickerSelect.start).formatAsString();
+      const endString = new Time(datePickerSelect.end).formatAsString();
+
+      if (startString !== endString && refCustomList.value) {
+        if (start.getTimeStamp() > end.getTimeStamp()) {
+          showDialog({ title: "日期选择错误", message: "开始时间不能大于结束时间" });
+          return;
+        }
+        customTime.start = startString;
+        customTime.end = endString;
         const refCustomListValue = refCustomList.value as any;
-        console.log(1, start, end);
-        refCustomListValue.loadFirstPage(start, end);
+        console.log(1, startString, endString);
+        refCustomListValue.loadFirstPage(startString, endString);
       }
       changeOverlayVisible();
     };
