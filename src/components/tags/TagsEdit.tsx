@@ -55,3 +55,5 @@ export const TagsEdit = defineComponent({
     );
   },
 });
+
+export default TagsEdit;

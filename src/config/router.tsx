@@ -1,23 +1,15 @@
 import { createRouter, RouteRecordRaw } from "vue-router";
 import { ItemCreate } from "../components/itemPage/ItemCreate";
 import { ItemList } from "../components/itemPage/ItemList";
-import { TagsCreate } from "../components/tags/TagsCreate";
-import { TagsEdit } from "../components/tags/TagsEdit";
 import { First, Fourth, Second, Third } from "../components/welcome/FourItems";
-import { ComingSoon } from "../shared/ComingSoon";
 import { history } from "../shared/history";
-import { ItemPage } from "../views/ItemPage";
-import { NotFound } from "../views/NotFound";
-import { SignInPage } from "../views/SignInPage";
-import { StatisticsPage } from "../views/StatisiticsPage";
 import { TagsPage } from "../views/TagsPage";
-import { Welcome } from "../views/Welcome";
 
 const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome/1" },
   {
     path: "/welcome",
-    component: Welcome,
+    component: () => import("../views/Welcome"),
     beforeEnter: (to, enter, next) => {
       localStorage.getItem("skipFeatures") === "yes" ? next("/items") : next();
     },
@@ -43,7 +35,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: "/items",
-    component: ItemPage,
+    component: () => import("../views/ItemPage"),
     children: [
       { path: "", redirect: "/items/list" },
       { path: "create", component: ItemCreate },
@@ -55,15 +47,15 @@ const routes: RouteRecordRaw[] = [
     component: TagsPage,
     children: [
       { path: "", redirect: "/tags/create" },
-      { path: "create", component: TagsCreate },
-      { path: ":id/edit", component: TagsEdit },
+      { path: "create", component: () => import("../components/tags/TagsCreate") },
+      { path: ":id/edit", component: () => import("../components/tags/TagsEdit") },
     ],
   },
-  { path: "/sign_in", component: SignInPage },
-  { path: "/statistics", component: StatisticsPage },
-  { path: "/export", component: ComingSoon },
-  { path: "/notify", component: ComingSoon },
-  { path: "/:pathMatch(.*)*", component: NotFound },
+  { path: "/sign_in", component: () => import("../views/SignInPage") },
+  { path: "/statistics", component: () => import("../views/StatisiticsPage") },
+  { path: "/export", component: () => import("../shared/ComingSoon") },
+  { path: "/notify", component: () => import("../shared/ComingSoon") },
+  { path: "/:pathMatch(.*)*", component: () => import("../views/NotFound") },
 ];
 
 export const router = createRouter({ history, routes });

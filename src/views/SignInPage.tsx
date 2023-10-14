@@ -136,3 +136,5 @@ export const SignInPage = defineComponent({
     );
   },
 });
+
+export default SignInPage;

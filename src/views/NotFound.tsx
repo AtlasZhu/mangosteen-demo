@@ -12,3 +12,5 @@ export const NotFound = defineComponent({
     );
   },
 });
+
+export default NotFound;
