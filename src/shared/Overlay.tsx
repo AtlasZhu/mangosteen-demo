@@ -29,8 +29,9 @@ export const Overlay = defineComponent({
     const onSignOut = () => {
       showConfirmDialog({ title: "提示", message: "确定要退出登录吗？" }).then(() => {
         localStorage.removeItem("jwt");
-        meStore.refreshMe();
-        router.push("/sign_in");
+        // meStore.refreshMe();
+        // router.push("/sign_in");
+        window.location.reload();
       });
     };
     return () => (

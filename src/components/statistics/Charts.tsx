@@ -37,10 +37,9 @@ export const Charts = defineComponent({
       const n = diff / DAY + 1;
       return Array.from({ length: n }).map((_, i) => {
         const time = new Time(props.startTime + "T00:00:00.000+0800").add(i, "day").getTimeStamp();
-
         const item = data1.value[0];
-
-        const amount = item && new Date(item?.happen_at).getTime() === time ? data1.value.shift()!.amount : 0;
+        const amount =
+          item && new Date(item?.happen_at + "T00:00:00.000+0800").getTime() === time ? data1.value.shift()!.amount : 0;
         return [new Date(time).toISOString(), amount];
       });
     });

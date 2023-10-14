@@ -58,7 +58,7 @@ export const TimeTabsLayout = defineComponent({
 
       if (startString !== endString && refCustomList.value) {
         if (start.getTimeStamp() > end.getTimeStamp()) {
-          showDialog({ title: "日期选择错误", message: "开始时间不能大于结束时间" });
+          showDialog({ title: "日期选择错误", message: "开始时间不能大于截止时间" });
           return;
         }
         customTime.start = startString;
@@ -136,10 +136,10 @@ export const TimeTabsLayout = defineComponent({
                         defaultMessage="点击这里选择"></MyTimePicker>
                     </div>
                     <div>
-                      结束时间:
+                      截止时间:
                       <MyTimePicker
                         class={s.picker}
-                        title="选择截至时间"
+                        title="选择截止时间"
                         v-model:date={datePickerSelect.end}
                         defaultMessage="点击这里选择"></MyTimePicker>
                     </div>

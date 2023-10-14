@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { http } from "../shared/Http";
+import { Time } from "../shared/time";
 import { useMeStore } from "./useMeStore";
 
 type State = {
@@ -17,9 +18,10 @@ type Actions = {
 };
 
 const fetchItems = async function (this: State, page: number) {
+  if (!this.startTime || !this.endTime) return;
   const requestForm = {
     happen_after: this.startTime,
-    happen_before: this.endTime,
+    happen_before: new Time(this.endTime).add(1, "day").formatAsString(),
     page: page,
   };
 
