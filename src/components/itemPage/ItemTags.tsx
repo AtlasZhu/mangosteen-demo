@@ -86,6 +86,7 @@ export const ItemTags = defineComponent({
           ) : (
             <span>没有更多的了</span>
           )}
+          {refTags.value.length > 0 && <div class={s.tip}>提示：长按标签即可编辑</div>}
         </div>
       </div>
     );

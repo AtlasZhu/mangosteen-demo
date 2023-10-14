@@ -49,10 +49,16 @@
     width: 100%;
     margin: 8px 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     > .loadMore {
       width: 8em;
+    }
+    > .tip {
+      margin-top: 0.5rem;
+      font-size: 14px;
+      color: #6d6d6d;
     }
   }
 }
