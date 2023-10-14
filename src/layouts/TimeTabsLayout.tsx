@@ -64,7 +64,6 @@ export const TimeTabsLayout = defineComponent({
         customTime.start = startString;
         customTime.end = endString;
         const refCustomListValue = refCustomList.value as any;
-        console.log(1, startString, endString);
         refCustomListValue.loadFirstPage(startString, endString);
       }
       changeOverlayVisible();

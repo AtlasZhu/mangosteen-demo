@@ -38,11 +38,9 @@ let nextPageUrl = ref<string>("/items");
 
 export const Welcome = defineComponent({
   beforeRouteEnter(to) {
-    // console.log("执行了beforeRouterEnter");
     nextPageUrl.value = getNextPageUrl(to.path);
   },
   beforeRouteUpdate(to, from) {
-    // console.log("执行了beforeRouteUpdate");
     const toIndex = pathMap.indexOf(to.path);
     const fromIndex = pathMap.indexOf(from.path);
     if (toIndex > -1 && fromIndex > -1) {

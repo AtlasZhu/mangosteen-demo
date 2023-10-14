@@ -54,7 +54,6 @@ export const useItemStore = (id: string) =>
     }),
     actions: {
       async fetchFirstPage(startTime?: string, endTime?: string) {
-        console.log(startTime, endTime);
         if (!startTime || !endTime) return;
 
         const meStore = useMeStore();
