@@ -50,7 +50,7 @@ http.instance.interceptors.request.use(requestConfig => {
 http.instance.interceptors.response.use(
   response => {
     if (response.config._autoLoading) closeToast();
-    console.log("接收到数据：", JSON.stringify(response.data));
+    // console.log("接收到数据：", JSON.stringify(response.data));
     return response;
   },
   error => {
