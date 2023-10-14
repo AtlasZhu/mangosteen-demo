@@ -36,9 +36,14 @@ export const TagForm = defineComponent({
             Object.assign(formData, response.data.resource);
           })
           .catch(error => {
-            onAxiosError(error, 422, (data: any) => {
-              console.log(JSON.stringify(data));
-            });
+            onAxiosError(
+              error,
+              422,
+              (data: any) => {
+                console.log(JSON.stringify(data));
+              },
+              false,
+            );
           });
       }
     });
@@ -55,7 +60,7 @@ export const TagForm = defineComponent({
             router.back();
           })
           .catch(error => {
-            onAxiosError(error, 422, (errorData: any) => assignErrors(errors, errorData.errors));
+            onAxiosError(error, 422, (errorData: any) => assignErrors(errors, errorData.errors), false);
           });
       }
     };

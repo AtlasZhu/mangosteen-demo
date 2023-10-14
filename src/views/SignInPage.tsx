@@ -44,9 +44,14 @@ export const SignInPage = defineComponent({
       return http.post("/validation_codes", { email: formData.email });
     };
     const onResponseError = (error: any) => {
-      onAxiosError(error, 422, (data: any) => {
-        assignErrors(errors, data.errors);
-      });
+      onAxiosError(
+        error,
+        422,
+        (data: any) => {
+          assignErrors(errors, data.errors);
+        },
+        false,
+      );
     };
     const count = ref(0);
     const isCounting = ref(false);

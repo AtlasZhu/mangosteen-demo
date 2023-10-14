@@ -26,9 +26,14 @@ export const ItemSummary = defineComponent({
     };
     context.expose({ loadFirstPage });
 
-    useAfterMe(() => {
-      itemStore.fetchFirstPage(props.startTime, props.endTime);
-    });
+    useAfterMe(
+      () => {
+        itemStore.fetchFirstPage(props.startTime, props.endTime);
+      },
+      () => {
+        itemStore.$reset();
+      },
+    );
 
     const onClickAddItemButton = () => {
       router.push("/items/create");

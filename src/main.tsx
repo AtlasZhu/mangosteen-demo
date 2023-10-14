@@ -34,7 +34,7 @@ router.beforeEach(async (to, from) => {
     await meStore.mePromise;
     result = true;
   } catch (error) {
-    result = "/sign_in?return_to=" + to.path;
+    result = "/sign_in?return_to=" + from.path;
   }
 
   return noLoginCheck || result;

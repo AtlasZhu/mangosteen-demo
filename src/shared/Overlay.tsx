@@ -17,8 +17,12 @@ export const Overlay = defineComponent({
     const meStore = useMeStore();
     const me = reactive<User>({ email: "" });
     onMounted(async () => {
-      await meStore.mePromise;
-      Object.assign(me, meStore.me);
+      try {
+        await meStore.mePromise;
+        Object.assign(me, meStore.me);
+      } catch (e) {
+        console.log("还未登录");
+      }
     });
     const onSignOut = () => {
       showConfirmDialog({ title: "提示", message: "确定要退出登录吗？" }).then(() => {
