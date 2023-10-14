@@ -22,12 +22,12 @@ export const ItemSummary = defineComponent({
 
     const loadFirstPage = (startTime?: string, endTime?: string) => {
       itemStore.$reset();
-      itemStore.fetchItems(startTime, endTime);
+      itemStore.fetchFirstPage(startTime, endTime);
     };
     context.expose({ loadFirstPage });
 
     useAfterMe(() => {
-      itemStore.fetchItems(props.startTime, props.endTime);
+      itemStore.fetchFirstPage(props.startTime, props.endTime);
     });
 
     const onClickAddItemButton = () => {
@@ -72,7 +72,7 @@ export const ItemSummary = defineComponent({
 
               <div class={s.more}>
                 {itemStore.hasMore ? (
-                  <Button class={s.loadMoreButton} onClick={() => itemStore.fetchItems(props.startTime, props.endTime)}>
+                  <Button class={s.loadMoreButton} onClick={() => itemStore.fetchNextPage()}>
                     加载更多
                   </Button>
                 ) : (
