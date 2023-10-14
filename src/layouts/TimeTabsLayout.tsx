@@ -105,7 +105,13 @@ export const TimeTabsLayout = defineComponent({
                     <props.component startTime={timeList[2].start} endTime={timeList[2].end} />
                   </Tab>
                   <Tab value="自定义时间" name="自定义时间">
-                    <props.component ref={refCustomList} startTime={customTime.start} endTime={customTime.end} />
+                    <props.component
+                      v-show={customTime.start && customTime.end}
+                      ref={refCustomList}
+                      startTime={customTime.start}
+                      endTime={customTime.end}
+                    />
+                    {!(customTime.start && customTime.end) && <div>请先选择起始时间，和截至时间</div>}
                   </Tab>
                 </Tabs>
               )}
