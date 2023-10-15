@@ -11,14 +11,14 @@ import { useMeStore } from "../stores/useMeStore";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup() {
-    const formData = reactive({ email: "", validationCode: "" });
-    const errors = reactive({ email: [], validationCode: [] });
+    const formData = reactive({ email: "", code: "" });
+    const errors = reactive({ email: [], code: [] });
     const checkForm = (checkType: "email" | "all") => {
       const rules: { validationCode: Rules<typeof formData>; email: Rules<typeof formData> } = {
         validationCode: [
-          { key: "validationCode", type: "required", message: "必填" },
+          { key: "code", type: "required", message: "必填" },
           {
-            key: "validationCode",
+            key: "code",
             type: "pattern",
             regex: /^\d{6}$/,
             message: "验证码为六位数字",
@@ -34,10 +34,11 @@ export const SignInPage = defineComponent({
           },
         ],
       };
-      if (checkType === "all") {
-        assignErrors(errors, validate(formData, rules.validationCode));
+      if (checkType === "email") {
+        assignErrors(errors, validate(formData, rules.email));
+      } else {
+        assignErrors(errors, validate(formData, rules.validationCode.concat(rules.email)));
       }
-      assignErrors(errors, validate(formData, rules.validationCode.concat(rules.email)));
     };
 
     const sendCode = () => {
@@ -116,7 +117,7 @@ export const SignInPage = defineComponent({
               <label class={s.validationCodeWrapper}>
                 验证码
                 <div class={s.validationCode}>
-                  <input v-model={formData.validationCode} placeholder="输入验证码"></input>
+                  <input v-model={formData.code} placeholder="输入验证码"></input>
                   <Button
                     disabled={isCounting.value || buttonDisabled.value}
                     class={s.validationCodeSendButton}
@@ -124,7 +125,7 @@ export const SignInPage = defineComponent({
                     {isCounting.value ? <span>已发送，{count.value}秒后可重发</span> : <span> 发送验证码</span>}
                   </Button>
                 </div>
-                <p>{errors.validationCode[0] ?? "　"}</p>
+                <p>{errors.code[0] ?? "　"}</p>
               </label>
               <Button class={s.loginButton} onClick={login}>
                 登录

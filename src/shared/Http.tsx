@@ -33,7 +33,8 @@ export class Http {
   }
 }
 
-export const http = new Http("https://mock.apifox.cn/m1/3382584-0-default/api/v1");
+// export const http = new Http("https://mock.apifox.cn/m1/3382584-0-default/api/v1");
+export const http = new Http("http://121.196.236.94:8080/api/v1");
 
 http.instance.interceptors.request.use(requestConfig => {
   const jwt = localStorage.getItem("jwt");
