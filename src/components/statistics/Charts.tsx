@@ -88,7 +88,7 @@ export const Charts = defineComponent({
       const total = data2.value.reduce((sum, item) => sum + item.amount, 0);
       return data2.value.map(item => ({
         ...item,
-        percent: Math.round((item.amount / total) * 100),
+        percent: Math.round((item.amount / total) * 10000) / 100,
       }));
     });
 

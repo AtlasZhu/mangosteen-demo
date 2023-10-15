@@ -67,7 +67,7 @@ export const ItemSummary = defineComponent({
                     <div class={s.text}>
                       <div class={s.tagAndAmount}>
                         <span class={s.tag}>{item.tags && item.tags.length > 0 ? item.tags[0].name : "未分类"}</span>
-                        <span class={s.amount}>{getMoney(item.amount)}￥</span>
+                        <span class={item.kind === "expenses" ? s.expenses : s.income}>{getMoney(item.amount)}￥</span>
                       </div>
                       <DateTime class={s.time} time={item.happen_at}></DateTime>
                     </div>
