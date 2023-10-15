@@ -20,8 +20,8 @@ type Actions = {
 const fetchItems = async function (this: State, page: number) {
   if (!this.startTime || !this.endTime) return;
   const requestForm = {
-    happen_after: this.startTime,
-    happen_before: new Time(this.endTime).add(1, "day").formatAsString(),
+    happened_after: this.startTime,
+    happened_before: new Time(this.endTime).add(1, "day").formatAsString(),
     page: page,
   };
 

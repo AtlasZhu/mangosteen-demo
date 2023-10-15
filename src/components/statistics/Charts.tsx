@@ -10,7 +10,7 @@ import { PieChart } from "./PieChart";
 
 const DAY = 24 * 3600 * 1000;
 
-type Data1Item = { happen_at: string; amount: number };
+type Data1Item = { happened_at: string; amount: number };
 type Data1 = Data1Item[];
 type Data2Item = { tag_id: number; tag: Tag; amount: number };
 type Data2 = Data2Item[];
@@ -39,25 +39,30 @@ export const Charts = defineComponent({
         const time = new Time(props.startTime + "T00:00:00.000+0800").add(i, "day").getTimeStamp();
         const item = data1.value[0];
         const amount =
-          item && new Date(item?.happen_at + "T00:00:00.000+0800").getTime() === time ? data1.value.shift()!.amount : 0;
+          item && new Date(item?.happened_at + "T00:00:00.000+0800").getTime() === time
+            ? data1.value.shift()!.amount
+            : 0;
         return [new Date(time).toISOString(), amount];
       });
     });
 
-    const fetchData1 = async () => {
+    const fetchData1 = async (startTime: string, endTime: string) => {
+      console.log(props.startTime, props.endTime);
+
       if (!props.startTime || !props.endTime) return;
       await meStore.mePromise;
       const response = await http.get<{ groups: Data1; summary: number }>(
         "/items/summary",
         {
-          happen_after: props.startTime,
-          happen_before: props.endTime,
+          happened_after: props.startTime,
+          happened_before: props.endTime,
           kind: kind.value,
-          group_by: "happen_at",
+          group_by: "happened_at",
         },
         { _autoLoading: true },
       );
       data1.value = response.data.groups;
+      console.log(props.startTime, props.endTime, "data1", response.data);
     };
     useAfterMe(fetchData1);
     watch(() => kind.value, fetchData1);
@@ -70,17 +75,29 @@ export const Charts = defineComponent({
       })),
     );
 
-    const fetchData2 = async () => {
-      if (!props.startTime || !props.endTime) return;
+    const fetchData2 = async (startTime: string, endTime: string) => {
+      let start: string;
+      let end: string;
+
+      if (startTime && endTime) {
+        start = startTime;
+        end = endTime;
+      } else {
+        if (!props.startTime || !props.endTime) return;
+        start = props.startTime;
+        end = props.endTime;
+      }
+
       await meStore.mePromise;
       const response = await http.get<{ groups: Data2; summary: number }>("/items/summary", {
-        happen_after: props.startTime,
-        happen_before: props.endTime,
+        happened_after: start,
+        happened_before: end,
         kind: kind.value,
         group_by: "tag_id",
       });
       data2.value = response.data.groups;
     };
+
     useAfterMe(fetchData2);
     watch(() => kind.value, fetchData2);
 
@@ -92,9 +109,9 @@ export const Charts = defineComponent({
       }));
     });
 
-    const loadFirstPage = () => {
-      fetchData1();
-      fetchData2();
+    const loadFirstPage = (startTime: string, endTime: string) => {
+      fetchData1(startTime, endTime);
+      fetchData2(startTime, endTime);
     };
     context.expose({ loadFirstPage });
 

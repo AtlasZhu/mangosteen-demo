@@ -1,7 +1,7 @@
 import { showDialog } from "vant";
 import "vant/es/dialog/style";
 import { defineComponent, reactive } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { http } from "../../shared/Http";
 import { OverlayIcon } from "../../shared/OverlayIcon";
@@ -15,16 +15,21 @@ export const ItemCreate = defineComponent({
     const formData = reactive<Partial<Item>>({
       kind: "expenses",
       tag_ids: [],
-      happen_at: new Date().toISOString(),
+      happened_at: new Date().toISOString(),
       amount: 0,
     });
-    const formErrors = reactive<FormErrors<typeof formData>>({ kind: [], tag_ids: [], amount: [], happen_at: [] });
+    const route = useRoute();
+    if (route.query.kind) {
+      const kind = route.query.kind.toString() as "expenses" | "income";
+      formData.kind = kind;
+    }
+    const formErrors = reactive<FormErrors<typeof formData>>({ kind: [], tag_ids: [], amount: [], happened_at: [] });
     const rules: Rules<typeof formData> = [
       { key: "kind", type: "required", message: "类型必填" },
       { key: "tag_ids", type: "required", message: "标签必填" },
       { key: "amount", type: "required", message: "金额必填" },
       { key: "amount", type: "notEqual", value: 0, message: "金额不能为0" },
-      { key: "happen_at", type: "required", message: "时间必填" },
+      { key: "happened_at", type: "required", message: "时间必填" },
     ];
     const router = useRouter();
     const handleError = (errors: typeof formErrors) =>
@@ -79,7 +84,7 @@ export const ItemCreate = defineComponent({
               </Tabs>
               <InputPad
                 class={s.inputPad}
-                v-model:time={formData.happen_at}
+                v-model:time={formData.happened_at}
                 v-model:amount={formData.amount}
                 onSubmit={onSubmit}></InputPad>
             </div>

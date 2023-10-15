@@ -62,6 +62,8 @@ export const LineChart = defineComponent({
         refChart.setOption({ series: [{ data: props.data }] });
       },
     );
-    return () => <div ref={refDiv}></div>;
+    return () => {
+      return <div ref={refDiv}></div>;
+    };
   },
 });

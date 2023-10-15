@@ -57,7 +57,7 @@ export const TagForm = defineComponent({
           : http.post("/tags", formData, { _autoLoading: true });
         await promise
           .then(() => {
-            router.back();
+            router.push(`/items/create?kind=${kind}`);
           })
           .catch(error => {
             onAxiosError(error, 422, (errorData: any) => assignErrors(errors, errorData.errors), false);
