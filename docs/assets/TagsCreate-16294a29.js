@@ -1,1 +1,0 @@
-import{M as t}from"./index-cc1a54bd.js";import{B as n}from"./BackIcon-2454cf9b.js";import{T as r}from"./TagForm-2082b9b8.js";import{bH as a,bG as o}from"./vendor-7c1d6fce.js";import"./vant-1401b6a8.js";const u=a({setup(){return()=>o(t,null,{icon:()=>o(n,null,null),title:()=>"新建标签",content:()=>o(r,null,null)})}});export{u as TagsCreate,u as default};
