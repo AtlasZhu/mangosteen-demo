@@ -1,0 +1,1 @@
+import{bH as r,bG as e,bY as u,bZ as t}from"./vendor-7c1d6fce.js";const a="_wrapper_6rbuf_1",o={wrapper:a},p=r({setup(){return()=>e("div",{class:o.wrapper},[e("h1",null,[u("404")]),e("h4",null,[u("页面未找到")]),e(t,{to:"/items"},{default:()=>[u("点击回到首页")]})])}});export{p as NotFound,p as default};
