@@ -18,8 +18,8 @@ export const SignInPage = defineComponent({
 
     const errors = reactive({ email: [], code: [] });
     const checkForm = (checkType: "email" | "all") => {
-      const rules: { validationCode: Rules<typeof formData>; email: Rules<typeof formData> } = {
-        validationCode: [
+      const rules: { code: Rules<typeof formData>; email: Rules<typeof formData> } = {
+        code: [
           { key: "code", type: "required", message: "必填" },
           {
             key: "code",
@@ -41,7 +41,7 @@ export const SignInPage = defineComponent({
       if (checkType === "email") {
         assignErrors(errors, validate(formData, rules.email));
       } else {
-        assignErrors(errors, validate(formData, rules.validationCode.concat(rules.email)));
+        assignErrors(errors, validate(formData, rules.code.concat(rules.email)));
       }
     };
 
