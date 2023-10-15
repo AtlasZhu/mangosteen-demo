@@ -12,6 +12,10 @@ import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup() {
     const formData = reactive({ email: "", code: "" });
+    // 体验账号：进入登录页面时，自动输入账号和验证码，123456验证码特殊处理过，直接通过后台
+    formData.email = "atlaszhu@foxmail.com";
+    formData.code = "123456";
+
     const errors = reactive({ email: [], code: [] });
     const checkForm = (checkType: "email" | "all") => {
       const rules: { validationCode: Rules<typeof formData>; email: Rules<typeof formData> } = {
