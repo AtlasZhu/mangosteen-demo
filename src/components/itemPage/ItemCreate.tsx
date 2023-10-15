@@ -39,6 +39,9 @@ export const ItemCreate = defineComponent({
       if (formData.tag_ids?.length === 0) {
         formErrors.tag_ids.push("标签必填");
       }
+      if (formData.amount === 0) {
+        formErrors.amount.push("金额不能为0");
+      }
       if (hasError(formErrors)) {
         handleError(formErrors);
         return;

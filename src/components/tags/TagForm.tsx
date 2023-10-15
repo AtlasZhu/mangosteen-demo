@@ -21,7 +21,7 @@ export const TagForm = defineComponent({
     });
     const rules: Rules<typeof formData> = [
       { key: "name", type: "required", message: "必填" },
-      { key: "name", type: "pattern", regex: /^.{1,10}$/, message: "限制1到10个字符之间" },
+      { key: "name", type: "pattern", regex: /^.{1,4}$/, message: "限制1到4个字符之间" },
       { key: "sign", type: "required", message: "必填" },
     ];
 
@@ -67,7 +67,7 @@ export const TagForm = defineComponent({
     return () => (
       <form class={s.form} onSubmit={onFormSubmit}>
         <div class={s.tagNameWrapper}>
-          <span>标签名：（最多10个字符）</span>
+          <span>标签名：（最多4个字）</span>
           <input v-model={formData.name} />
           <span class={s.error}>{errors["name"] ? errors["name"] : "　"}</span>
         </div>
